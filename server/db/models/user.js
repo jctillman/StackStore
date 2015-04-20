@@ -1,10 +1,21 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema.Types;
 
-var schema = new mongoose.Schema({
+
+var validateEmail = function(email) {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return re.test(email);
+};
+
+
+var userSchema = new mongoose.Schema({
     email: {
-        type: String
+        required: true,
+        unique: true,
+        type: String,
+        validate: [validateEmail, 'Please fill a valid email address']
     },
     password: {
         type: String
@@ -23,11 +34,25 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    }
+    },
+
+    orders: [{type: Schema.ObjectId, ref: 'Order'}],
+
+    addresses: [{type: Schema.ObjectId, ref: 'Address'}],
+
+    paymentMethods: [{type: Schema.ObjectId, ref: 'PaymentMethod'}],
+
+    admin: {default: false, required: true, type: Boolean},
+
+    cart: [{type: Schema.ObjectId, ref: 'CartEntry'}]
+
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
+
+  
+
 var generateSalt = function () {
     return crypto.randomBytes(16).toString('base64');
 };
@@ -39,22 +64,25 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
 
+    //TODO.
+    //Check to make sure we have at least one of facebook id, google id, and password.
+
     next();
 
 });
 
-schema.statics.generateSalt = generateSalt;
-schema.statics.encryptPassword = encryptPassword;
+userSchema.statics.generateSalt = generateSalt;
+userSchema.statics.encryptPassword = encryptPassword;
 
-schema.method('correctPassword', function (candidatePassword) {
+userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
-mongoose.model('User', schema);
+mongoose.model('User', userSchema);
