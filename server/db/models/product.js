@@ -1,4 +1,4 @@
-'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
@@ -19,8 +19,17 @@ var productSchema = new mongoose.Schema({
 
 
 productSchema.pre('save', function (next) {
+    if(this.photoUrls.length===0){
+        this.photoUrls[0]="DEFAULT TO BE SET." //TO DO!!!
+    }
 
+    if(this.splashPhoto===null){
+        this.splashPhoto=0;
+    }
 
+    if(this.categories.length<1){
+        var err = new Error("Must have at least one category.");
+    }
     //TODO.
     //Gives us the default placeholder photo, if we have none.
 
@@ -28,15 +37,20 @@ productSchema.pre('save', function (next) {
 
     //Make sure it belongs to at least one category.
 
-    next();
+    next(err);
 
 });
 
 productSchema.method('getSplashPhoto', function () {
+    return this.photoUrls[this.splashPhoto];
     //return the url for splash photo...
 });
 
 productSchema.method('getCategoryEntry', function(categoryType){
+    
+    return this.categories.filter(function(category){
+        return category.type===categoryType;
+    })[0].data;
 
     //return the right entry if it exists, blank if it does not.
 });
