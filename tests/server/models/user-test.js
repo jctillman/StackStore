@@ -23,7 +23,7 @@ describe('User model', function () {
     it('should exist', function () {
         expect(User).to.be.a('function');
     });
-
+ 
     describe('password encryption', function () {
 
         describe('generateSalt method', function () {
@@ -139,6 +139,35 @@ describe('User model', function () {
                 });
             });
 
+            it('should throw an error when you try to make something without a password', function(done){
+                User.create({email: 'heywasup@gmail.com'}).then(function(result){}, function(err){
+                    done();
+                });
+
+                User.create({email: 'heywasup@gmail.com', facebook: {id: "someidorother"}}).then(function(result){}, function(err){
+                    done();
+                });
+
+            });
+
+        });
+
+    });
+
+    describe('general typechecking', function(){
+
+        it('checks for actual emails', function(done){
+            User.create({password:"thisisapassword", email:"notlegitemail"}).then(function(suc){}, function(err){
+                done();
+            });
+        });
+
+        it('checks for actual emails in another way', function(done){
+            User.create({password:"thisisapassword", email:"notlegitemaileither@"}).then(function(suc){}, function(err){
+                if(err.Name = "ValidatorError"){
+                    done();
+                }
+            });
         });
 
     });
