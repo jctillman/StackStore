@@ -3,9 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
 var lineItemSchema = new mongoose.Schema({
-    quantity: Number,
-    product: {type: Schema.ObjectId, ref: 'Product'},
-    price: Number
+    quantity: {required: true, type: Number},
+    product: {type: Schema.ObjectId, ref: 'Product', required: true},
+    originalPrice: Number,
+    promos: {type: Schema.ObjectId, ref: "Promo"},
+    price: {required: true, type: Number}
 });
 
 

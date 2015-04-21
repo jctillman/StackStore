@@ -5,6 +5,7 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
+var async = require('async');
 
 require('../../../server/db/models/product');
 require('../../../server/db/models/user');
@@ -26,19 +27,19 @@ describe('Product model', function () {
     var catA, catB, catC, catD;
 
     beforeEach('Create categories', function (done) {
-        Category.create({type: "Dangerous", data: "Yes"}).then(function(cat){
-            catA = cat.id;
-            Category.create({type: "Dangerous", data: "No"}).then(function(cat){
-                catB = cat.id;
-                Category.create({type: "Large", data: "Yes"}).then(function(cat){
-                    catC = cat.id;
-                     Category.create({type: "Large", data: "No"}).then(function(cat){
-                        catD = cat.id;
-                        done();
-                    });
-                });
-            });
+        var tasks = [
+            function(cb){Category.create({type: "Dangerous", data: "Yes"}).then(function(cat){catA = cat.id; cb(null, cat)}, function(err){ cb(err, null);});},
+            function(cb){Category.create({type: "Dangerous", data: "No"}).then(function(cat){catB = cat.id; cb(null, cat)}, function(err){ cb(err, null);});},
+            function(cb){Category.create({type: "Large", data: "Yes"}).then(function(cat){catC = cat.id; cb(null, cat)}, function(err){ cb(err, null);});},
+            function(cb){Category.create({type: "Large", data: "No"}).then(function(cat){catD = cat.id; cb(null, cat)}, function(err){ cb(err, null);});}
+        ];
+
+        async.parallel(tasks, function(err, results){
+            if (!err){
+                done();
+            }
         });
+
     });
 
     afterEach('Clear test database', function (done) {
@@ -151,6 +152,7 @@ describe('Product model', function () {
             it('should return the entries with a particular category', function(done){
                 testProductPromise.then(function(product){
                      product.getCategoryEntry('Dangerous').then(function(data){
+                            console.log()
                             expect(data).to.equal('Yes');
                             done();
                     });
@@ -173,6 +175,12 @@ describe('Product model', function () {
                     });
                 });
             });
+
+            // it('should get the average rating--using async', function(done){
+
+
+
+            // });
 
             it('should get the average rating', function(done){
                 testProductPromise.then(function(product){

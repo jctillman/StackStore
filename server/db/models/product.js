@@ -67,20 +67,6 @@ productSchema.method('getAverageRating', function(cb){
         }
     });
 
-    // this.populate('reviews', function(err, populated){
-        
-    //     var sum;
-    //     if(populated.reviews === undefined || populated.reviews.length === 0){
-    //         cb(0);
-    //         return;
-    //     }
-    //     cb(err + " , " + populated);
-    //     for(var i = 0; i < populated.reviews.length; i++){
-    //         sum += populated.review[i].stars;
-    //     }
-    //     cb( sum/populated.reviews.length );
-
-    // });
 });
 
 
