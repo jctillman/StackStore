@@ -1,4 +1,4 @@
-
+'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
@@ -28,12 +28,6 @@ productSchema.pre('save', function (next) {
         var err = new Error("Must have at least one category.");
         next(err);
     }
-    //TODO.
-    //Gives us the default placeholder photo, if we have none.
-
-    //Also sets splash photo to 0 if not specified already.
-
-    //Make sure it belongs to at least one category.
 
     next();
 
@@ -55,12 +49,7 @@ productSchema.method('getCategoryEntry', function(categoryType){
       })[0].data;
 
     });
-
-   // return this.categories.filter(function(category){
-   //     return category.type === categoryType;
-   // })[0].data;
-
-    //return the right entry if it exists, blank if it does not.
+     
 });
 
 productSchema.virtual('averageRating').get(function(){

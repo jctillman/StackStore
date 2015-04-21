@@ -1,3 +1,4 @@
+'use strict';
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
@@ -62,16 +63,7 @@ describe('Product model', function () {
                         price: 1000,
                         categories: [catA]
                     });
-
-            // return Category.findOne({type: "Animal"}).exec().then(function(cat){
-            //     return Product.create({
-            //         title: 'some animal',
-            //         description: 'endangered',
-            //         price: 1000, 
-            //         splashPhoto: null,
-            //         categories: [cat.id]
-            //     });
-            // });           
+      
         };
 
             testProductPromise = createProductPromise();
@@ -85,35 +77,9 @@ describe('Product model', function () {
 
         });
 
-        // var createProduct = function(){
-
-        //   return Product.create({
-        //             title: 'some animal',
-        //             description: 'endangered',
-        //             price: 1000, 
-        //             splashPhoto: null,
-        //             categories: [catId]
-        //         });
-
-        //     // return Category.findOne({type: "Animal"}).exec().then(function(cat){
-        //     //     return Product.create({
-        //     //         title: 'some animal',
-        //     //         description: 'endangered',
-        //     //         price: 1000, 
-        //     //         splashPhoto: null,
-        //     //         categories: [cat.id]
-        //     //     });
-        //     // });           
-        // };
 
         it('should set a default photoUrl if there is none', function (done) {
 
-            // testProductPromise.then(function(){
-            //     console.log("Success!");
-            // }, function(err){
-            //     console.log(err);
-            //     console.log("Err");
-            // });
 
             testProductPromise.then(function(product){
                 expect(product.photoUrls).to.have.length(1);
@@ -154,17 +120,7 @@ describe('Product model', function () {
                         splashPhoto: 1,
                         price: 1000,
                         categories: [catA, catC]
-                    });
-
-            // return Category.findOne({type: "Animal"}).exec().then(function(cat){
-            //     return Product.create({
-            //         title: 'some animal',
-            //         description: 'endangered',
-            //         price: 1000, 
-            //         splashPhoto: null,
-            //         categories: [cat.id]
-            //     });
-            // });   
+                    }); 
 
             };
 
@@ -201,31 +157,5 @@ describe('Product model', function () {
         });
 
     });
-
-    // describe('Virtuals', function(){
-
-
-    //     beforeEach(function () {
-    //            var createProduct = function(){
-    //             return Product.create({
-    //                 title: 'some animal',
-    //                 description: 'endangered',
-    //                 price: 1000,
-    //                 categories: [{type: 'Animal', data: 'Pelican'}, {type: 'Reptile', data: 'Dinosaur'}],    
-    //                 photoUrls: ["something", "somethingElse"],
-    //                 splashPhoto: 1,
-    //                 reviews: [{}, {}, {}]
-    //             });
-
-    //             var newUser = User.create({
-
-    //             });
-    //         };
-
-    //     // it('should return the average rating')
-
-
-    // });
-
         
 });
