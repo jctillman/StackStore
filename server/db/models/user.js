@@ -42,6 +42,12 @@ var userSchema = new mongoose.Schema({
         id: String
     },
 
+    name: {
+        first: String,
+        middle: String,
+        last: String,
+    },
+
     orders: [{type: Schema.ObjectId, ref: 'Order'}],
 
     addresses: [{type: Schema.ObjectId, ref: 'Address'}],
@@ -95,6 +101,7 @@ userSchema.statics.encryptPassword = encryptPassword;
 userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
+
 
 
 

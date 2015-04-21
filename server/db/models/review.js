@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
 var validationMethod = function(content){
-    return (content.length > 5 && content.length < 5);
+    return ( (content.length > 5) && (content.length < 5000) ) ;
 };
 
 var reviewSchema = new mongoose.Schema({
@@ -12,5 +12,6 @@ var reviewSchema = new mongoose.Schema({
     stars: {type: Number, max: 5, min: 1, required: true},
     content: {type: String, required: true, validate: [validationMethod, 'Incorrect length']}
 });
+
 
 mongoose.model('Review', reviewSchema);

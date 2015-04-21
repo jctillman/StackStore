@@ -172,4 +172,46 @@ describe('User model', function () {
 
     });
 
+    describe('saves correctly with defaults', function(){
+
+        it('saves data with defaults', function(){
+        User.create({
+                name: {first: "James", middle: "Colin", last: "Tillman"},
+                password: "thisisapassword",
+                email: "totallylegit@legit.com"
+            }).then(function(suc){
+                //Grab from dbase what we just saved.
+                User.findOne({'email': 'totallylegit@legit.com'}).then(function(data){
+                    if(
+                        data.name.first == "James" &&
+                        data.name.middle == "Colin" &&
+                        data.name.last == "Tillman" &&
+                        data.name.email == "totallylegit@legit.com" &&
+                        data.admin == false
+                        ){
+                            done();
+                        }
+                });
+            });
+        });
+
+
+        it('prohibits repeat emails', function(done){
+            User.create({
+                    password: "thisisapassword",
+                    email: "uniquepassword@legit.com"
+                }).then(function(suc){
+                    //Grab from dbase what we just saved.
+                    
+                    User.create({
+                        password: "thisisapassword",
+                        email: "uniquepassword@legit.com"
+                    }).then(function(suc){}, function(err){
+                        if (err.err.indexOf('duplicate') != -1){
+                            done();
+                        }
+                    });
+                });
+        });
+    });
 });

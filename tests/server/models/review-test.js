@@ -24,11 +24,19 @@ describe('Review model', function () {
         expect(Review).to.be.a('function');
     });
 
+    describe('can save a review', function(){
+       //TODO: Add this.
+       // it('and retrive all the data', function(done){
+       //     Review.create({});
+       // });
+
+    });
+
     describe('validates', function(){
 
         it('and throws an error on not being given enough content', function(done){
-            Review.create({content: "C"}).then(function(succ){}, function(err){
-                if (err.errors.content.message == "Not the right length"){;
+            Review.create({content: "c"}).then(function(succ){}, function(err){
+                if (err.errors.content.message == "Incorrect length"){;
                     done();
                 }
             });
