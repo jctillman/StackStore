@@ -1,7 +1,7 @@
 app.config(function ($stateProvider) {
 
-    $stateProvider.state('membersOnly', {
-        url: '/members-area',
+    $stateProvider.state('user', {
+        url: '/:username',
         template: '<img ng-repeat="item in stash" width="300" ng-src="{{ item }}" />',
         controller: function ($scope, SecretStash) {
             SecretStash.getStash().then(function (stash) {
@@ -26,7 +26,7 @@ app.factory('SecretStash', function ($http) {
     };
 
     return {
-        getStash: getStash
+        getStash: getStash //inside server>routes>members>index.js
     };
 
 });

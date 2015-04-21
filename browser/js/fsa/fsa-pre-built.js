@@ -35,6 +35,21 @@
         notAuthorized: 'auth-not-authorized'
     });
 
+    app.constant('USER_ROLES',{
+        admin: 'admin',
+        user: 'user',
+        guest: 'guest'
+    });
+
+    app.controller('AdminController', function($scope, USER_ROLES, AuthService){
+        $scope.currentUser = null;
+        $scope.userRoles = USER_ROLES;
+        $scope.isAuthorized = AuthService.isAuthorized;
+        $scope.setCurrentUser = function(user){
+            $scope.currentUser = user;
+        };
+    })
+
     app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
         var statusDict = {
             401: AUTH_EVENTS.notAuthenticated,
@@ -124,6 +139,7 @@
 
         this.id = null;
         this.user = null;
+
 
         this.create = function (sessionId, user) {
             this.id = sessionId;

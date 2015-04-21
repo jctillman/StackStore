@@ -1,4 +1,3 @@
-'use strict';
 app.config(function ($stateProvider) {
 
     // Register our *about* state.
@@ -6,8 +5,7 @@ app.config(function ($stateProvider) {
         url: '/categoriesHome',
         controller: 'CategoriesController',
         templateUrl: 'js/categories/categories.html'
-    });
-
+    })
 });
 
 app.controller('CategoriesController', function ($scope) {
