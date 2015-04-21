@@ -52,18 +52,35 @@ productSchema.method('getCategoryEntry', function(categoryType){
      
 });
 
-productSchema.virtual('averageRating').get(function(){
-    var sum;
+productSchema.method('getAverageRating', function(cb){
 
-    if(this.reviews === undefined || this.reviews.length === 0){
-        return 0;
-    }
+    return this.model('Product')
+    .find({_id: this.id})
+    .populate('reviews')
+    .exec().then(function(product){
+        if (product[0].reviews.length !== 0){
+            return product[0].reviews.reduce(function(build, a){
+                return build + a.stars;
+            }, 0 ) / product[0].reviews.length;
+        }else{
+            return undefined;
+        }
+    });
 
-    for(var i = 0; i < this.reviews.length; i++){
-        sum += this.review[i].stars;
-    }
-    return sum/this.reviews.length;
+    // this.populate('reviews', function(err, populated){
+        
+    //     var sum;
+    //     if(populated.reviews === undefined || populated.reviews.length === 0){
+    //         cb(0);
+    //         return;
+    //     }
+    //     cb(err + " , " + populated);
+    //     for(var i = 0; i < populated.reviews.length; i++){
+    //         sum += populated.review[i].stars;
+    //     }
+    //     cb( sum/populated.reviews.length );
 
+    // });
 });
 
 
