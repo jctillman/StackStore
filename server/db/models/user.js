@@ -52,6 +52,8 @@ var userSchema = new mongoose.Schema({
 
     addresses: [{type: Schema.ObjectId, ref: 'Address'}],
 
+    reviews: [{type: Schema.ObjectId, ref: 'Review'}],
+
     paymentMethods: [{type: Schema.ObjectId, ref: 'PaymentMethod'}],
 
     admin: {default: false, required: true, type: Boolean},
