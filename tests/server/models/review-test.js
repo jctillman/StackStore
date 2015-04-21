@@ -36,7 +36,7 @@ describe('Review model', function () {
 
         it('and throws an error on not being given enough content', function(done){
             Review.create({content: "c"}).then(function(succ){}, function(err){
-                if (err.errors.content.message == "Incorrect length"){;
+                if (err.errors.content.message == "Incorrect length"){
                     done();
                 }
             });
@@ -47,7 +47,7 @@ describe('Review model', function () {
             for(var x = 0, tooLong = ""; x < 500; x++){tooLong = tooLong + "thisistoolong";}
 
             Review.create({content: tooLong}).then(function(succ){}, function(err){
-                if (err.errors.content.message == "Incorrect length"){;
+                if (err.errors.content.message == "Incorrect length"){
                     done();
                 }
             });
