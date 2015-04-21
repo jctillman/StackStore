@@ -24,7 +24,7 @@ productSchema.pre('save', function (next) {
         this.photoUrls.push("DEFAULT TO BE SET."); //TO DO!!!
     }
 
-    if((this.categories == undefined) || (this.categories.length < 1)){
+    if((this.categories === undefined) || (this.categories.length < 1)){
         var err = new Error("Must have at least one category.");
         next(err);
     }
@@ -55,9 +55,9 @@ productSchema.method('getCategoryEntry', function(categoryType){
 productSchema.virtual('averageRating').get(function(){
     var sum;
 
-    if(this.reviews == undefined || this.reviews.length == 0){
+    if(this.reviews === undefined || this.reviews.length === 0){
         return 0;
-    };
+    }
 
     for(var i = 0; i < this.reviews.length; i++){
         sum += this.review[i].stars;
