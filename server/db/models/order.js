@@ -1,25 +1,27 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
+var potentialStatuses = ['complete', 'in progress', 'cancelled', 'cart'];
 
 var validationMethod = function(status){
-    return true; //Change this. 
-}
+    if(potentialStatuses.indexOf(status) === -1){
+        return false;
+    }
+    return true; 
+};
 
 var orderSchema = new mongoose.Schema({
-    user: {type: ObjectId, ref: 'User'},
+    user: {type: Schema.ObjectId, ref: 'User'},
     session: {type: String},
-    lineItems: {type: ObjectId, ref: 'LineItem'},
-    paymentMethod: {type: ObjectId, ref: 'PaymentMethod'},
-    shippingAddress: {type: ObjectId, ref: 'Address'},
+    lineItems: {type: Schema.ObjectId, ref: 'LineItem'},
+    paymentMethod: {type: Schema.ObjectId, ref: 'PaymentMethod'},
+    shippingAddress: {type: Schema.ObjectId, ref: 'Address'},
     dateOrdered: {type: Date},
     dateShipped: {type: Date},
     dateClosed: {type: Date},
-    status: {type: String, default: "Cart", required: true, validate: [validationMethod, 'incorrect status']}
+    status: {type: String, default: "cart", required: true, validate: [validationMethod, 'incorrect status']}
 });
 
-// generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
-// are all used for local authentication security.
 
 
 

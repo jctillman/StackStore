@@ -8,8 +8,8 @@ var productSchema = new mongoose.Schema({
     description: {required: true, type: String},
     price: {required: true, type: Number},
     categories: [{type: Schema.ObjectId, ref: 'Category'}],
-    photoUrls: {required: true, type: String},
-    splashPhoto: {required: true, type: Number},
+    photoUrls: [String],
+    splashPhoto: {default: 0, type: Number},
     reviews: [{type: Schema.ObjectId, ref: 'Review'}]
 });
 
@@ -19,16 +19,14 @@ var productSchema = new mongoose.Schema({
 
 
 productSchema.pre('save', function (next) {
-    if(this.photoUrls.length===0){
-        this.photoUrls[0]="DEFAULT TO BE SET." //TO DO!!!
+
+    if(this.photoUrls === null || this.photoUrls.length === 0){
+        this.photoUrls.push("DEFAULT TO BE SET."); //TO DO!!!
     }
 
-    if(this.splashPhoto===null){
-        this.splashPhoto=0;
-    }
-
-    if(this.categories.length<1){
+    if((this.categories == undefined) || (this.categories.length < 1)){
         var err = new Error("Must have at least one category.");
+        next(err);
     }
     //TODO.
     //Gives us the default placeholder photo, if we have none.
@@ -37,7 +35,7 @@ productSchema.pre('save', function (next) {
 
     //Make sure it belongs to at least one category.
 
-    next(err);
+    next();
 
 });
 
@@ -48,13 +46,36 @@ productSchema.method('getSplashPhoto', function () {
 
 productSchema.method('getCategoryEntry', function(categoryType){
     
-    return this.categories.filter(function(category){
-        return category.type===categoryType;
-    })[0].data;
+     return this.model('Product')
+     .find({_id: this.id})
+     .populate('categories')
+     .exec().then(function(product){
+         return product[0].categories.filter(function(category){
+             return category.type === categoryType;
+      })[0].data;
+
+    });
+
+   // return this.categories.filter(function(category){
+   //     return category.type === categoryType;
+   // })[0].data;
 
     //return the right entry if it exists, blank if it does not.
 });
 
+productSchema.virtual('averageRating').get(function(){
+    var sum;
+
+    if(this.reviews == undefined || this.reviews.length == 0){
+        return 0;
+    };
+
+    for(var i = 0; i < this.reviews.length; i++){
+        sum += this.review[i].stars;
+    }
+    return sum/this.reviews.length;
+
+});
 
 
 
