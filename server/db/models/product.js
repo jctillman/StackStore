@@ -1,5 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
+require('../../../server/db/models/category');
+
+var Category = mongoose.model('Category');
 var Schema = mongoose.Schema.Types;
 
 
@@ -24,9 +27,13 @@ productSchema.pre('save', function (next) {
         this.photoUrls.push("DEFAULT TO BE SET."); //TO DO!!!
     }
 
-    if((this.categories === undefined) || (this.categories.length < 1)){
-        var err = new Error("Must have at least one category.");
-        next(err);
+    if(!this.categoryByName){
+
+        if(((this.categories === undefined) || (this.categories.length < 1)) && !this.categoryByName ){
+            var err = new Error("Must have at least one category.");
+            next(err);
+        }
+
     }
 
     next();

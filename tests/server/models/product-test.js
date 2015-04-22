@@ -107,7 +107,6 @@ describe('Product model', function () {
     });
 
 
-
     describe('Schema methods', function () {
 
         var testProductPromise;
