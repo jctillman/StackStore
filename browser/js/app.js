@@ -45,18 +45,19 @@ app.run(function ($rootScope, AuthService, $state) {
         event.preventDefault();
 
         AuthService.getLoggedInUser().then(function (user) {
-            // If a user is retrieved, then renavigate to the destination
-            // (the second time, AuthService.isAuthenticated() will work)
-            // otherwise, if no user is logged in, go to "login" state.
-            if(destinationRequiresAdminStatus(toState) && user.admin || 
+
+            if(!user || destinationRequiresAdminStatus(toState) && !user.admin) {
+                $state.go('login');
+            }
+            else if(destinationRequiresAdminStatus(toState) && user.admin || 
                 !destinationRequiresAdminStatus(toState) && user){
                 $state.go(toState.name, toParams);
             }
-            else {
-                    $state.go('login');//or admin error page?
-                }
+            // If a user is retrieved, then renavigate to the destination
+            // (the second time, AuthService.isAuthenticated() will work)
+            // otherwise, if no user is logged in, go to "login" state.
               
-            })
+            });
         });
 
     });
