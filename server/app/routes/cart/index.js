@@ -20,41 +20,44 @@ var PaymentMethod = mongoose.model('PaymentMethod');
 // 4. Adding a payment method (to one's cart / order, etc).
 // 5. Confirming all of the above, and paying for all of the above.
 
-router.post('/:productId')
 
+//Sets req.product
 
-
-router.get('/products', function(req, res, next){
-
-	var categories = req.query.categories;
-
-	//unfiltered
-	if (!categories){	
-		Product
-			.find({})
-			.populate('categories')
-			.exec()
-			.then(
-			function(success){
-				res.send(success);
-			},
-			function(fail){
-				next(fail);
-			}
-		);
+router.post('/newItem', function(req, res, next){
+	if(req.user){
+		User.find({_id: req.user.id})
 	}
+})
 
-	//filtered
-	else{
-		res.send(categories);
-	}
-
+router.params('user', function(req, res, next, id){
+	User.find(id, function(err, user){
+		if(err) return next(err);
+		else if(user) {
+			req.user = user;
+			next();
+		}
+		else if(!user){
+			req.user = guest;
+		}
+		
+		next();
+	});
 });
 
-router.get('categories', function(req, res, next){
-
-
-
+router.params('product', function(req, res, next, id){
+	Product.find(id, function(err, product){
+		if(err) return next(err);
+		req.product = product;
+		next();
+	});
 });
+
+//Adds items to a user's cart
+router.post('/:user/:productId', function(req, res, next){
+	
+});
+
+
+
 
 module.exports = router;
