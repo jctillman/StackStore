@@ -9,6 +9,7 @@ require('../../../../server/db/models/category');
 require('../../../../server/db/models/payment-method');
 require('../../../../server/db/models/order');
 require('../../../../server/db/models/review');
+require('../../../../server/db/models/promo');
 
 var Product = mongoose.model('Product');
 var Category = mongoose.model('Category');
@@ -17,6 +18,7 @@ var Address = mongoose.model('Address');
 var Order = mongoose.model('Order');
 var PaymentMethod = mongoose.model('PaymentMethod');
 var Review = mongoose.model('Review');
+var Promo = mongoose.model('Promo');
 
 //Not completed:
 // 2. CRUD for promos
@@ -89,6 +91,7 @@ router.post('/product/newProduct', function(req, res, next){
 });
 
 
+
 //Admin category routes
 
 //Get category info
@@ -127,7 +130,31 @@ router.post('/category/newCategory', function(req, res, next){
 	});
 });
 
+//Create a promo
+router.post('/category/promo', function(req, res, next){
+	Promo.create(req.body).then(function(promo){
+		res.json(promo);
+	}, function(err){
+		if(err)return next(err);
+	});
+});
 
+//Update a promo
+router.put('/category/promo/:promoId', function(req, res, next){
+	Promo.findByIdAndUpdate(req.params.promoId, req.body, function(err, foundPromo){
+		if(err) return next(err);
+		res.json(foundPromo);
+	});
+});
+
+//Delete a promo
+router.delete('/category/promo/:promoId', function(req, res, next){
+	console.log('yo')
+	Promo.findByIdAndRemove(req.params.promoId, function(err, deletedPromo){
+		if(err) return next(err);
+		res.json(deletedPromo);
+	});
+});
 
 //Admin order routes
 
@@ -198,6 +225,9 @@ router.post('/user/newUser', function(req, res, next){
 		return next(err);
 	});
 });
+
+
+
 
 
 
