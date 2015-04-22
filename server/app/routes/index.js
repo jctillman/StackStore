@@ -7,7 +7,6 @@ router.use('/cart', require('./cart'));
 
 router.use('/product', require('./product'));
 
-router.use('/tutorial', require('./tutorial'));
 router.use('/members', require('./members'));
 
 // Make sure this is after all of

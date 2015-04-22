@@ -29,28 +29,28 @@ router.post('/newItem', function(req, res, next){
 	}
 })
 
-router.params('user', function(req, res, next, id){
-	User.find(id, function(err, user){
-		if(err) return next(err);
-		else if(user) {
-			req.user = user;
-			next();
-		}
-		else if(!user){
-			req.user = guest;
-		}
+// router.params('user', function(req, res, next, id){
+// 	User.find(id, function(err, user){
+// 		if(err) return next(err);
+// 		else if(user) {
+// 			req.user = user;
+// 			next();
+// 		}
+// 		else if(!user){
+// 			req.user = guest;
+// 		}
 		
-		next();
-	});
-});
+// 		next();
+// 	});
+// });
 
-router.params('product', function(req, res, next, id){
-	Product.find(id, function(err, product){
-		if(err) return next(err);
-		req.product = product;
-		next();
-	});
-});
+// router.params('product', function(req, res, next, id){
+// 	Product.find(id, function(err, product){
+// 		if(err) return next(err);
+// 		req.product = product;
+// 		next();
+// 	});
+// });
 
 //Adds items to a user's cart
 router.post('/:user/:productId', function(req, res, next){
