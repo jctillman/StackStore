@@ -7,7 +7,7 @@ app.config(function ($stateProvider, USER_ROLES) {
         templateUrl: 'js/admin/admin.html',
         data: {
             authenticate: true,
-            authorizedRoles: [USER_ROLES.admin]
+            adminAuthenticate: true
         }
     });
 });
