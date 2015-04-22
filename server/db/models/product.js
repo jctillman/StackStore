@@ -1,6 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 require('../../../server/db/models/category');
+var deepPopulate = require('mongoose-deep-populate');
 
 var Category = mongoose.model('Category');
 var Schema = mongoose.Schema.Types;
@@ -76,6 +77,6 @@ productSchema.method('getAverageRating', function(cb){
 
 });
 
-
+productSchema.plugin(deepPopulate);
 
 mongoose.model('Product', productSchema);

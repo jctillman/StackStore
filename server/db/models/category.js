@@ -2,12 +2,15 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
+var deepPopulate = require('mongoose-deep-populate');
 
 var categorySchema = new mongoose.Schema({
     type: {required: true, type: String},
     data: {required: true, type: String},
     order: {required: true, type: Number, default: 0}
 });
+
+categorySchema.plugin(deepPopulate);
 
 
 mongoose.model('Category', categorySchema);
