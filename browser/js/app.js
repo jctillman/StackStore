@@ -16,17 +16,26 @@ app.run(function ($rootScope, AuthService, $state) {
         return state.data && state.data.authenticate;
     };
 
+    var destinationRequiresAdminStatus = function(state){
+        return state.data && state.data.adminAuthenticate;
+    };
+
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 
-        if (!destinationStateRequiresAuth(toState)) {
+
+        if (!destinationStateRequiresAuth(toState) && !destinationRequiresAdminStatus(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.
             return;
         }
 
-        if (AuthService.isAuthenticated()) {
+        if(AuthService.isSuperUser()){
+            return;
+        }
+
+        if (AuthService.isAuthenticated() && !destinationRequiresAdminStatus(toState)) {
             // The user is authenticated.
             // Short circuit with return.
             return;
@@ -36,16 +45,19 @@ app.run(function ($rootScope, AuthService, $state) {
         event.preventDefault();
 
         AuthService.getLoggedInUser().then(function (user) {
+
+            if(!user || destinationRequiresAdminStatus(toState) && !user.admin) {
+                $state.go('login');
+            }
+            else if(destinationRequiresAdminStatus(toState) && user.admin || 
+                !destinationRequiresAdminStatus(toState) && user){
+                $state.go(toState.name, toParams);
+            }
             // If a user is retrieved, then renavigate to the destination
             // (the second time, AuthService.isAuthenticated() will work)
             // otherwise, if no user is logged in, go to "login" state.
-            if (user) {
-                $state.go(toState.name, toParams);
-            } else {
-                $state.go('login');
-            }
+              
+            });
         });
 
     });
-
-});
