@@ -35,6 +35,21 @@
         notAuthorized: 'auth-not-authorized'
     });
 
+    app.constant('USER_ROLES',{
+        admin: 'admin',
+        user: 'user',
+        guest: 'guest'
+    });
+
+    app.controller('AdminController', function($scope, USER_ROLES, AuthService){
+        $scope.currentUser = null;
+        $scope.userRoles = USER_ROLES;
+        $scope.isAuthorized = AuthService.isAuthorized;
+        $scope.setCurrentUser = function(user){
+            $scope.currentUser = user;
+        };
+    })
+
     app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
         var statusDict = {
             401: AUTH_EVENTS.notAuthenticated,
@@ -60,7 +75,11 @@
     });
 
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
-
+        
+        //implement super user status.
+        this.isSuperUser = function (){
+            return !!Session.user && !!Session.admin;
+        }
         // Uses the session factory to see if an
         // authenticated user is currently registered.
         this.isAuthenticated = function () {
@@ -73,7 +92,7 @@
             // return the user attached to that session
             // with a promise. This ensures that we can
             // always interface with this method asynchronously.
-            if (this.isAuthenticated()) {
+            if (this.isAuthenticated() || this.isSuperUser()) {
                 return $q.when(Session.user);
             }
 
@@ -103,13 +122,15 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
-            Session.create(data.id, data.user);
+            Session.create(data.id, data.user, data.user.admin);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
         }
 
     });
 
+    //manipulate session, authservices, and app.js so that admin status is
+    //set and checked for
     app.service('Session', function ($rootScope, AUTH_EVENTS) {
 
         var self = this;
@@ -125,14 +146,17 @@
         this.id = null;
         this.user = null;
 
-        this.create = function (sessionId, user) {
+
+        this.create = function (sessionId, user, adminStatus) {
             this.id = sessionId;
             this.user = user;
+            this.admin = adminStatus;
         };
 
         this.destroy = function () {
             this.id = null;
             this.user = null;
+            this.admin = null;
         };
 
     });
