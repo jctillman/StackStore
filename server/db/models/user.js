@@ -58,7 +58,7 @@ var userSchema = new mongoose.Schema({
 
     admin: {default: false, required: true, type: Boolean},
 
-    cart: [{type: Schema.ObjectId, ref: 'CartEntry'}]
+    cart: [{type: Schema.ObjectId, ref: 'Order'}]
 
 });
 
