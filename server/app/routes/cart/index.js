@@ -25,9 +25,19 @@ var PaymentMethod = mongoose.model('PaymentMethod');
 
 router.post('/newItem', function(req, res, next){
 	if(req.user){
-		User.find({_id: req.user.id})
+		User.findByIdAndUpdate({_id: req.user.id}, req.body, function(err, foundUser){
+			var orders = User.orders.find().populate().exec();
+			orders.push(req.body);
+			User.save(function(err){
+				return next(err);
+			});
+		});
 	}
-})
+	else {
+		req.session.cart = [];
+		req.session.cart.push(req.body);
+	}
+});
 
 // router.params('user', function(req, res, next, id){
 // 	User.find(id, function(err, user){

@@ -29,50 +29,58 @@ var Review = mongoose.model('Review');
 
 //In progress
 
-// 6. I'm probably missing something here.  All of the above will need to be able to retrieve qua list, and maybe qua individual as well.
+// 7. pre-populating with the gets
+// 8. move the get products out
+// 9. add promo codes
+// 10. add authentication
 
 
 //Ensure authentication -- revise this?
 
-var ensureAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.status(401).end();
-    }
-};
-
+// var ensureAuthenticated = function (req, res, next) {
+//     if (req.isAuthenticated()) {
+//         next();
+//     } else {
+//         res.status(401).end();
+//     }
+// };
 
 
 //Admin product routes
 //(Consider using req.params here)
 
 //Get product info
-router.get('/:productId', function(req, res, next){
-	Product.find({_id: req.params.id}, function(err, product){
+//populate reviews and categories
+//take this out of the admin route altogether
+router.get('/product/:productId', function(req, res, next){
+	Product.findOne({_id: req.params.productId}, function(err, product){
 		if(err) return next(err);
 		res.json(product);
 	});
 });
 
 //Update existing product
-router.put('/:productId', function(req, res, next){
-	Product.findByIdAndUpdate(req.params.id, req.body, function(err, foundProduct){
+//
+router.put('/product/:productId', function(req, res, next){
+	console.log("Body", req.body)
+	Product.findByIdAndUpdate(req.params.productId, req.body, function(err, foundProduct){	
 		if(err) return next(err);
 		res.json(foundProduct);
 	});
 });
 
 //Delete a product
-router.delete('/:productId', function(req, res, next){
-	Product.findByIdAndRemove(req.params.id, function(err, deletedProduct){
+router.delete('/product/:productId', function(req, res, next){
+	Product.findByIdAndRemove(req.params.productId, function(err, deletedProduct){
 		if(err) return next(err);
-		res.status(200);
+		res.json(deletedProduct);
 	});
 });
 
 //Create a new product
-router.post('/newProduct', function(req, res, next){
+//what about categories?
+router.post('/product/newProduct', function(req, res, next){
+	console.log(req.body);
 	Product.create(req.body).then(function(product){
 		res.json(product);
 	}, function(err){
@@ -84,31 +92,34 @@ router.post('/newProduct', function(req, res, next){
 //Admin category routes
 
 //Get category info
-router.get('/:categoryId', function(req, res, next){
-	Category.find({_id: req.params.id}, function(err, category){
+router.get('/category/:categoryId', function(req, res, next){
+	console.log('getting category');
+	Category.findOne({_id: req.params.categoryId}, function(err, category){
 		if(err) return next(err);
 		res.json(category);
 	});
 });
 
 //Update existing category
-router.put('/:categoryId', function(req, res, next){
-	Category.findByIdAndUpdate(req.params.id, req.body, function(err, foundCategory){
+router.put('/category/:categoryId', function(req, res, next){
+	console.log("iM HEREEEEEE");
+	Category.findByIdAndUpdate(req.params.categoryId, req.body, function(err, foundCategory){
+		console.log(foundCategory);
 		if(err) return next(err);
 		res.json(foundCategory);
 	});
 });
 
 //Delete a category
-router.delete('/:categoryId', function(req, res, next){
-	Category.findByIdAndRemove(req.params.id, function(err, deletedCategory){
+router.delete('/category/:categoryId', function(req, res, next){
+	Category.findByIdAndRemove(req.params.categoryId, function(err, deletedCategory){
 		if(err) return next(err);
-		res.status(200);
+		res.json(deletedCategory);
 	});
 });
 
 //Create a new category
-router.post('/newCategory', function(req, res, next){
+router.post('/category/newCategory', function(req, res, next){
 	Category.create(req.body).then(function(category){
 		res.json(category);
 	}, function(err){
@@ -121,31 +132,31 @@ router.post('/newCategory', function(req, res, next){
 //Admin order routes
 
 //Get order info
-router.get('/:orderId', function(req, res, next){
-	Order.find({_id: req.params.id}, function(err, order){
+router.get('/order/:orderId', function(req, res, next){
+	Order.findOne({_id: req.params.orderId}, function(err, order){
 		if(err) return next(err);
 		res.json(order);
 	});
 });
 
 //Update existing order
-router.put('/:orderId', function(req, res, next){
-	Order.findByIdAndUpdate(req.params.id, req.body, function(err, foundOrder){
+router.put('/order/:orderId', function(req, res, next){
+	Order.findByIdAndUpdate(req.params.orderId, req.body, function(err, foundOrder){
 		if(err) return next(err);
 		res.json(foundOrder);
 	});
 });
 
 //Delete a order
-router.delete('/:orderId', function(req, res, next){
-	Order.findByIdAndRemove(req.params.id, function(err, deletedOrder){
+router.delete('/order/:orderId', function(req, res, next){
+	Order.findByIdAndRemove(req.params.orderId, function(err, deletedOrder){
 		if(err) return next(err);
-		res.status(200);
+		res.json(deletedOrder);
 	});
 });
 
 //Create a new order
-router.post('/newOrder', function(req, res, next){
+router.post('/order/newOrder', function(req, res, next){
 	Order.create(req.body).then(function(order){
 		res.json(order);
 	}, function(err){
@@ -156,31 +167,31 @@ router.post('/newOrder', function(req, res, next){
 //Admin user routes
 
 //Get user info
-router.get('/:userId', function(req, res, next){
-	User.find({_id: req.params.id}, function(err, user){
+router.get('/user/:userId', function(req, res, next){
+	User.findOne({_id: req.params.userId}, function(err, user){
 		if(err) return next(err);
 		res.json(user);
 	});
 });
 
 //Update existing user
-router.put('/:userId', function(req, res, next){
-	User.findByIdAndUpdate(req.params.id, req.body, function(err, foundUser){
+router.put('/user/:userId', function(req, res, next){
+	User.findByIdAndUpdate(req.params.userId, req.body, function(err, foundUser){
 		if(err) return next(err);
 		res.json(foundUser);
 	});
 });
 
 //Delete a user
-router.delete('/:userId', function(req, res, next){
-	User.findByIdAndRemove(req.params.id, function(err, deletedUser){
+router.delete('/user/:userId', function(req, res, next){
+	User.findByIdAndRemove(req.params.userId, function(err, deletedUser){
 		if(err) return next(err);
-		res.status(200);
+		res.json(deletedUser);
 	});
 });
 
 //Create a new product
-router.post('/newUser', function(req, res, next){
+router.post('/user/newUser', function(req, res, next){
 	User.create(req.body).then(function(user){
 		res.json(user);
 	}, function(err){
