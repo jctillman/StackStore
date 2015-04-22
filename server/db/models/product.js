@@ -13,7 +13,8 @@ var productSchema = new mongoose.Schema({
     categories: [{type: Schema.ObjectId, ref: 'Category'}],
     photoUrls: [String],
     splashPhoto: {default: 0, type: Number},
-    reviews: [{type: Schema.ObjectId, ref: 'Review'}]
+    reviews: [{type: Schema.ObjectId, ref: 'Review'}],
+    promo: {type: Schema.ObjectId, ref: 'Promo'}
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
