@@ -23,7 +23,7 @@ describe('User model', function () {
     it('should exist', function () {
         expect(User).to.be.a('function');
     });
-
+ 
     describe('password encryption', function () {
 
         describe('generateSalt method', function () {
@@ -139,8 +139,79 @@ describe('User model', function () {
                 });
             });
 
+            it('should throw an error when you try to make something without a password', function(done){
+                User.create({email: 'heywasup@gmail.com'}).then(function(result){}, function(err){
+                    done();
+                });
+
+                User.create({email: 'heywasup@gmail.com', facebook: {id: "someidorother"}}).then(function(result){}, function(err){
+                    done();
+                });
+
+            });
+
         });
 
     });
 
+    describe('general typechecking', function(){
+
+        it('checks for actual emails', function(done){
+            User.create({password:"thisisapassword", email:"notlegitemail"}).then(function(suc){}, function(err){
+                done();
+            });
+        });
+
+        it('checks for actual emails in another way', function(done){
+            User.create({password:"thisisapassword", email:"notlegitemaileither@"}).then(function(suc){}, function(err){
+                if(err.Name = "ValidatorError"){
+                    done();
+                }
+            });
+        });
+
+    });
+
+    describe('saves correctly with defaults', function(){
+
+        it('saves data with defaults', function(){
+        User.create({
+                name: {first: "James", middle: "Colin", last: "Tillman"},
+                password: "thisisapassword",
+                email: "totallylegit@legit.com"
+            }).then(function(suc){
+                //Grab from dbase what we just saved.
+                User.findOne({'email': 'totallylegit@legit.com'}).then(function(data){
+                    if(
+                        data.name.first == "James" &&
+                        data.name.middle == "Colin" &&
+                        data.name.last == "Tillman" &&
+                        data.name.email == "totallylegit@legit.com" &&
+                        data.admin == false
+                        ){
+                            done();
+                        }
+                });
+            });
+        });
+
+
+        it('prohibits repeat emails', function(done){
+            User.create({
+                    password: "thisisapassword",
+                    email: "uniquepassword@legit.com"
+                }).then(function(suc){
+                    //Grab from dbase what we just saved.
+                    
+                    User.create({
+                        password: "thisisapassword",
+                        email: "uniquepassword@legit.com"
+                    }).then(function(suc){}, function(err){
+                        if (err.err.indexOf('duplicate') != -1){
+                            done();
+                        }
+                    });
+                });
+        });
+    });
 });

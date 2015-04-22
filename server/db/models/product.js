@@ -8,8 +8,8 @@ var productSchema = new mongoose.Schema({
     description: {required: true, type: String},
     price: {required: true, type: Number},
     categories: [{type: Schema.ObjectId, ref: 'Category'}],
-    photoUrls: {required: true, type: String},
-    splashPhoto: {required: true, type: Number},
+    photoUrls: [String],
+    splashPhoto: {default: 0, type: Number},
     reviews: [{type: Schema.ObjectId, ref: 'Review'}]
 });
 
@@ -20,27 +20,54 @@ var productSchema = new mongoose.Schema({
 
 productSchema.pre('save', function (next) {
 
+    if(this.photoUrls === null || this.photoUrls.length === 0){
+        this.photoUrls.push("DEFAULT TO BE SET."); //TO DO!!!
+    }
 
-    //TODO.
-    //Gives us the default placeholder photo, if we have none.
-
-    //Also sets splash photo to 0 if not specified already.
-
-    //Make sure it belongs to at least one category.
+    if((this.categories === undefined) || (this.categories.length < 1)){
+        var err = new Error("Must have at least one category.");
+        next(err);
+    }
 
     next();
 
 });
 
 productSchema.method('getSplashPhoto', function () {
+    return this.photoUrls[this.splashPhoto];
     //return the url for splash photo...
 });
 
 productSchema.method('getCategoryEntry', function(categoryType){
+    
+     return this.model('Product')
+     .find({_id: this.id})
+     .populate('categories')
+     .exec().then(function(product){
+         return product[0].categories.filter(function(category){
+             return category.type === categoryType;
+      })[0].data;
 
-    //return the right entry if it exists, blank if it does not.
+    });
+     
 });
 
+productSchema.method('getAverageRating', function(cb){
+
+    return this.model('Product')
+    .find({_id: this.id})
+    .populate('reviews')
+    .exec().then(function(product){
+        if (product[0].reviews.length !== 0){
+            return product[0].reviews.reduce(function(build, a){
+                return build + a.stars;
+            }, 0 ) / product[0].reviews.length;
+        }else{
+            return undefined;
+        }
+    });
+
+});
 
 
 
