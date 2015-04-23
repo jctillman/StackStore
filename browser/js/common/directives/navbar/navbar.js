@@ -11,7 +11,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
 
             scope.getNewItems = function(){
                 CartReload.getCartItems().then(function(items){
-                    scope.cartCount = items;
+                    scope.cartCount = items.items;
                 });
             }
 
