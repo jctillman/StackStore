@@ -6,7 +6,7 @@ require('../../../../server/db/models/product');
 var Product = mongoose.model('Product');
 
 router.get('/', function(req, res, next){
-	console.log(req)
+	//console.log(req);
 	res.send("not implemented yet");
 });
 

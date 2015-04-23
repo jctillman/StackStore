@@ -38,6 +38,7 @@ var clearDB = require('mocha-mongoose')(DATABASE_URI);
 
 var Category = mongoose.model('Category');
 var Review = mongoose.model('Review');
+var Product = mongoose.model('Product');
 
 console.log("Seed started...");
 
@@ -51,7 +52,8 @@ beforeEach('Establish DB connection', function (done) {
 });
 
 beforeEach('Clear test database', function (done) {
-    clearDB(done);
+    //clearDB(done);
+    done();
 });
 
 
@@ -65,12 +67,11 @@ describe('function', function(done){
 
     describe(",", function(){
 
+        var iter = 0;
+
         var catA, catB, catC, catD;
 
         it ('categories', function(done){
-
-            console.log("asdasd");
-            var iter = 0;
 
             var tasks = [
                 function(cb){Category.create({type: "Dangerous", data: "Yes"}).then(function(cat){catA = cat.id; cb(null, cat)}, function(err){ cb(err, null);});},
@@ -81,11 +82,13 @@ describe('function', function(done){
 
             async.parallel(tasks, function(err, results){
 
+                console.log(results);
+
                 function de(d,e){
                     console.log("hey");
                     iter++;
                     expect('something').to.equal('something');
-                    if (iter > 3){done();}
+                    if (iter > 4){done();}
                 }
 
                 Product.create({
@@ -93,14 +96,14 @@ describe('function', function(done){
                             description: 'An endangered freaking tiger.',
                             price: 1000,
                             categories: [catA, catC]
-                    }, de);
+                    }).then(de, de);
 
                 Product.create({
                         title: 'Ocelot',
                         description: 'An ocelot.',
                         price: 1000,
                         categories: [catA, catC]
-                }, de);
+                }).then(de, de);
 
 
 
@@ -109,7 +112,7 @@ describe('function', function(done){
                         description: 'Are any turtles endangered?',
                         price: 1000,
                         categories: [catB, catD]
-                })
+                }).then(de, de);
 
 
                 Product.create({
@@ -117,14 +120,14 @@ describe('function', function(done){
                         description: 'The Loche Ness Monster',
                         price: 1000,
                         categories: [catA, catD]
-                }, de);
+                }).then(de, de);
 
                 Product.create({
                         title: 'Dodo',
                         description: 'Really, really endangered.',
                         price: 1000,
                         categories: [catB, catD]
-                }, de);
+                }).then(de, de);
             });
         });
     });

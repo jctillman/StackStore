@@ -50,6 +50,8 @@ var userSchema = new mongoose.Schema({
 
     orders: [{type: Schema.ObjectId, ref: 'Order'}],
 
+    cart: {type: Schema.ObjectId, ref: 'Order'},
+
     addresses: [{type: Schema.ObjectId, ref: 'Address'}],
 
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
@@ -58,7 +60,7 @@ var userSchema = new mongoose.Schema({
 
     admin: {default: false, required: true, type: Boolean},
 
-    cart: [{type: Schema.ObjectId, ref: 'Order'}]
+    
 
 });
 
@@ -102,6 +104,11 @@ userSchema.statics.encryptPassword = encryptPassword;
 
 userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
+});
+
+//TODO: Add test for this method.
+userSchema.method('hasCart', function(cb){
+    return (!!this.cart);
 });
 
 

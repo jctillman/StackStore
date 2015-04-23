@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
         url: '/categoriesHome',
         controller: 'CategoriesController',
         templateUrl: 'js/categories/categories.html'
-    })
+    });
 });
 
 app.controller('CategoriesController', function ($scope) {

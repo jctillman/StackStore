@@ -48,7 +48,7 @@
         $scope.setCurrentUser = function(user){
             $scope.currentUser = user;
         };
-    })
+    });
 
     app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
         var statusDict = {
@@ -79,7 +79,7 @@
         //implement super user status.
         this.isSuperUser = function (){
             return !!Session.user && !!Session.admin;
-        }
+        };
         // Uses the session factory to see if an
         // authenticated user is currently registered.
         this.isAuthenticated = function () {
@@ -122,7 +122,8 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
-            Session.create(data.id, data.user, data.user.admin);
+            var admin = (!!data && !!data.user) ? data.user.admin : null;
+            Session.create(data.id, data.user, admin);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
         }
