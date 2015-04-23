@@ -15,7 +15,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
                 });
             }
 
-            $rootscope.on('addedItem', scope.getNewItems);
+            $rootScope.$on('addedItem', scope.getNewItems);
 
             scope.items = [
                 { label: 'Home', state: 'home' },
