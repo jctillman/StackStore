@@ -8,9 +8,9 @@ require('../../../../server/db/models/address');
 
 
 
-var Product = mongoose.model('User');
-var Product = mongoose.model('Address');
-var Product = mongoose.model('Category');
+var User = mongoose.model('User');
+var Address = mongoose.model('Address');
+var Category = mongoose.model('Category');
 
 router.use(function(req, res, next){
 	if(auth.isUser(req)){
@@ -20,9 +20,10 @@ router.use(function(req, res, next){
 	};
 })
 
-router.get('/', function(req, res, next){
+
+router.get('/:userId', function(req, res, next){
 	User
-		.findById(req.user.id)
+		.findById(req.params.userId)
 		.populate("orders addresses cart reviews paymentMethods")
 		.exec()
 		.then(
@@ -35,9 +36,9 @@ router.get('/', function(req, res, next){
 			);
 });
 
-router.post('/', function(req, res, next){
+router.put('/:userId', function(req, res, next){
 	User.update(
-		{_id: req.user.id},
+		{_id: req.params.userId},
 		req.body,
 		function(err, num){
 			if(err){next(err);}
@@ -47,10 +48,18 @@ router.post('/', function(req, res, next){
 		);
 });
 
+router.post('/newUser', function(req, res, next){
+	User.create(req.body).then(function(user){
+		res.json(user);
+	}, function(err){
+		return next(err);
+	});
+});
+
+
 router.post('/address', function(req, res, next){
 	console.log("Pushing address that doesn't exist");
 	var addressId = req.params.id;
-
 
 	User.update(
 		{_id: req.user.id},
@@ -89,6 +98,29 @@ router.delete('/address/:id', function(req, res, next){
 			if(num===1){res.send("Deleted");}
 		}
 		);
+});
+
+
+router.use(function(req, res, next){
+	if(auth.isAdmin(req)) next();
+	else res.status(401);
+});
+
+
+router.get('/', function(req, res, next){
+	User.find({}, function(err, users){
+		if(err) return next(err);
+		res.json(users);
+	});
+});
+
+
+//Delete a user
+router.delete('/:userId', function(req, res, next){
+	User.findByIdAndRemove(req.params.userId, function(err, deletedUser){
+		if(err) return next(err);
+		res.json(deletedUser);
+	});
 });
 
 

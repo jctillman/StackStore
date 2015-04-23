@@ -2,7 +2,6 @@
 var router = require('express').Router();
 module.exports = router;
 
-router.use('/list', require('./list'));
 
 router.use('/order', require('./order'));
 
@@ -12,7 +11,8 @@ router.use('/admin', require('./admin'));
 
 router.use('/product', require('./product'));
 
-router.use('/members', require('./members'));
+router.use('/category', require('./category'));
+
 
 // Make sure this is after all of
 // the registered routes!

@@ -27,7 +27,7 @@ app.factory('UserInfo', function($http){
 
 	return {
 		getAllUsers: function(){
-			return $http.get('/api/admin/user').then(function(response){
+			return $http.get('/api/user/').then(function(response){
 				return response.data;
 			})
 		}

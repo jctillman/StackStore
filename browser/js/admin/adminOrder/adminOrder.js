@@ -30,7 +30,7 @@ app.factory('OrderInfo', function($http){
 	return {
 
 		getAllOrders: function(){
-			return $http.get('/api/admin/order').then(function(response){
+			return $http.get('/api/order/').then(function(response){
 				return response.data;
 			})
 		}
