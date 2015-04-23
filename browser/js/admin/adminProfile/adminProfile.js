@@ -8,8 +8,29 @@ app.config(function ($stateProvider, USER_ROLES) {
     });
 });
 
-app.controller('AdminProfileController', function ($scope) {
+app.controller('AdminProfileController', function ($scope, UserInfo) {
 
+	$scope.users = ['joe', 'smoe'];
+
+	$scope.allUsers = function(){
+		UserInfo.getAllUsers().then(function(users){
+			$scope.users = users;
+		})
+	}
+
+	$scope.allUsers();
     // ADD
+
+});
+
+app.factory('UserInfo', function($http){
+
+	return {
+		getAllUsers: function(){
+			return $http.get('/api/user/').then(function(response){
+				return response.data;
+			})
+		}
+	}
 
 });

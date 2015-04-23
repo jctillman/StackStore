@@ -16,4 +16,14 @@ app.config(function ($stateProvider) {
 
 app.controller('UserCtrl', function($scope){
 
+    $scope.showOrders = false;
+
+    $scope.seeOrderHistory = function(){
+        $scope.showOrders = true;
+    }
+
+    $scope.backToProfile = function(){
+        $scope.showOrders = false;
+    }
+
 });
