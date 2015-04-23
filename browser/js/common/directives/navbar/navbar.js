@@ -1,11 +1,21 @@
 'use strict';
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartReload, $state) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
+
+            scope.cartCount = 0;
+
+            scope.getNewItems = function(){
+                CartReload.getCartItems().then(function(items){
+                    scope.cartCount = items;
+                });
+            }
+
+            $rootscope.on('addedItem', scope.getNewItems);
 
             scope.items = [
                 { label: 'Home', state: 'home' },
@@ -61,5 +71,19 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         }
 
     };
+
+});
+
+app.factory('CartReload', function($http){
+
+    return {
+
+        getCartItems: function(){
+            return $http.get('/api/order/cartcount').then(function(response){
+                return response.data;
+            });
+        }
+
+    }
 
 });
