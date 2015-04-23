@@ -11,11 +11,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
 
             scope.getNewItems = function(){
                 CartReload.getCartItems().then(function(items){
-                    scope.cartCount = items;
+                    scope.cartCount = items.items;
                 });
             }
 
-            $rootscope.on('addedItem', scope.getNewItems);
+            $rootScope.$on('addedItem', scope.getNewItems);
 
             scope.items = [
                 { label: 'Home', state: 'home' },
