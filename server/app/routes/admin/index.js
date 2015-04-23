@@ -29,7 +29,7 @@ var LineItem = mongoose.model('LineItem');
 
 router.get('/*', function(req, res, next){
 	if(Auth.isAdmin(req)) next();
-	throw new Error('You must be an admin to access this!');
+	res.status(401);
 });
 
 //Admin product routes
