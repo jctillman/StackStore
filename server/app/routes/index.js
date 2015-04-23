@@ -6,6 +6,8 @@ router.use('/list', require('./list'));
 
 router.use('/order', require('./order'));
 
+router.use('/user', require('./user'));
+
 router.use('/admin', require('./admin'));
 
 router.use('/product', require('./product'));
