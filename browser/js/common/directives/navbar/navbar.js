@@ -16,9 +16,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
             }
 
             $rootScope.$on('addedItem', scope.getNewItems);
+            $rootScope.$emit('addedItem');
 
             scope.items = [
-                { label: 'Home', state: 'home' },
+                { label: 'Products', state: 'list'},
                 { label: 'Profile', state: 'user', auth: true },
                 { label: 'Admin Only', state: 'admin', admin:true }
             ];

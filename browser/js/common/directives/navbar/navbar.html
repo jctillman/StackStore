@@ -21,8 +21,10 @@
             <a ng-click="logout()">Logout</a>
         </div>
         <div class="welcome cart">
-            <i class="fa fa-shopping-cart"></i>
-            {{cartCount}}
+            <a ui-sref="cart">
+                <i class="fa fa-shopping-cart"></i>
+                {{cartCount}}
+            </a>
         </div>
     </div>
 </nav>
