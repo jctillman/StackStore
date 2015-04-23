@@ -1,0 +1,24 @@
+<section id="list"> <!-- change ID -->
+
+	<div id = "categoriesFilters">
+		<div ng-hide="typeLoading">
+			<div ng-repeat="categoryType in categoryTypes">
+				<label for="{{categoryType}}">{{categoryType}}</label>
+				<select id="{{categoryType}}" name="{{categoryType}}">
+					<option ng-repeat="data in typeData[categoryType]" value="{{data._id}}">
+						{{data.data}}
+					</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+
+    <div ng-repeat="product in products">
+    	<product-line product="product"></product-line>
+    </div>
+
+
+</section>
+
+<ui-view></ui-view>
