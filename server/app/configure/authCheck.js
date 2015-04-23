@@ -1,8 +1,8 @@
 module.exports = {
 	isUser: function(req){
-		return req.isAuthenticated();
+		return req.user && req.isAuthenticated();
 	},
 	isAdmin: function(req){
-		return req.isAuthenticated() && req.user.admin;
+		return req.user && req.isAuthenticated() && req.user.admin;
 	}
 }

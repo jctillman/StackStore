@@ -94,7 +94,7 @@ router.post('/addproduct/:id', function(req, res, next){
 		console.log("There is no user they are currently");
 		//If we don't have an order attached to the session already, create that order and add the product.
 		if(!req.session.cart){
-			console.log("Have no order");
+			console.log("Have no cart");
 			Order.create({}, function(err, data){
 				console.log("Order created.");
 				req.session.cart = data.id;

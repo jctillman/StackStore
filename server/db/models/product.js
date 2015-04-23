@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 require('../../../server/db/models/category');
 require('../../../server/db/models/line-item');
 require('../../../server/db/models/order');
+var deepPopulate = require('mongoose-deep-populate');
+
 
 var Category = mongoose.model('Category');
 var LineItem = mongoose.model('LineItem');
@@ -31,7 +33,7 @@ productSchema.statics.ProductToOrder = function(productId, orderId, cb){
             {_id: orderId},
             {$push : {lineItems: data.id}},
             {},
-            function(err, data){
+            function(err, data){ 
                 cb(err, data);
             }
         );
@@ -94,6 +96,6 @@ productSchema.method('getAverageRating', function(cb){
 
 });
 
-
+productSchema.plugin(deepPopulate);
 
 mongoose.model('Product', productSchema);

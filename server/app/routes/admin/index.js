@@ -1,6 +1,9 @@
 var router = require('express').Router();
 var qs =  require('qs');
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
+var Auth = require('../../configure/authCheck');
+
 
 require('../../../../server/db/models/product');
 require('../../../../server/db/models/user');
@@ -10,6 +13,8 @@ require('../../../../server/db/models/payment-method');
 require('../../../../server/db/models/order');
 require('../../../../server/db/models/review');
 require('../../../../server/db/models/promo');
+require('../../../../server/db/models/line-item');
+
 
 var Product = mongoose.model('Product');
 var Category = mongoose.model('Category');
@@ -35,34 +40,21 @@ var Promo = mongoose.model('Promo');
 // 8. move the get products out
 // 9. add promo codes
 // 10. add authentication
+var LineItem = mongoose.model('LineItem');
 
 
-//Ensure authentication -- revise this?
+//Ensure authentication 
 
-// var ensureAuthenticated = function (req, res, next) {
-//     if (req.isAuthenticated()) {
-//         next();
-//     } else {
-//         res.status(401).end();
-//     }
-// };
-
+router.get('/*', function(req, res, next){
+	if(Auth.isAdmin(req)) next();
+	res.status(401);
+});
 
 //Admin product routes
 //(Consider using req.params here)
 
-//Get product info
-//populate reviews and categories
-//take this out of the admin route altogether
-router.get('/product/:productId', function(req, res, next){
-	Product.findOne({_id: req.params.productId}, function(err, product){
-		if(err) return next(err);
-		res.json(product);
-	});
-});
 
 //Update existing product
-//
 router.put('/product/:productId', function(req, res, next){
 	console.log("Body", req.body);
 	Product.findByIdAndUpdate(req.params.productId, req.body, function(err, foundProduct){	
@@ -80,7 +72,6 @@ router.delete('/product/:productId', function(req, res, next){
 });
 
 //Create a new product
-//what about categories?
 router.post('/product/newProduct', function(req, res, next){
 	console.log(req.body);
 	Product.create(req.body).then(function(product){
@@ -96,7 +87,6 @@ router.post('/product/newProduct', function(req, res, next){
 
 //Get category info
 router.get('/category/:categoryId', function(req, res, next){
-	console.log('getting category');
 	Category.findOne({_id: req.params.categoryId}, function(err, category){
 		if(err) return next(err);
 		res.json(category);
@@ -105,9 +95,7 @@ router.get('/category/:categoryId', function(req, res, next){
 
 //Update existing category
 router.put('/category/:categoryId', function(req, res, next){
-	console.log("iM HEREEEEEE");
 	Category.findByIdAndUpdate(req.params.categoryId, req.body, function(err, foundCategory){
-		console.log(foundCategory);
 		if(err) return next(err);
 		res.json(foundCategory);
 	});
@@ -160,10 +148,19 @@ router.delete('/category/promo/:promoId', function(req, res, next){
 
 //Get order info
 router.get('/order/:orderId', function(req, res, next){
-	Order.findOne({_id: req.params.orderId}, function(err, order){
-		if(err) return next(err);
-		res.json(order);
-	});
+	var populateQuery = [
+	{path: 'user'}, 
+	{path: 'lineItems'}, 
+	{path: 'paymentMethod'},
+	{path: 'shippingAddress'}
+	]
+
+	Order.findOne({_id: req.params.orderId})
+			 .populate(populateQuery)
+			 .exec(function(err, order){
+			 		if(err) return next(err);
+			 		res.json(order);
+			 });
 });
 
 //Update existing order
@@ -195,10 +192,20 @@ router.post('/order/newOrder', function(req, res, next){
 
 //Get user info
 router.get('/user/:userId', function(req, res, next){
-	User.findOne({_id: req.params.userId}, function(err, user){
-		if(err) return next(err);
-		res.json(user);
-	});
+	var populateQuery = [
+		{path: 'orders'},
+		{path: 'addresses'},
+		{path: 'reviews'},
+		{path: 'paymentMethods'},
+		{path: 'cart'}
+	];
+
+	User.findOne({_id: req.params.userId})
+			.populate(populateQuery)
+			.exec(function(err, user){
+					if(err) return next(err);
+					res.json(user);
+			});
 });
 
 //Update existing user

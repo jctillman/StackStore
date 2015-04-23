@@ -46,6 +46,16 @@ router.get('/products', function(req, res, next){
 		);
 });
 
+router.get('/products/:productId', function(req, res, next){
+	var populateQuery = [{path: 'categories'}, {path: 'reviews'}];
+	Product.findOne({_id: req.params.productId})
+				 .populate(populateQuery)
+				 .exec(function(err, product){
+				 		if(err) return next(err);
+				 		res.json(product);
+				 });
+});
+
 
 //Returns all the categories.
 //Api: GET api/lists/categories

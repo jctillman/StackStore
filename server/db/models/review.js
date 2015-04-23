@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 var async = require('async');
+var deepPopulate = require('mongoose-deep-populate');
 
 require('../../../server/db/models/user');
 require('../../../server/db/models/product');
@@ -58,5 +59,6 @@ reviewSchema.pre('save', function (next) {
 
 });
 
+reviewSchema.plugin(deepPopulate);
 
 mongoose.model('Review', reviewSchema);
