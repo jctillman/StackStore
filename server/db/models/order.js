@@ -2,15 +2,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
-var potentialStatuses = ['complete', 'in progress', 'cancelled', 'cart'];
-
-var validationMethod = function(status){
-    if(potentialStatuses.indexOf(status) === -1){
-        return false;
-    }
-    return true; 
-};
-
 var orderSchema = new mongoose.Schema({
     user: {type: Schema.ObjectId, ref: 'User'},
     session: {type: String},
@@ -20,7 +11,8 @@ var orderSchema = new mongoose.Schema({
     dateOrdered: {type: Date},
     dateShipped: {type: Date},
     dateClosed: {type: Date},
-    status: {type: String, default: "cart", required: true, validate: [validationMethod, 'incorrect status']}
+    status: {type: String, default: "cart", required: true, enum: ['complete', 'in progress', 'cancelled', 'cart']},
+    promo: {type: Schema.ObjectId, ref: 'Promo'}
 });
 
 //TODO: Add testing

@@ -4,7 +4,6 @@ var Schema = mongoose.Schema.Types;
 
 function validator (v) {return (v.length > 2 && v.length < 15);}
 
-
 var promoSchema = new mongoose.Schema({
 	code: {required: true, type: String, validate: [validator, 'Incorrect Length']},
 	amountType: { required: true, type: String, enum: ["Percentage", "Absolute"] },
