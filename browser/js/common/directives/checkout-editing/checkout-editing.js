@@ -10,6 +10,7 @@ app.directive('checkoutEditing', function ($http, CartFactory) {
         	scope.cart = null;
         	//var $http = $http;
 
+        	console
         	function getCartContents(){
         		$http.get('api/lineitems')
         			.success(function(data, status, config, headers){

@@ -29,7 +29,12 @@ router.post('/addproduct/:id', function(req, res, next){
 
 	var productId = req.params.id;
 
-
+	var ProductAdd = function(productId, cartId){
+		Product.ProductToOrder(productId, cartId, function(err, data){
+				console.log((data===1) ? 200 : 500);
+				res.sendStatus((data===1) ? 200 : 500);
+			});
+	};
 
 	//If there is any user currently attached
 	if(!!req.user){
@@ -38,10 +43,7 @@ router.post('/addproduct/:id', function(req, res, next){
 		//If they have a cart, add the product to the cart.
 		if(req.user.hasCart()){
 			console.log("The user has a cart");
-			Product.ProductToOrder(productId, req.user.cart, function(err, data){
-				console.log((data===1) ? "Product Added" : "Nothing added");
-				res.send((data===1) ? "Product Added" : "Nothing added");
-			});
+			ProductAdd(productId, req.user.cart);
 
 
 		}
@@ -57,10 +59,7 @@ router.post('/addproduct/:id', function(req, res, next){
 					{cart: req.session.cart},
 					function(err, data){
 						//Add the product.
-						Product.ProductToOrder(productId, req.session.cart, function(err, data){
-							console.log((data===1) ? "Product Added" : "Nothing added");
-							res.send((data===1) ? "Product Added" : "Nothing added");
-						});
+						ProductAdd(productId, req.session.cart);
 					});
 
 			}else{
@@ -78,11 +77,7 @@ router.post('/addproduct/:id', function(req, res, next){
 						{_id: req.user.id},
 						{cart: data._id},
 						function(err, affected){
-							//Add the product.
-							Product.ProductToOrder(productId, req.session.cart, function(err, data){
-								console.log((data===1) ? "Product Added" : "Nothing added");
-								res.send((data===1) ? "Product Added" : "Nothing added");
-							});
+							ProductAdd(productId, req.session.cart)
 						}
 						);
 				});
@@ -93,24 +88,18 @@ router.post('/addproduct/:id', function(req, res, next){
 	}else{
 		console.log("There is no user they are currently");
 		//If we don't have an order attached to the session already, create that order and add the product.
-		if(!req.session.cart){
+		if(!(req.session.cart)){
 			console.log("Have no cart");
 			Order.create({}, function(err, data){
 				console.log("Order created.");
 				req.session.cart = data.id;
-				Product.ProductToOrder(productId, data.id, function(err, data){
-					console.log((data===1) ? "Product Added" : "Nothing added");
-					res.send((data===1) ? "Product Added" : "Nothing added");
-				});
+				ProductAdd(productId, data.id);
 			});
 
 		//If we do have an order attached to the session already, add the product to the session.
 		}else{
 			console.log("Have order attached");
-			Product.ProductToOrder(productId, req.session.cart, function(err, data){
-				console.log((data===1) ? "Product Added" : "Nothing added");
-				res.send((data===1) ? "Product Added" : "Nothing added");
-			});
+			ProductAdd(productId, req.session.cart);
 		}
 	}
 });
