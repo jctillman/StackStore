@@ -24,7 +24,6 @@ app.controller('ListController', function ($scope, $http) {
             $scope.listloading = false;
         });
 
-
     $scope.typeLoading = true;
     $http.get('/api/list/categories')
         .success(function(data, status, headers, config){
@@ -47,10 +46,39 @@ app.controller('ListController', function ($scope, $http) {
                     }
                 },{});
 
+            //Get an object which has in each obj[categoryType] is blank or a value
+            $scope.filterValues = data
+                .reduce(function(old, datum, index, arr){
+                    if (old[datum.type]){return old;}
+                    else{old[datum.type] = '';return old}
+                },{});
+
+            //Let's make everything visible
             $scope.typeLoading = false;
+
+            //Add events
+            $scope.updateList = function(){
+                $scope.listLoading = true;
+                var urlList = Object.keys($scope.filterValues).reduce(function(old, key, ind, arr){
+                    return ($scope.filterValues[key]=="") ? old : old.concat($scope.filterValues[key]);
+                },[]).join(',');
+                var url = '/api/list/products?categories=' + urlList;
+                $http.get(url)
+                    .success(function(data, status, headers, config){
+                        $scope.products = data;
+                        $scope.listLoading = false;
+                    })
+                    .error(function(data, status, headers, config){
+                        $scope.listLoading = false;
+                    });
+            }
+
+
+
         })
         .error(function(data, status, headers, config){
             //error-handling code -- confer with confreres about this.
+            //Let's make everything visible
             $scope.typeLoading = false;
         });
 
