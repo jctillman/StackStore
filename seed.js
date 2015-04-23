@@ -16,7 +16,6 @@ Refer to the q documentation for why and how q.invoke is used.
 var mongoose = require('mongoose');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
-var Order = mongoose.model('Order');
 var q = require('q');
 var chalk = require('chalk');
 

@@ -1,8 +1,13 @@
 'use strict';
 var mongoose = require('mongoose');
 require('../../../server/db/models/category');
+require('../../../server/db/models/line-item');
+require('../../../server/db/models/order');
 
 var Category = mongoose.model('Category');
+var LineItem = mongoose.model('LineItem');
+var Order = mongoose.model('Order');
+
 var Schema = mongoose.Schema.Types;
 
 
@@ -19,6 +24,18 @@ var productSchema = new mongoose.Schema({
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
 
+productSchema.statics.ProductToOrder = function(productId, orderId, cb){
+    LineItem.create({product: productId}, function(err, data){
+        Order.update(
+            {_id: orderId},
+            {$push : {lineItems: data.id}},
+            {},
+            function(err, data){
+                cb(err, data);
+            }
+        );
+    }); 
+};
 
 
 productSchema.pre('save', function (next) {
