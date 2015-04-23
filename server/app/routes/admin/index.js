@@ -46,8 +46,9 @@ var LineItem = mongoose.model('LineItem');
 //Ensure authentication 
 
 router.get('/*', function(req, res, next){
+	console.log(Auth.isAdmin(req));
 	if(Auth.isAdmin(req)) next();
-	res.status(401);
+	else res.status(401);
 });
 
 //Admin product routes
@@ -146,6 +147,15 @@ router.delete('/category/promo/:promoId', function(req, res, next){
 
 //Admin order routes
 
+//Get all orders
+router.get('/order', function(req, res, next){
+	Order.find({}, function(err, orders){
+		if(err) return next(err);
+		res.json(orders);
+	});
+});
+
+
 //Get order info
 router.get('/order/:orderId', function(req, res, next){
 	var populateQuery = [
@@ -189,6 +199,15 @@ router.post('/order/newOrder', function(req, res, next){
 });
 
 //Admin user routes
+
+//Get all users
+router.get('/user', function(req, res, next){
+	User.find({}, function(err, users){
+		if(err) return next(err);
+		res.json(users);
+	});
+});
+
 
 //Get user info
 router.get('/user/:userId', function(req, res, next){

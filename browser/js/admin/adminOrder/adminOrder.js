@@ -8,8 +8,33 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminOrderController', function ($scope) {
+app.controller('AdminOrderController', function ($scope, OrderInfo) {
 
+		$scope.orders = '';
+
+	
+
+		$scope.allOrders = function(){
+			OrderInfo.getAllOrders().then(function(orders){
+				$scope.orders = orders;
+			})
+		}
+
+			$scope.allOrders();
     // ADD
+
+});
+
+app.factory('OrderInfo', function($http){
+
+	return {
+
+		getAllOrders: function(){
+			return $http.get('/api/admin/order').then(function(response){
+				return response.data;
+			})
+		}
+
+	}
 
 });
