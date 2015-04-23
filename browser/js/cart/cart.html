@@ -1,5 +1,34 @@
 <section id="cart">
- HELLO I'M A CART.
-</section>
 
-<ui-view></ui-view>
+	<div class="checkout-section">
+		<h3>Cart Editing</h3>
+		<checkout-editing ng-show="checkoutStage=='editing'"></checkout-editing>
+	</div>
+
+	<div class="checkout-section">
+		<h3>Address</h3>
+		<checkout-address ng-show="checkoutStage=='address'"></checkout-address>
+	</div>
+
+	<div class="checkout-section">
+		<h3>Payment Methods</h3>
+		<checkout-payment ng-show="checkoutStage=='payment'"></checkout-payment>
+	</div>
+
+	<div class="checkout-section">
+		<h3>Promos</h3>
+		<checkout-confirmation ng-show="checkoutStage=='promos'"></checkout-confirmation>
+	</div>
+
+	<div class="checkout-section">
+		<h3>Confirmation</h3>
+		<checkout-confirmation ng-show="checkoutStage=='confirmation'"></checkout-confirmation>
+	</div>
+
+	<div class="checkout-section">
+		<h3>End</h3>
+		<checkout-ending ng-show="checkoutStage=='finish'"></checkout-ending>
+	</div>
+
+
+</section>

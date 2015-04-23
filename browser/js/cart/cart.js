@@ -1,49 +1,47 @@
 app.config(function ($stateProvider) {
-
     $stateProvider.state('cart', {
         url: '/cart',
         templateUrl: 'js/cart/cart.html',
-        controller: 'CartController',
-        resolve: {
-            cartInfo: function (CartFactory) {
-                return CartFactory.getCartItems();
-            }
-        }
+        controller: 'CartController'
     });
-
 });
+
+
 
 app.factory('CartFactory', function ($http) {
 
+    var states = ['editing','address','payment','promos','confirmation']
+    var stateSpot = 0;
+    var changes = [];
+
     return {
-        getCartItems: function () {
-            // return $http.get('/api/cart/items').then(function (response) {
-            //     return response.data;
-            // });
+
+        onChange: function(func){
+            changes.push(func);
+        },
+
+        change: function(){
+            changes.forEach(function(func){ func(this.states[this.stateSpot]) });
+        },
+
+        advance: function(){
+            stateSpot++;
+            this.change();
         }
+
     };
 
 });
 
-app.controller('CartController', function ($scope, cartInfo) {
 
-    // $scope.sections = cartInfo.sections;
-    // $scope.items = _.groupBy(cartInfo.items, 'section');
 
-    // $scope.currentSection = { section: null };
+app.controller('CartController', function ($scope, CartFactory) {
 
-    // $scope.colors = [
-    //     'rgba(34, 107, 255, 0.10)',
-    //     'rgba(238, 255, 68, 0.11)',
-    //     'rgba(234, 51, 255, 0.11)',
-    //     'rgba(255, 193, 73, 0.11)',
-    //     'rgba(22, 255, 1, 0.11)'
-    // ];
+    $scope.checkoutStage = 'editing'
 
-    // $scope.getItemsBySection = function (section, items) {
-    //     return items.filter(function (item) {
-    //         return item.section === section;
-    //     });
-    // };
+    CartFactory.onChange(function(state){
+        $scope.checkoutStage = state;
+        $scope.$digest();
+    });
 
 });
