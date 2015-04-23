@@ -57,7 +57,7 @@ router.put('/category/promo/:promoId', function(req, res, next){
 
 //Delete a promo
 router.delete('/category/promo/:promoId', function(req, res, next){
-	console.log('yo')
+	console.log('yo');
 	Promo.findByIdAndRemove(req.params.promoId, function(err, deletedPromo){
 		if(err) return next(err);
 		res.json(deletedPromo);

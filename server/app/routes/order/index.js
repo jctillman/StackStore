@@ -30,7 +30,7 @@ router.post('/addproduct/:id', function(req, res, next){
 
 	var productId = req.params.id;
 
-	var ProductAdd = function(productId, cartId){
+	var productAdd = function(productId, cartId){
 		Product.ProductToOrder(productId, cartId, function(err, data){
 				console.log((data===1) ? 200 : 500);
 				res.sendStatus((data===1) ? 200 : 500);
@@ -44,9 +44,7 @@ router.post('/addproduct/:id', function(req, res, next){
 		//If they have a cart, add the product to the cart.
 		if(req.user.hasCart()){
 			console.log("The user has a cart");
-			ProductAdd(productId, req.user.cart);
-
-
+			productAdd(productId, req.user.cart);
 		}
 		else{
 			console.log("The user lacks a cart");
@@ -60,7 +58,7 @@ router.post('/addproduct/:id', function(req, res, next){
 					{cart: req.session.cart},
 					function(err, data){
 						//Add the product.
-						ProductAdd(productId, req.session.cart);
+						productAdd(productId, req.session.cart);
 					});
 
 			}else{
@@ -78,7 +76,7 @@ router.post('/addproduct/:id', function(req, res, next){
 						{_id: req.user.id},
 						{cart: data._id},
 						function(err, affected){
-							ProductAdd(productId, req.session.cart)
+							productAdd(productId, req.session.cart);
 						}
 						);
 				});
@@ -94,13 +92,13 @@ router.post('/addproduct/:id', function(req, res, next){
 			Order.create({}, function(err, data){
 				console.log("Order created.");
 				req.session.cart = data.id;
-				ProductAdd(productId, data.id);
+				productAdd(productId, data.id);
 			});
 
 		//If we do have an order attached to the session already, add the product to the session.
 		}else{
 			console.log("Have order attached");
-			ProductAdd(productId, req.session.cart);
+			productAdd(productId, req.session.cart);
 		}
 	}
 });
@@ -234,7 +232,7 @@ router.get('/:orderId', function(req, res, next){
 	{path: 'lineItems'}, 
 	{path: 'paymentMethod'},
 	{path: 'shippingAddress'}
-	]
+	];
 
 	Order.findOne({_id: req.params.orderId})
 			 .populate(populateQuery)
