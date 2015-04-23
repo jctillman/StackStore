@@ -18,14 +18,12 @@ var LineItem = mongoose.model('LineItem');
 
 
 // d) Checkout stuff.
-// 1. Adding an item to one's cart, whether one is logged in or not.
-// 2. Viewing stuff in one's cart.
-// 3. Adding an address (to one's cart / order, and /or to one's user account).
-// 4. Adding a payment method (to one's cart / order, etc).
-// 5. Confirming all of the above, and paying for all of the above.
+// 1. Adding an item to one's cart, whether one is logged in or not.--DONE
+// 2. Viewing stuff in one's cart.--DONE
+// 3. Adding an address (to one's cart / order, and /or to one's user account).--DONE
+// 4. Adding a payment method (to one's cart / order, etc).--undone
+// 5. Confirming all of the above, and paying for all of the above.--undone
 
-
-//Sets req.product
 
 router.post('/addproduct/:id', function(req, res, next){
 
@@ -41,8 +39,8 @@ router.post('/addproduct/:id', function(req, res, next){
 		if(req.user.hasCart()){
 			console.log("The user has a cart");
 			Product.ProductToOrder(productId, req.user.cart, function(err, data){
-				console.log((data==1) ? "Product Added" : "Nothing added");
-				res.send((data==1) ? "Product Added" : "Nothing added");
+				console.log((data===1) ? "Product Added" : "Nothing added");
+				res.send((data===1) ? "Product Added" : "Nothing added");
 			});
 
 
@@ -60,8 +58,8 @@ router.post('/addproduct/:id', function(req, res, next){
 					function(err, data){
 						//Add the product.
 						Product.ProductToOrder(productId, req.session.cart, function(err, data){
-							console.log((data==1) ? "Product Added" : "Nothing added");
-							res.send((data==1) ? "Product Added" : "Nothing added");
+							console.log((data===1) ? "Product Added" : "Nothing added");
+							res.send((data===1) ? "Product Added" : "Nothing added");
 						});
 					});
 
@@ -71,7 +69,7 @@ router.post('/addproduct/:id', function(req, res, next){
 				console.log("And the session lacks a cart");
 				//So make a cart.
 				Order.create({}, function(err, data){
-					if(err){next(err)}
+					if(err){next(err);}
 					//Add it to the session and
 					console.log(data);
 					req.session.cart = data._id;
@@ -82,8 +80,8 @@ router.post('/addproduct/:id', function(req, res, next){
 						function(err, affected){
 							//Add the product.
 							Product.ProductToOrder(productId, req.session.cart, function(err, data){
-								console.log((data==1) ? "Product Added" : "Nothing added");
-								res.send((data==1) ? "Product Added" : "Nothing added");
+								console.log((data===1) ? "Product Added" : "Nothing added");
+								res.send((data===1) ? "Product Added" : "Nothing added");
 							});
 						}
 						);
@@ -96,13 +94,13 @@ router.post('/addproduct/:id', function(req, res, next){
 		console.log("There is no user they are currently");
 		//If we don't have an order attached to the session already, create that order and add the product.
 		if(!req.session.cart){
-			console.log("Have no order")
+			console.log("Have no order");
 			Order.create({}, function(err, data){
 				console.log("Order created.");
 				req.session.cart = data.id;
 				Product.ProductToOrder(productId, data.id, function(err, data){
-					console.log((data==1) ? "Product Added" : "Nothing added");
-					res.send((data==1) ? "Product Added" : "Nothing added");
+					console.log((data===1) ? "Product Added" : "Nothing added");
+					res.send((data===1) ? "Product Added" : "Nothing added");
 				});
 			});
 
@@ -110,8 +108,8 @@ router.post('/addproduct/:id', function(req, res, next){
 		}else{
 			console.log("Have order attached");
 			Product.ProductToOrder(productId, req.session.cart, function(err, data){
-				console.log((data==1) ? "Product Added" : "Nothing added");
-				res.send((data==1) ? "Product Added" : "Nothing added");
+				console.log((data===1) ? "Product Added" : "Nothing added");
+				res.send((data===1) ? "Product Added" : "Nothing added");
 			});
 		}
 	}
@@ -158,8 +156,8 @@ router.put('/lineItem/:id/:number', function(req, res, next){
 	var lineItemNumber = req.params.number;
 	var cartId = req.session.cart || req.user.cart;
 	if(cartId){
-		if(lineItemNumber == 0){
-			console.log("Trying to del.")
+		if(lineItemNumber === 0){
+			console.log("Trying to del.");
 			Order.update(
 				{_id: cartId},
 				{$pullAll : { lineItems : [lineItemId]}},
@@ -170,7 +168,7 @@ router.put('/lineItem/:id/:number', function(req, res, next){
 			);
 
 		}else{
-			console.log("Trying to mod.")
+			console.log("Trying to mod.");
 			LineItem.update(
 				{_id: lineItemId},
 				{quantity: lineItemNumber},
@@ -188,9 +186,44 @@ router.put('/lineItem/:id/:number', function(req, res, next){
 
 
 
-router.post('/:user/:productId', function(req, res, next){
-	
+router.post('/shippinginfo', function(req, res, next){
+
+	//Send with a req.body of
+	//{ useExisting: Bool, [id: string,]  [shipping: yeah]  }
+
+	var useExisting = req.body.useExisting;
+
+	if (useExisting){
+		console.log("Use existing");
+		Order.update(
+			{_id: req.session.cart},
+			{shippingAddress: req.body.id},
+			function(err, num){
+				if(err){next(err);}
+				if(num > 1){next(new Error("Updated two carts at once; fatal error."));}
+				res.send("Updated");
+			}
+			);
+	}else{
+		console.log("Create new");
+		Address.create(req.body.shipping, function(err, address){
+			if(err){next(err);}
+			console.log("Id of new address:", address.id);
+			Order.update(
+			{_id: req.session.cart},
+			{shippingAddress: address.id},
+			function(err, num){
+				if(err){next(err);}
+				if(num !== 1){next(new Error("Updated two carts at once; fatal error."));}
+				res.send("Updated");
+			}
+			);
+		});
+	}	
 });
+
+
+
 
 
 

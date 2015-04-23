@@ -25,11 +25,11 @@ router.get('/products', function(req, res, next){
 		var categoriesReady = categories
 			.split(',')
 			.map(function(id){
-				return new mongoose.Types.ObjectId(id)
+				return new mongoose.Types.ObjectId(id);
 			});	
-		var query = {categories: {$all: categoriesReady}}
+		var query = {categories: {$all: categoriesReady}};
 	}else{
-		var query = {}
+		var query = {};
 	}
 
 	Product
