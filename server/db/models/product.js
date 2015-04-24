@@ -27,18 +27,35 @@ var productSchema = new mongoose.Schema({
 // are all used for local authentication security.
 
 productSchema.statics.ProductToOrder = function(productId, orderId, cb){
-    LineItem.create({product: productId}, function(err, data){
-        Order.update(
-            {_id: orderId},
-            {$push : {lineItems: data.id}},
-            {},
-            function(err, data){ 
-                cb(err, data);
-            }
-        );
-    }); 
-};
 
+    Order.findById(orderId)
+        .populate('lineItems')
+        .exec()
+        .then(function(data){
+
+            var matchingLineItems = data.lineItems.filter(function(lineItem){return lineItem.product == productId;});
+            console.log("GOt here");
+            if (matchingLineItems.length==1){
+                console.log(matchingLineItems[0]);
+                LineItem.update(
+                    {_id: matchingLineItems[0].id},
+                    {quantity: (matchingLineItems[0].quantity + 1)},
+                    {},
+                    cb
+                    );
+            }else{
+            LineItem.create({product: productId}, function(err, data){
+                Order.update(
+                        {_id: orderId},
+                        {$push : {lineItems: data.id}},
+                        {},
+                        cb
+                    ); 
+                });
+            }
+        }, null)
+        .then(null, function(err){cb("Error", null)});
+    }
 
 productSchema.pre('save', function (next) {
 

@@ -1,6 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
+var deepPop = require('mongoose-deep-populate');
 
 var orderSchema = new mongoose.Schema({
     user: {type: Schema.ObjectId, ref: 'User'},
@@ -14,6 +15,7 @@ var orderSchema = new mongoose.Schema({
     status: {type: String, default: "cart", required: true, enum: ['complete', 'in progress', 'cancelled', 'cart']},
     promo: {type: Schema.ObjectId, ref: 'Promo'}
 });
+orderSchema.plugin(deepPop, {});
 
 //TODO: Add testing
 // orderSchema.method('addProduct', function(productId){

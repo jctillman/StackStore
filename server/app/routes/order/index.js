@@ -3,6 +3,7 @@ var qs =  require('qs');
 var mongoose = require('mongoose');
 var Auth = require('../../configure/authCheck');
 
+
 require('../../../../server/db/models/product');
 require('../../../../server/db/models/user');
 require('../../../../server/db/models/address');
@@ -127,21 +128,23 @@ router.get('/lineItems', function(req, res, next){
 	console.log("Getting line items.");
 	var cartId = req.session.cart || req.user.cart;
 	if(cartId){
-		Order.findOne({_id: cartId}).populate('lineItems').exec().then(function(data){
-			res.send({items: data.lineItems});
-		}, function(fail){
-			res.send({items: []});
-		});
+		Order.findOne({_id: cartId}).deepPopulate('lineItems.product')
+			.exec()
+			.then(function(data){
+				res.json({items: (data)});
+			}, function(fail){
+				res.json({items: []});
+			});
 	}else{
 		res.send([]);
 	}
 });
 
 
-router.put('/lineItem/:id/:number', function(req, res, next){
+router.put('/lineItem/:id/', function(req, res, next){
 	console.log("Modifying line item.");
 	var lineItemId = req.params.id;
-	var lineItemNumber = req.params.number;
+	var lineItemNumber = req.body.number;
 	var cartId = req.session.cart || req.user.cart;
 	if(cartId){
 		if(lineItemNumber === 0){

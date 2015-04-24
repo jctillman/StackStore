@@ -83,17 +83,16 @@ var encryptPassword = function (plainText, salt) {
 };
 
 userSchema.pre('save', function (next) {
+
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-    //if (this.email === "heywasup@gmail.com"){ next(new Error("sdas"));}
 
     if (isEmptyOfId(this.google)  && isEmptyOfId(this.facebook) && !this.password){
         var error = new Error("Password required.");
         next(error);
     }
-
 
     next();
 
