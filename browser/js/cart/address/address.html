@@ -1,7 +1,7 @@
 <h1>ADDRESS</h1>
 
 <div ng-repeat="address in addresses">
-	<address-display address="address"></address-display>
+	<address-display address="address" myclick="pushAddr"></address-display>
 </div>
 
 {{form.$valid}}
@@ -17,8 +17,8 @@
 </form>
 	
 
-<a ui-sref = "cart.editing">Previous</a>
-|
+<a ui-sref = "cart.editing">Previous | </a>
+
 <a ng-click="addAddressSingle()">Add Address to Order</a>
-|
-<a ng-click="addAddressDual()">Add Address to Order and to User Account</a>
+
+<a ng-click="addAddressDual()" ng-show="hasUser"> | Add Address to Order and to User Account</a>

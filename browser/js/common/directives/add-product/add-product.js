@@ -10,7 +10,7 @@ app.directive('addProduct', function ($rootScope, $http) {
             var rs = $rootScope;
 
          	element.on('click',function(){
-         		var url = 'api/order/addproduct/'+scope.product._id; 
+         		var url = 'api/cart/addproduct/'+scope.product._id; 
          		$http.post(url)
          			.success(function(data, status, headers, config){
          				rs.$emit('addedItem');

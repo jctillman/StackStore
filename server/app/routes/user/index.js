@@ -10,16 +10,17 @@ require('../../../../server/db/models/category');
 var User = mongoose.model('User');
 var Category = mongoose.model('Category');
 
-router.use(function(req, res, next){
-	if(auth.isUser(req)){
+router.use('/:userId', function(req, res, next){
+	if(auth.isAdmin(req) || (auth.isUser(req) && req.user.id == req.params.userId)){
 		next();
 	}else{
 		next(new Error("No user found."));
 	}
 });
 
-
+//This is a security hole which needs to be fixed.
 router.get('/:userId', function(req, res, next){
+
 	User
 		.findById(req.params.userId)
 		.populate("orders address cart reviews paymentMethods")
@@ -32,6 +33,7 @@ router.get('/:userId', function(req, res, next){
 					next(fail);
 				}
 			);
+
 });
 
 router.put('/:userId', function(req, res, next){

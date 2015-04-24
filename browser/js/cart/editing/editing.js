@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 app.controller('EditingController', function ($scope, $http, $rootScope) {
 
 	var getItems = function(){
-		$http.get('/api/order/lineItems')
+		$http.get('/api/cart/lineItems')
 			.success(function(data){
 				console.log(data);
 				$scope.items = data.items.lineItems;
@@ -24,7 +24,7 @@ app.controller('EditingController', function ($scope, $http, $rootScope) {
 	getItems();
 
 	$scope.modLine = function(lineItemId, num){
-		$http.put('/api/order/lineItem/'+lineItemId, {number: num})
+		$http.put('/api/cart/lineItem/'+lineItemId, {number: num})
 			.success(function(data){
 				console.log(data);
 				getItems();

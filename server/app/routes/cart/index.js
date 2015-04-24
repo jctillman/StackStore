@@ -16,7 +16,6 @@ var PaymentMethod = mongoose.model('PaymentMethod');
 var Order = mongoose.model('Order');
 var LineItem = mongoose.model('LineItem');
 
-
 // d) Checkout stuff.
 // 1. Adding an item to one's cart, whether one is logged in or not.--DONE
 // 2. Viewing stuff in one's cart.--DONE
@@ -25,7 +24,7 @@ var LineItem = mongoose.model('LineItem');
 // 5. Confirming all of the above, and paying for all of the above.--undone
 
 
-router.post('/cart/addproduct/:id', function(req, res, next){
+router.post('/addproduct/:id', function(req, res, next){
 
 	var productId = req.params.id;
 
@@ -104,7 +103,7 @@ router.post('/cart/addproduct/:id', function(req, res, next){
 
 
 
-router.get('/cart/cartcount', function(req, res, next){
+router.get('/cartcount', function(req, res, next){
 	console.log("Hit cart count.");
 	var cartId = req.session.cart || req.user.cart;
 	console.log(cartId);
@@ -122,7 +121,7 @@ router.get('/cart/cartcount', function(req, res, next){
 });
 
 
-router.get('/cart/lineItems', function(req, res, next){
+router.get('/lineItems', function(req, res, next){
 	console.log("Getting line items.");
 	var cartId = req.session.cart || req.user.cart;
 	if(cartId){
@@ -139,7 +138,7 @@ router.get('/cart/lineItems', function(req, res, next){
 });
 
 
-router.put('/cart/lineItem/:id/', function(req, res, next){
+router.put('/lineItem/:id/', function(req, res, next){
 	console.log("Modifying line item.");
 	var lineItemId = req.params.id;
 	var lineItemNumber = req.body.number;
@@ -172,81 +171,33 @@ router.put('/cart/lineItem/:id/', function(req, res, next){
 	}
 });
 
-router.get('/cart/currentorder', function(req, res, next){
-	console.log("Hit");
+router.get('/currentstatus', function(req, res, next){
 	if (req.session.cart){
-		res.send(req.session.cart)
+		console.log(req.session.user);
+		var userId = (req.session && req.user) ? req.user.id : null;
+		res.send({cart: req.session.cart, user: userId});
 	}else{
 		res.send(500)
 	}
 });
 
-
-
-
-
-router.use(function(req, res, next){
-	if(Auth.isAdmin(req)) next();
-	else res.status(401);
-});
-
-
-//Get all orders
-router.get('/', function(req, res, next){
-	Order.find({}, function(err, orders){
-		if(err) return next(err);
-		res.json(orders);
-	});
-});
-
-
-
-
-//Get order info
-router.get('/:orderId', function(req, res, next){
-	var populateQuery = [
-	{path: 'user'}, 
-	{path: 'lineItems'}, 
-	{path: 'paymentMethod'},
-	{path: 'shippingAddress'}
-	];
-
-	Order.findOne({_id: req.params.orderId})
-			 .populate(populateQuery)
-			 .exec(function(err, order){
-			 		if(err) return next(err);
-			 		res.json(order);
-			 });
-});
-
-
-
 //Update existing order
-router.put('/:orderId', function(req, res, next){
-	Order.findByIdAndUpdate(req.params.orderId, req.body, function(err, foundOrder){
+router.put('/', function(req, res, next){
+	Order.findByIdAndUpdate(req.session.cart, req.body, function(err, foundOrder){
 		if(err) return next(err);
 		res.json(foundOrder);
 	});
 });
 
-//Delete a order
-router.delete('/:orderId', function(req, res, next){
-	Order.findByIdAndRemove(req.params.orderId, function(err, deletedOrder){
+router.get('/', function(req, res, next){
+	Order.findById(req.session.cart, function(err, foundOrder){
 		if(err) return next(err);
-		res.json(deletedOrder);
+		res.json(foundOrder);
 	});
 });
-
-//Create a new order
-router.post('/newOrder', function(req, res, next){
-	Order.create(req.body).then(function(order){
-		res.json(order);
-	}, function(err){
-		return next(err);
-	});
-});
-
 
 
 
 module.exports = router;
+
+
