@@ -1,0 +1,47 @@
+<h1>editing</h1>
+
+<pre>{{product}}</pre>
+
+
+<form id="edit-form" name="editForm" ng-submit="editForm.$valid" >
+
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" ng-model="product.title" class="form-control" placeholder="title">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" ng-model="product.description" class="form-control" placeholder="description">
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" ng-model="product.price" class="form-control" placeholder="price">
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select>
+					  <option ng-repeat='category in product.categories' ng-model='product.categories[$index]'>{{category}}</option>
+				</select>
+    </div>
+    <div class="form-group">
+        <label for="photoUrls">PhotoUrls</label>
+         <select>
+				    <option ng-repeat='photoUrl in product.photoUrls' ng-model='product.photoUrls[$index]'>{{photoUrl}}</option>
+				</select>
+    </div>
+    <div class="form-group">
+        <label for="splashPhoto">SplashPhoto</label>
+        <input type="number" ng-model="product.splashPhoto" class="form-control" placeholder="0">
+    </div>
+    <div class="form-group">
+        <label for="reviews">Reviews</label>
+        <input type="text" ng-model="product.reviews[0]" class="form-control" placeholder="review">
+    </div>
+    <div class="form-group">
+        <label for="promo">Promo</label>
+        <input type="text" ng-model="product.promo" class="form-control" placeholder="promo">
+    </div>
+
+
+<button ui-sref='admin.adminInventory'>Return to inventory</button>
