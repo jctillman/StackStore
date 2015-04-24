@@ -1,6 +1,5 @@
 'use strict';
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema.Types;
 
 var addressSchema = new mongoose.Schema({
     line1: {type: String, required: true},
@@ -11,5 +10,4 @@ var addressSchema = new mongoose.Schema({
     zip: {type: String, required: true}
 });
 
-
-mongoose.model('Address', addressSchema);
+module.exports = addressSchema;

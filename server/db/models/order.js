@@ -1,6 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
+var addressSchema = require('./address');
 var deepPop = require('mongoose-deep-populate');
 
 var orderSchema = new mongoose.Schema({
@@ -8,7 +9,16 @@ var orderSchema = new mongoose.Schema({
     session: {type: String},
     lineItems: [{type: Schema.ObjectId, ref: 'LineItem'}],
     paymentMethod: {type: Schema.ObjectId, ref: 'PaymentMethod'},
-    shippingAddress: {type: Schema.ObjectId, ref: 'Address'},
+    //Can't embedd non-arrayed schemas.  This needs to match what is in 
+    //address.js
+    address: {
+        line1: {type: String, required: true},
+        line2: String,
+        state: {type: String},
+        city: {type: String, required: true},
+        country: {type: String, required: true},
+        zip: {type: String, required: true}
+    },
     dateOrdered: {type: Date},
     dateShipped: {type: Date},
     dateClosed: {type: Date},
@@ -17,19 +27,6 @@ var orderSchema = new mongoose.Schema({
 });
 orderSchema.plugin(deepPop, {});
 
-//TODO: Add testing
-// orderSchema.method('addProduct', function(productId){
-//     var orderId = this.id;
-//     LineItem.create({product: productId}, function(err, data){
-//         this.model('Order').update(
-//             {_id: OrderId},
-//             {$push: {lineItems: data.id}},
-//             function(err, data){
-
-//             }
-//         );
-//     });
-// });
 
 
 mongoose.model('Order', orderSchema);

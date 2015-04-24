@@ -2,7 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
-
+var addressSchema = require('./address');
 
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -52,7 +52,7 @@ var userSchema = new mongoose.Schema({
 
     cart: {type: Schema.ObjectId, ref: 'Order'},
 
-    addresses: [{type: Schema.ObjectId, ref: 'Address'}],
+    addresses: [addressSchema],
 
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
 

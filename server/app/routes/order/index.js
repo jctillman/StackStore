@@ -6,14 +6,12 @@ var Auth = require('../../configure/authCheck');
 
 require('../../../../server/db/models/product');
 require('../../../../server/db/models/user');
-require('../../../../server/db/models/address');
 require('../../../../server/db/models/payment-method');
 require('../../../../server/db/models/order');
 require('../../../../server/db/models/line-item');
 
 var Product = mongoose.model('Product');
 var User = mongoose.model('User');
-var Address = mongoose.model('Address');
 var PaymentMethod = mongoose.model('PaymentMethod');
 var Order = mongoose.model('Order');
 var LineItem = mongoose.model('LineItem');
@@ -175,43 +173,6 @@ router.put('/lineItem/:id/', function(req, res, next){
 });
 
 
-
-
-router.post('/shippinginfo', function(req, res, next){
-
-	//Send with a req.body of
-	//{ useExisting: Bool, [id: string,]  [shipping: yeah]  }
-
-	var useExisting = req.body.useExisting;
-
-	if (useExisting){
-		console.log("Use existing");
-		Order.update(
-			{_id: req.session.cart},
-			{shippingAddress: req.body.id},
-			function(err, num){
-				if(err){next(err);}
-				if(num > 1){next(new Error("Updated two carts at once; fatal error."));}
-				res.send("Updated");
-			}
-			);
-	}else{
-		console.log("Create new");
-		Address.create(req.body.shipping, function(err, address){
-			if(err){next(err);}
-			console.log("Id of new address:", address.id);
-			Order.update(
-			{_id: req.session.cart},
-			{shippingAddress: address.id},
-			function(err, num){
-				if(err){next(err);}
-				if(num !== 1){next(new Error("Updated two carts at once; fatal error."));}
-				res.send("Updated");
-			}
-			);
-		});
-	}	
-});
 
 router.use(function(req, res, next){
 	if(Auth.isAdmin(req)) next();

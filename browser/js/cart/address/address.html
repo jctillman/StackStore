@@ -1,3 +1,24 @@
 <h1>ADDRESS</h1>
+
+<div ng-repeat="address in addresses">
+	<address-display address="address"></address-display>
+</div>
+
+{{form.$valid}}
+
+
+<form name="form">
+	<label>Line 1</label><input ng-model="content.line1" required ng-minlength=5 type="text" name="line1"></input><br>
+	<label>Line 2</label><input ng-model="content.line2" type="text" name="line2"></input><br>
+	<label>State</label><input ng-model="content.state" required type="text" name="state"></input><br>
+	<label>City</label><input ng-model="content.city" ng-minlength=2 required type="text" name="city"></input><br>
+	<label>Country</label><input ng-model="content.country" ng-minlength=2 required type="text" name="country"></input><br>
+	<label>Zip</label><input ng-model="content.zip" type="text" name="zip"></input><br>
+</form>
+	
+
 <a ui-sref = "cart.editing">Previous</a>
-<a ui-sref = "cart.payment">Next</a>
+|
+<a ng-click="addAddressSingle()">Add Address to Order</a>
+|
+<a ng-click="addAddressDual()">Add Address to Order and to User Account</a>

@@ -4,12 +4,10 @@ var auth = require('../../configure/authCheck');
 
 require('../../../../server/db/models/product');
 require('../../../../server/db/models/category');
-require('../../../../server/db/models/address');
 
 
 
 var User = mongoose.model('User');
-var Address = mongoose.model('Address');
 var Category = mongoose.model('Category');
 
 router.use(function(req, res, next){
@@ -24,7 +22,7 @@ router.use(function(req, res, next){
 router.get('/:userId', function(req, res, next){
 	User
 		.findById(req.params.userId)
-		.populate("orders addresses cart reviews paymentMethods")
+		.populate("orders address cart reviews paymentMethods")
 		.exec()
 		.then(
 				function(suc){
@@ -54,50 +52,6 @@ router.post('/newUser', function(req, res, next){
 	}, function(err){
 		return next(err);
 	});
-});
-
-
-router.post('/address', function(req, res, next){
-	console.log("Pushing address that doesn't exist");
-	var addressId = req.params.id;
-
-	User.update(
-		{_id: req.user.id},
-		{$push : {addresses: addressId}},
-		function(err, num){
-			if(err){next(err);}
-			if(num!==1){next(new Error());}
-			if(num===1){res.send("Deleted");}
-		}
-		);
-});
-
-router.post('/address/:id', function(req, res, next){
-	console.log("Pushing address that exists");
-	var addressId = req.params.id;
-	User.update(
-		{_id: req.user.id},
-		{$push : {addresses: addressId}},
-		function(err, num){
-			if(err){next(err);}
-			if(num!==1){next(new Error());}
-			if(num===1){res.send("Deleted");}
-		}
-		);
-});
-
-router.delete('/address/:id', function(req, res, next){
-	console.log("Deleting address");
-	var addressId = req.params.id;
-	User.update(
-		{_id: req.user.id},
-		{$pull : {addresses: [addressId]}},
-		function(err, num){
-			if(err){next(err);}
-			if(num!==1){next(new Error());}
-			if(num===1){res.send("Deleted");}
-		}
-		);
 });
 
 
