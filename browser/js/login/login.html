@@ -1,5 +1,7 @@
-<button ng-click="loginBtn()">Login</button>
-<button ng-click="signupBtn()">Sign Up </button>
+<div class="loginBtn">
+    <button class="login btn" ng-click="loginBtn()">Login</button>
+    <button class="login btn" ng-click="signupBtn()">Sign Up </button>
+</div>
 
 <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" ng-show="enterAccount">
 
