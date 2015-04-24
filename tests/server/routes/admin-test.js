@@ -7,7 +7,7 @@ require('../../../server/db/models/category');
 require('../../../server/db/models/payment-method');
 require('../../../server/db/models/order');
 require('../../../server/db/models/review');
-require('../../../server/db/models/lineItem');
+require('../../../server/db/models/line-item');
 
 var mongoose = require('mongoose'),
 		expect = require('chai').expect,

@@ -9,6 +9,7 @@ var Product = mongoose.model('Product');
 
 router.get('/', function(req, res, next){
 
+	var query;
 	var categories = req.query.categories;
 	if (categories){
 		var categoriesReady = categories
@@ -16,9 +17,9 @@ router.get('/', function(req, res, next){
 			.map(function(id){
 				return new mongoose.Types.ObjectId(id);
 			});	
-		var query = {categories: {$all: categoriesReady}};
+		query = {categories: {$all: categoriesReady}};
 	}else{
-		var query = {};
+		query = {};
 	}
 
 	Product
@@ -54,6 +55,7 @@ router.use(function(req, res, next){
 
 //Update existing product
 router.put('/:productId', function(req, res, next){
+	console.log(req.body);
 	Product.findByIdAndUpdate(req.params.productId, req.body, function(err, foundProduct){	
 		if(err) return next(err);
 		res.json(foundProduct);

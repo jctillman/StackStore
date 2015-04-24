@@ -2,19 +2,24 @@
 
 <ui-view>
 	<div>
+		
 		<ul>
-			<li ng-repeat='product in products' contentEditable='true' ng-model='product'>
-				{{product}}
+			PRODUCTS
+			<li ng-repeat='product in products' ng-model='product'>
+				{{product.title}}
 				<button ng-click='goToEdit(product)'>Edit</button>
 			</li>		
 		</ul>
 
 
 		<ul>
-			<li ng-repeat='category in categories'>{{category.type}}</li>
+			CATEGORIES
+			<li ng-repeat='category in categories'>{{category.type}}
+				<button ng-click='goToCategoryEdit(category)'>Edit</button>
+			</li>
 		</ul>
-		<button ui-sref='admin.adminInventory.edit()'>Edit</button>
 
-		<button ui-sref='admin.adminInventory.edit'>Add</button>
+		<button ng-click='goToAdd()'>Add Products</button>
+		<button ng-click='goToCategoryAdd()'>Add Categories</button>
 	</div>
 </ui-view>

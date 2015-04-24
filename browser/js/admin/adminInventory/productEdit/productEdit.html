@@ -1,38 +1,22 @@
 <h1>editing</h1>
 
 <pre>{{product}}</pre>
-
-
-<table contentEditable='true'>
-	<tr>
-		<td>{{product.title}}</td>
-	<tr>
-	<tr>
-		<td>{{product.description}}</td>
-	<tr>
-	<tr>
-		<td>{{product.price}}</td>
-	<tr>
-	<tr>
-		<td>{{product.categories}}</td>
-	<tr>
-</table>
-
+<pre>{{categoryChoice}}</pre>
 
 
 <form id="edit-form" name="editForm" ng-submit="editForm.$valid" >
 
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" ng-model="product.title" class="form-control" placeholder="product.title">
+        <input type="text" ng-model="product.title" class="form-control">
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" ng-model="product.description" class="form-control" placeholder="product.description">
+        <input type="text" ng-model="product.description" class="form-control">
     </div>
     <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" ng-model="product.price" class="form-control" placeholder="product.price">
+        <input type="number" ng-model="product.price" class="form-control">
     </div>
     <div class="form-group">
         <label for="category">Category</label>
@@ -41,9 +25,12 @@
         		<td>{{category.type}}</td>
         		<td>
         			<select>
-				          <option ng-repeat='data in category.data'>{{data}}</option>
-							</select>
+				          <option ng-repeat='info in category.info'>{{info.data}}</option>
+					</select>
         		</td>
+                <td>
+                    <button ng-click='addToCategories(category)'>Add</button>
+                </td>
       		</tr>
         </table>
 <!--         <select>
@@ -58,13 +45,10 @@
     </div>
     <div class="form-group">
         <label for="splashPhoto">SplashPhoto</label>
-        <input type="number" ng-model="product.splashPhoto" class="form-control" placeholder="product.splashPhoto">
-    </div>
-    <div class="form-group">
-        <label for="reviews">Reviews</label>
-        <input type="text" ng-model="product.reviews[0]" class="form-control" placeholder="review">
+        <input type="number" ng-model="product.splashPhoto" class="form-control">
     </div>
 
-<button>Submit changes</button>
-<button ng-click='deleteProduct(product)'>Remove item</button>
+<button ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
+<button ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>
+<button ng-show='addPage' ng-click='addNewProduct()'>Add item</button>
 <button ui-sref='admin.adminInventory'>Return to inventory</button>

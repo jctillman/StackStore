@@ -17,8 +17,8 @@ router.use(function(req, res, next){
 		next();
 	}else{
 		next(new Error("No user found."));
-	};
-})
+	}
+});
 
 
 router.get('/:userId', function(req, res, next){

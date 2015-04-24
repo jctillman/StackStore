@@ -15,7 +15,21 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 
 	$scope.goToEdit = function(product){
 		InventoryInfo.product = product;
-		$state.go('admin.adminInventory.edit');
+		$state.go('admin.adminInventory.editProd', {editState: true});
+	}
+
+	$scope.goToAdd = function(){
+		InventoryInfo.product = {
+			title: "",
+			description: "",
+			price: null,
+			categories: [],
+			photoUrls: [],
+			splashPhoto: null,
+			reviews: [],
+			promo: ''		
+		}
+		$state.go('admin.adminInventory.editProd', {editState: false})
 	}
 
 	$scope.getProducts = function(){
@@ -24,6 +38,7 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 		})
 	};
 
+
 	$scope.getCategories = function(){
 		InventoryInfo.getAllCategories().then(function(categories){
 			$scope.categories = categories;
@@ -31,11 +46,9 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 
 	};
 
-	$scope.enterEdit = function(){
-		$scope.editing = true;
-	}
+	$scope.goToCategoryEdit = function(category){
 
-	$rootScope.$on('deletedProduct', $scope.$digest);
+	};
 
 	$scope.getProducts();
 	$scope.getCategories();
@@ -66,6 +79,11 @@ app.factory('InventoryInfo', function($http){
 			splashPhoto: null,
 			reviews: [],
 			promo: ''		
+		},
+		category: {
+			type: '',
+			data: '',
+			order: null
 		}
 
 	}

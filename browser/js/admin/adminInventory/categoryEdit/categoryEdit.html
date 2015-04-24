@@ -1,0 +1,54 @@
+<h1>category editing</h1>
+
+<pre>{{product}}</pre>
+<pre>{{categoryChoice}}</pre>
+
+
+<form id="edit-form" name="editForm" ng-submit="editForm.$valid" >
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" ng-model="product.title" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" ng-model="product.description" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" ng-model="product.price" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <table>
+        	<tr ng-repeat='category in categories'> 
+        		<td>{{category.type}}</td>
+        		<td>
+        			<select>
+				          <option ng-repeat='info in category.info'>{{info.data}}</option>
+					</select>
+        		</td>
+                <td>
+                    <button ng-click='addToCategories(category)'>Add</button>
+                </td>
+      		</tr>
+        </table>
+<!--         <select>
+					  <option ng-repeat='category in categories' value='{{category}}' ng-model='product.categories'>{{category.type}}</option>
+				</select> -->
+    </div>
+    <div class="form-group">
+        <label for="photoUrls">PhotoUrls</label>
+         <select>
+				    <option ng-repeat='photoUrl in product.photoUrls' ng-model='product.photoUrls[$index]'>{{photoUrl}}</option>
+				</select>
+    </div>
+    <div class="form-group">
+        <label for="splashPhoto">SplashPhoto</label>
+        <input type="number" ng-model="product.splashPhoto" class="form-control">
+    </div>
+
+<button ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
+<button ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>
+<button ng-show='addPage' ng-click='addNewProduct()'>Add item</button>
+<button ui-sref='admin.adminInventory'>Return to inventory</button>
