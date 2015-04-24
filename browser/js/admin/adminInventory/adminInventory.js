@@ -8,11 +8,15 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminInventoryController', function ($scope, InventoryInfo, $rootScope) {
+app.controller('AdminInventoryController', function ($scope, InventoryInfo, $rootScope, $state) {
 
 	$scope.products;
 	$scope.categories;
 
+	$scope.goToEdit = function(product){
+		InventoryInfo.product = product;
+		$state.go('admin.adminInventory.edit');
+	}
 
 	$scope.getProducts = function(){
 		InventoryInfo.getAllProducts().then(function(products){
@@ -30,6 +34,8 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 	$scope.enterEdit = function(){
 		$scope.editing = true;
 	}
+
+	$rootScope.$on('deletedProduct', $scope.$digest);
 
 	$scope.getProducts();
 	$scope.getCategories();
@@ -50,6 +56,16 @@ app.factory('InventoryInfo', function($http){
 			return $http.get('/api/category/').then(function(response){
 				return response.data;
 			});
+		},
+		product: {
+			title: "",
+			description: "",
+			price: null,
+			categories: [],
+			photoUrls: [],
+			splashPhoto: null,
+			reviews: [],
+			promo: ''		
 		}
 
 	}

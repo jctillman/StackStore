@@ -3,15 +3,15 @@
 <ui-view>
 	<div>
 		<ul>
-			<li ng-repeat='product in products' contentEditable='true'>
+			<li ng-repeat='product in products' contentEditable='true' ng-model='product'>
 				{{product}}
-				<button ui-sref='admin.adminInventory.edit({product: product})'>Edit</button>
+				<button ng-click='goToEdit(product)'>Edit</button>
 			</li>		
 		</ul>
 
 
 		<ul>
-			<li ng-repeat='category in categories'>{{category}}</li>
+			<li ng-repeat='category in categories'>{{category.type}}</li>
 		</ul>
 		<button ui-sref='admin.adminInventory.edit()'>Edit</button>
 

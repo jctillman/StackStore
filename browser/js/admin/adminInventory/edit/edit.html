@@ -3,26 +3,52 @@
 <pre>{{product}}</pre>
 
 
-<form id="edit-form" name="editForm" ng-submit="editForm.$valid" >
+<table contentEditable='true'>
+	<tr>
+		<td>{{product.title}}</td>
+	<tr>
+	<tr>
+		<td>{{product.description}}</td>
+	<tr>
+	<tr>
+		<td>{{product.price}}</td>
+	<tr>
+	<tr>
+		<td>{{product.categories}}</td>
+	<tr>
+</table>
 
+
+
+<form id="edit-form" name="editForm" ng-submit="editForm.$valid" >
 
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" ng-model="product.title" class="form-control" placeholder="title">
+        <input type="text" ng-model="product.title" class="form-control" placeholder="product.title">
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" ng-model="product.description" class="form-control" placeholder="description">
+        <input type="text" ng-model="product.description" class="form-control" placeholder="product.description">
     </div>
     <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" ng-model="product.price" class="form-control" placeholder="price">
+        <input type="number" ng-model="product.price" class="form-control" placeholder="product.price">
     </div>
     <div class="form-group">
         <label for="category">Category</label>
-        <select>
-					  <option ng-repeat='category in product.categories' ng-model='product.categories[$index]'>{{category}}</option>
-				</select>
+        <table>
+        	<tr ng-repeat='category in categories'> 
+        		<td>{{category.type}}</td>
+        		<td>
+        			<select>
+				          <option ng-repeat='data in category.data'>{{data}}</option>
+							</select>
+        		</td>
+      		</tr>
+        </table>
+<!--         <select>
+					  <option ng-repeat='category in categories' value='{{category}}' ng-model='product.categories'>{{category.type}}</option>
+				</select> -->
     </div>
     <div class="form-group">
         <label for="photoUrls">PhotoUrls</label>
@@ -32,16 +58,13 @@
     </div>
     <div class="form-group">
         <label for="splashPhoto">SplashPhoto</label>
-        <input type="number" ng-model="product.splashPhoto" class="form-control" placeholder="0">
+        <input type="number" ng-model="product.splashPhoto" class="form-control" placeholder="product.splashPhoto">
     </div>
     <div class="form-group">
         <label for="reviews">Reviews</label>
         <input type="text" ng-model="product.reviews[0]" class="form-control" placeholder="review">
     </div>
-    <div class="form-group">
-        <label for="promo">Promo</label>
-        <input type="text" ng-model="product.promo" class="form-control" placeholder="promo">
-    </div>
 
-
+<button>Submit changes</button>
+<button ng-click='deleteProduct(product)'>Remove item</button>
 <button ui-sref='admin.adminInventory'>Return to inventory</button>
