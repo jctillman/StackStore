@@ -10,6 +10,6 @@ app.config(function ($stateProvider) {
 
 app.controller('PaymentController', function ($scope) {
 
-//TO ADD.   
+
 
 });

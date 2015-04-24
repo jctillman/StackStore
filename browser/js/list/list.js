@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
 app.controller('ListController', function ($scope, $http) {
 
     $scope.listLoading = true;
-    $http.get('/api/list/products')
+    $http.get('/api/product')
         .success(function(data, status, headers, config){
             $scope.products = data;
             $scope.listLoading = false;
@@ -25,7 +25,7 @@ app.controller('ListController', function ($scope, $http) {
         });
 
     $scope.typeLoading = true;
-    $http.get('/api/list/categories')
+    $http.get('/api/category')
         .success(function(data, status, headers, config){
 
             //Get a list of the types only.
@@ -62,7 +62,7 @@ app.controller('ListController', function ($scope, $http) {
                 var urlList = Object.keys($scope.filterValues).reduce(function(old, key, ind, arr){
                     return ($scope.filterValues[key]=="") ? old : old.concat($scope.filterValues[key]);
                 },[]).join(',');
-                var url = '/api/list/products?categories=' + urlList;
+                var url = '/api/product?categories=' + urlList;
                 $http.get(url)
                     .success(function(data, status, headers, config){
                         $scope.products = data;
