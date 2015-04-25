@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
 app.controller('ListController', function ($scope, $http) {
 
     $scope.listLoading = true;
-    $http.get('/api/product')
+    $http.get('/api/product?activeOnly=true')
         .success(function(data, status, headers, config){
             $scope.products = data;
             $scope.listLoading = false;
@@ -62,7 +62,7 @@ app.controller('ListController', function ($scope, $http) {
                 var urlList = Object.keys($scope.filterValues).reduce(function(old, key, ind, arr){
                     return ($scope.filterValues[key]=="") ? old : old.concat($scope.filterValues[key]);
                 },[]).join(',');
-                var url = '/api/product?categories=' + urlList;
+                var url = '/api/product?activeOnly=true&categories=' + urlList;
                 $http.get(url)
                     .success(function(data, status, headers, config){
                         $scope.products = data;
