@@ -10,7 +10,6 @@ app.config(function ($stateProvider) {
 
 app.controller('AdminProductEditController', function($scope, InventoryInfo, ProductEdit, $rootScope, $stateParams){
 
-	//ADD AN ASSOCIATED ID VALUE!!!!!!
 
 	$scope.product = InventoryInfo.product;
 	$scope.categories;
@@ -19,10 +18,8 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 	$scope.addPage;
 
 
-	console.log(typeof $stateParams.editState);
+	$scope.editingProduct = function(){
 
-	$scope.editingState = function(){
-		console.log($stateParams.editState);
 		if($stateParams.editState == "true"){
 			$scope.editPage = true;
 			$scope.addPage = false;
@@ -37,25 +34,8 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 
 	$scope.deleteProduct = function(product){
 		ProductEdit.removeProduct(product).then(function(deletedItem){
-			$rootScope.$emit('deletedProduct'); //working??
+
 		});
-	}
-
-
-	$scope.filterCategories = function(arrCategories){
-
-		var categoryTypes = arrCategories
-												.map(function(category){return {type: category.type, info: []}});
-		var matchingData = [];
-
-		categoryTypes.forEach(function(categoryType){
-			matchingData = _.where(arrCategories, { 'type': categoryType.type });
-			categoryType.info = categoryType.info.concat(matchingData);
-		});
-		console.log(categoryTypes);
-		return categoryTypes;
-
-
 	}
 
 	$scope.updateProduct = function(){
@@ -66,8 +46,6 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 
 	$scope.addToCategories = function(category){
 		$scope.categoryChoices.push(category.info[0]._id);
-		console.log($scope.categoryChoices);
-
 	}
 
 	$scope.addNewProduct = function(){
@@ -79,13 +57,13 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 
 	$scope.allCategories = function(){
 		InventoryInfo.getAllCategories().then(function(categories){
-			console.log($scope.filterCategories(categories));
-			$scope.categories = $scope.filterCategories(categories);
+			console.log(InventoryInfo.filterCategories(categories));
+			$scope.categories = InventoryInfo.filterCategories(categories);
 		})
 	}
 
 	$scope.allCategories();
-	$scope.editingState();
+	$scope.editingProduct();
 
 });
 

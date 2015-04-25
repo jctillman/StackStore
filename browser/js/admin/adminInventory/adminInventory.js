@@ -27,7 +27,6 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 			photoUrls: [],
 			splashPhoto: null,
 			reviews: [],
-			promo: ''		
 		}
 		$state.go('admin.adminInventory.editProd', {editState: false})
 	}
@@ -41,14 +40,24 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 
 	$scope.getCategories = function(){
 		InventoryInfo.getAllCategories().then(function(categories){
-			$scope.categories = categories;
+			$scope.categories = InventoryInfo.filterCategories(categories);
 		});
 
 	};
 
 	$scope.goToCategoryEdit = function(category){
-
+		InventoryInfo.category = category;
+		$state.go('admin.adminInventory.editCat', {editCatState: true});
 	};
+
+	$scope.goToCategoryAdd = function(){
+		InventoryInfo.category = {
+			type: '',
+			data: '',
+			order: null
+		}
+		$state.go('admin.adminInventory.editCat', {editCatState: false});
+	}
 
 	$scope.getProducts();
 	$scope.getCategories();
@@ -78,15 +87,27 @@ app.factory('InventoryInfo', function($http){
 			photoUrls: [],
 			splashPhoto: null,
 			reviews: [],
-			promo: ''		
 		},
 		category: {
 			type: '',
 			data: '',
 			order: null
+		},
+		filterCategories: function(arrCategories){
+			var categoryTypes = _.uniq(arrCategories
+													 .map(function(category){return {type: category.type, info: []}}), 
+													 'type');
+			
+			var matchingData = [];
+			categoryTypes.forEach(function(categoryType){
+				matchingData = _.where(arrCategories, { 'type': categoryType.type });
+				categoryType.info = categoryType.info.concat(matchingData);
+			});
+
+			return categoryTypes;
 		}
 
-	}
+	};
 
 
 });

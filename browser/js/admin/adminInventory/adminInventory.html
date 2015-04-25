@@ -11,13 +11,25 @@
 			</li>		
 		</ul>
 
+		CATEGORIES
+		<table class="table" ng-repeat='category in categories'>
+		  	<thead>
+			  	<tr>
+				  	<td>
+				  		{{category.type}}
+				  		<button ng-click='goToCategoryEdit(category)'>Edit</button>
+				  	</td>
+				  <tr>
+			  </thead>
+			  <tbody>
+				  <tr ng-repeat='info in category.info'>
+				  	<td>
+				  		{{info.data}}
+				  	</td>
+				  </tr>
+			</tbody>
+		</table>
 
-		<ul>
-			CATEGORIES
-			<li ng-repeat='category in categories'>{{category.type}}
-				<button ng-click='goToCategoryEdit(category)'>Edit</button>
-			</li>
-		</ul>
 
 		<button ng-click='goToAdd()'>Add Products</button>
 		<button ng-click='goToCategoryAdd()'>Add Categories</button>
