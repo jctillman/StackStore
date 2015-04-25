@@ -8,7 +8,7 @@ var Product = mongoose.model('Product');
 
 
 router.get('/', function(req, res, next){
-
+console.log('here we are')
 	var query;
 	var categories = req.query.categories;
 	if (categories){

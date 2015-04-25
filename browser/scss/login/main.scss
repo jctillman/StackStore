@@ -1,4 +1,51 @@
 #login-form {
-  width: 60%;
+  width: 30%;
   margin: 0 auto;
+  color: white;
+}
+
+.loginBtn{
+	margin: 0 auto;
+	width: 60%;
+	text-align: center;
+	padding: 20px;
+	color: yellow;
+}
+
+.login{
+	margin: 15px;	
+	color: white;
+}
+
+body{
+	background-color: black;
+	color: white;
+}
+
+form{
+	padding: 20px;
+	background-color: #212121 ;
+	border-radius: 7%;
+}
+
+.btn {
+	background-color: black;
+	color: yellow;
+	border-color: yellow;
+	&:hover{
+		color: white;
+		border-color: white;
+	}
+	&:active{
+		color: white;
+		border-color: white;
+	}
+	&:visited{
+		color: white;
+		border-color: white;
+	}
+	&:focus{
+		color: white;
+		border-color: white;
+	}
 }
