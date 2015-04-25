@@ -1,6 +1,7 @@
+<ui-view>
 <section id="list"> <!-- change ID -->
 
-	<div id = "categoriesFilters">
+	<div id="categoriesFilters">
 		<div ng-hide="typeLoading">
 			<div ng-repeat="categoryType in categoryTypes">
 				<label for="{{categoryType}}">{{categoryType}}</label>
@@ -14,10 +15,11 @@
 
 
     <div ng-repeat="product in products">
+    	<!-- <li ng-click="goToProductDetail(product)"> go to item</li> -->
     	<product-line product="product"></product-line>
     </div>
 
 
 </section>
 
-<ui-view></ui-view>
+</ui-view>
