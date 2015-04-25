@@ -2,11 +2,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 var deepPop = require('mongoose-deep-populate');
+var lineItemSchema = require('./line-item');
 
 var orderSchema = new mongoose.Schema({
     user: {type: Schema.ObjectId, ref: 'User'},
     session: {type: String},
-    lineItems: [{type: Schema.ObjectId, ref: 'LineItem'}],
+    lineItems: [lineItemSchema],
     paymentMethod: {
         type: String,
         stripeSingleToken: String,
@@ -27,9 +28,45 @@ var orderSchema = new mongoose.Schema({
     dateShipped: {type: Date},
     dateClosed: {type: Date},
     status: {type: String, default: "cart", required: true, enum: ['complete', 'in progress', 'cancelled', 'cart']},
-    promo: {type: Schema.ObjectId, ref: 'Promo'}
+    finalCost: Number,
+    promo: String
 });
 orderSchema.plugin(deepPop, {});
+
+orderSchema.virtual('totalPrice').get(function(){
+
+    var promoObj;
+
+    var self = this;
+    var lineItemProductIds = self.lineItems.map(function(n){return n.product;});
+
+    return mongoose
+        .model('Promo')
+        .findOne({code: this.promo})
+        .exec()
+        .then(function(promo){
+            console.log("promo object: ", promo);
+            return {promo: promo};
+        })
+        .then(function(accum){
+            return mongoose
+                .model('Product')
+                .find({_id : {$in : lineItemProductIds}})
+                .exec()
+                .then(function(products){
+                    console.log("Products attached: ", products)
+                    productsWithNumbers = products.map(function(n){n['quantity'] = self.lineItems.filter(function(li){return li.product == n._id;})[0].quantity});
+                })
+        });
+
+    //Do we have a promo?  If so, what categories does it apply to?
+
+    //Get prices for products
+
+});
+
+
+
 
 
 

@@ -9,7 +9,8 @@ var promoSchema = new mongoose.Schema({
 	amountType: { required: true, type: String, enum: ["Percentage", "Absolute"] },
 	amount: { required: true, type: Number},
 	categories: [{type: Schema.ObjectId, ref: 'Category'}],
-	description: String
+	description: String,
+	expiration: Date
 });
 
 promoSchema.pre('save', function (next) {

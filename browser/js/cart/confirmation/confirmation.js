@@ -8,8 +8,12 @@ app.config(function ($stateProvider) {
     })
 });
 
-app.controller('ConfirmationController', function ($scope) {
+app.controller('ConfirmationController', function ($scope, CartManager) {
 
+	$scope.order = {};
 
+	CartManager.getCart().then(function(cart){
+		$scope.order = cart;
+	})
 
 });
