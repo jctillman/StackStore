@@ -36,6 +36,14 @@ router.get('/:userId', function(req, res, next){
 
 });
 
+router.put('/search', function(req, res, next){
+ 	User.find(req.body).populate('orders address cart reviews paymentMethods').exec().then(function(stuff){
+ 		res.send(stuff[0]);
+ 	}).then(null, function(){
+ 		res.send(500);
+ 	});
+});
+
 router.put('/:userId', function(req, res, next){
 	User.update(
 		{_id: req.params.userId},

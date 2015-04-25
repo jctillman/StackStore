@@ -5,8 +5,6 @@ app.config(function ($stateProvider) {
             url: '/:username',
             templateUrl: 'js/user/user.html',
             controller: 'UserCtrl',
-            // The following data.authenticate is read by an event listener
-            // that controls access to this state. Refer to app.js.
             data: {
                 authenticate: true
             }
@@ -14,16 +12,38 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('UserCtrl', function($scope){
+app.controller('UserCtrl', function($scope, $stateParams, UserFactory){
+
+    $scope.userInfo = function(){
+        UserFactory.getUserInfo().then(function(data){
+            $scope.user = data;
+            console.log($scope.user);
+        });
+    };
+
+    $scope.userInfo();
+
+    console.log('SCOPE USER ', $scope.user);
 
     $scope.showOrders = false;
 
     $scope.seeOrderHistory = function(){
         $scope.showOrders = true;
-    }
+    };
 
     $scope.backToProfile = function(){
         $scope.showOrders = false;
-    }
+    };
+
+});
+
+app.factory('UserFactory', function($http, $stateParams){
+    return{
+        getUserInfo: function(){
+            return $http.get('/api/user/search/'+ $stateParams.username).then(function(response){
+                return response.data;
+            });
+        }
+    };
 
 });

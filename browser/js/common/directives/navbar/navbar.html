@@ -5,7 +5,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li ng-repeat="item in items" ng-show="AuthCheck(item)">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+                <a ui-sref-active="active" ui-sref="{{item.state}}({username:{{item.param}} })">{{ item.label }}</a>
             </li>
         </ul>
 
