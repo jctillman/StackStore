@@ -5,6 +5,8 @@ module.exports = router;
 
 router.use('/order', require('./order'));
 
+router.use('/cart', require('./cart'));
+
 router.use('/user', require('./user'));
 
 router.use('/admin', require('./admin'));

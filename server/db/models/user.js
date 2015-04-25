@@ -2,7 +2,8 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
-
+var paymentSchema = require('./payment-method');
+var addressSchema = require('./address');
 
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -52,11 +53,9 @@ var userSchema = new mongoose.Schema({
 
     cart: {type: Schema.ObjectId, ref: 'Order'},
 
-    addresses: [{type: Schema.ObjectId, ref: 'Address'}],
+    addresses: [addressSchema],
 
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
-
-    paymentMethods: [{type: Schema.ObjectId, ref: 'PaymentMethod'}],
 
     admin: {default: false, required: true, type: Boolean},
 
@@ -83,17 +82,16 @@ var encryptPassword = function (plainText, salt) {
 };
 
 userSchema.pre('save', function (next) {
+
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-    //if (this.email === "heywasup@gmail.com"){ next(new Error("sdas"));}
 
     if (isEmptyOfId(this.google)  && isEmptyOfId(this.facebook) && !this.password){
         var error = new Error("Password required.");
         next(error);
     }
-
 
     next();
 

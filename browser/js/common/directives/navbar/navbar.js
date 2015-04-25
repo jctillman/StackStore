@@ -80,7 +80,7 @@ app.factory('CartReload', function($http){
     return {
 
         getCartItems: function(){
-            return $http.get('/api/order/cartcount').then(function(response){
+            return $http.get('/api/cart/cartcount').then(function(response){
                 return response.data;
             });
         }

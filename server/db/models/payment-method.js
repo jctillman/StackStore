@@ -3,8 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 
 var paymentMethodSchema = new mongoose.Schema({
-	type: String
+	type: String,
+	stripeToken: String,
+	dateSaved: Date
 });
 
-
-mongoose.model('PaymentMethod', paymentMethodSchema);
+module.exports = paymentMethodSchema;

@@ -2,9 +2,7 @@
 
 require('../../../server/db/models/product');
 require('../../../server/db/models/user');
-require('../../../server/db/models/address');
 require('../../../server/db/models/category');
-require('../../../server/db/models/payment-method');
 require('../../../server/db/models/order');
 require('../../../server/db/models/review');
 require('../../../server/db/models/line-item');
@@ -23,9 +21,7 @@ var mongoose = require('mongoose'),
 		Product = mongoose.model('Product'),
 	  Category = mongoose.model('Category'),
 	  User = mongoose.model('User'),
-	  Address = mongoose.model('Address'),
 	  Order = mongoose.model('Order'),
-	  PaymentMethod = mongoose.model('PaymentMethod'),
 	  Review = mongoose.model('Review'),
 	  LineItem = mongoose.model('LineItem');
 

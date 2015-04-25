@@ -1,12 +1,21 @@
 'use strict';
 var chalk = require('chalk');
+var fs = require('fs')
 
 // Requires in ./db/index.js -- which returns a promise that represents
 // mongoose establishing a connection to a MongoDB database.
 var startDb = require('./db');
 
 // Create a node server instance! cOoL!
-var server = require('http').createServer();
+
+var options = {
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem')
+};
+
+var server = require('https').createServer(options);
+
+// Create a node server instance! cOoL!
 
 var createApplication = function () {
     var app = require('./app');
