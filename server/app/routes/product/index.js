@@ -8,9 +8,13 @@ var Product = mongoose.model('Product');
 
 
 router.get('/', function(req, res, next){
-console.log('here we are')
+	console.log('here we are')
+
 	var query;
 	var categories = req.query.categories;
+	var activeOnly = req.query.activeOnly;
+
+	//Handle categories.
 	if (categories){
 		var categoriesReady = categories
 			.split(',')
@@ -21,6 +25,15 @@ console.log('here we are')
 	}else{
 		query = {};
 	}
+	console.log('asdasd', activeOnly)
+	//Handle active only flag
+	if(activeOnly=='true'){
+		console.log("Asd", activeOnly);
+		query['userVisible'] = true;
+	}
+
+	console.log(query);
+
 
 	Product
 		.find(query)
