@@ -8,7 +8,6 @@ var Auth = require('../../configure/authCheck');
 require('../../../../server/db/models/product');
 require('../../../../server/db/models/user');
 require('../../../../server/db/models/category');
-require('../../../../server/db/models/payment-method');
 require('../../../../server/db/models/order');
 require('../../../../server/db/models/review');
 require('../../../../server/db/models/promo');
@@ -19,7 +18,6 @@ var Product = mongoose.model('Product');
 var Category = mongoose.model('Category');
 var User = mongoose.model('User');
 var Order = mongoose.model('Order');
-var PaymentMethod = mongoose.model('PaymentMethod');
 var Review = mongoose.model('Review');
 var Promo = mongoose.model('Promo');
 

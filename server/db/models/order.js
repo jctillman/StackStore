@@ -1,14 +1,17 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
-var addressSchema = require('./address');
 var deepPop = require('mongoose-deep-populate');
 
 var orderSchema = new mongoose.Schema({
     user: {type: Schema.ObjectId, ref: 'User'},
     session: {type: String},
     lineItems: [{type: Schema.ObjectId, ref: 'LineItem'}],
-    paymentMethod: {type: Schema.ObjectId, ref: 'PaymentMethod'},
+    paymentMethod: {
+        type: String,
+        stripeToken: String,
+        dateSaved: Date
+    },
     //Can't embedd non-arrayed schemas.  This needs to match what is in 
     //address.js
     address: {

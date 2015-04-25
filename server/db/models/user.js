@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
+var paymentSchema = require('./payment-method');
 var addressSchema = require('./address');
 
 var validateEmail = function(email) {
@@ -56,7 +57,7 @@ var userSchema = new mongoose.Schema({
 
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
 
-    paymentMethods: [{type: Schema.ObjectId, ref: 'PaymentMethod'}],
+    paymentMethods: [paymentSchema],
 
     admin: {default: false, required: true, type: Boolean},
 

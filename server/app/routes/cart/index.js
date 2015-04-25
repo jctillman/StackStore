@@ -6,13 +6,11 @@ var Auth = require('../../configure/authCheck');
 
 require('../../../../server/db/models/product');
 require('../../../../server/db/models/user');
-require('../../../../server/db/models/payment-method');
 require('../../../../server/db/models/order');
 require('../../../../server/db/models/line-item');
 
 var Product = mongoose.model('Product');
 var User = mongoose.model('User');
-var PaymentMethod = mongoose.model('PaymentMethod');
 var Order = mongoose.model('Order');
 var LineItem = mongoose.model('LineItem');
 
