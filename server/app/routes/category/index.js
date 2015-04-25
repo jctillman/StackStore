@@ -71,7 +71,8 @@ router.put('/', function(req, res, next){
 			});
 
 			q.all(tasks).then(function(){
-				res.status(200);
+				console.log('here with the status');
+				res.send(200);
 			}, function(err){
 				return next(err);
 			});
