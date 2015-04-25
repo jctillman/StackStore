@@ -55,6 +55,7 @@ router.use(function(req, res, next){
 
 //Update existing product
 router.put('/:productId', function(req, res, next){
+	console.log(req.body);
 	Product.findByIdAndUpdate(req.params.productId, req.body, function(err, foundProduct){	
 		if(err) return next(err);
 		res.json(foundProduct);
