@@ -15,6 +15,7 @@ navbar {
     color: white;
     &:hover {
       color: yellow;
+      text-decoration: none;
     }
   }
 
@@ -28,6 +29,7 @@ navbar {
     }
     &:hover {
       color: yellow;
+      background-color: #212121 ;
     }
   }
 
