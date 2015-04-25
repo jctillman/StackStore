@@ -82,4 +82,8 @@ app.controller('ListController', function ($scope, $http) {
             $scope.typeLoading = false;
         });
 
+        $scope.goToProductDetail = function(product){
+        
+        $state.go('list.productDetail', {product: product.title});
+    }
 });

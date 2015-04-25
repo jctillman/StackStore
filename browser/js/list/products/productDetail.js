@@ -12,39 +12,42 @@ app.config(function ($stateProvider) {
 app.controller('ProductDetail', function ($scope, ProductPhoto, ProductInfo, $http, $stateParams) {
 
     $scope.product = $stateParams.product;
-
-    $scope.images = function(){
-        ProductPhoto.getPhotoUrl().then(function(photo){
-            $scope.photo = photo;
-        });
-    };
-    $scope.images();
-
-    $scope.description = function(){
-       ProductInfo.getProductInfo().then(function(info){
-        $scope.info = info;
-       });
-    };
+      
 
 });
 
-app.factory('ProductPhoto', function($http){
-    return{
-        getPhotoUrl: function(){
-            return $http.get('/api/product'+ $stateParams.product).then(function(response){
-                return response.data;
-            });
-        }
-    };
-});
+// app.factory('ProductPhoto', function($http){
+//     return{
+//         getPhotoUrl: function(){
+//             return $http.get('/api/product'+ $stateParams.product).then(function(response){
+//                 return response.data;
+//             });
+//         }
+//     };
+// });
 
 app.factory('ProductInfo', function($http){
-     return{
+    return{
             getProductInfo: function(){
-                return $http.get('/api/product').then(function(response){
+                return $http.get('/api/product/').then(function(response){
                     return response.data;
                 });
+            },
+
+            product: {
+                title: "",
+                price: null,
+                categories: [],
+                photoUrls: [],
+                splashPhoto: null,
+                reviews: [],
+                promo: ''
+            },
+
+            category: {
+                type: '',
+                data: '',
+                order: null
             }
         };
 });
-

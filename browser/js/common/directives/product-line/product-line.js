@@ -5,8 +5,14 @@ app.directive('productLine', function () {
         restrict: 'E',
         scope: {product: '='},
         templateUrl: 'js/common/directives/product-line/product-line.html',
-        link: function (scope) {
+        link: function (scope, element attrs) {
             
+            var rs = $rootScope;
+
+            element.on('click', function(){
+            	var url = 'api/list/' + scope.product.title;
+            	rs.go(url);
+            })
 
 
         }
