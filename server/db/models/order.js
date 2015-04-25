@@ -15,12 +15,12 @@ var orderSchema = new mongoose.Schema({
     //Can't embedd non-arrayed schemas.  This needs to match what is in 
     //address.js
     address: {
-        line1: {type: String, required: true},
+        line1: {type: String},
         line2: String,
         state: {type: String},
-        city: {type: String, required: true},
-        country: {type: String, required: true},
-        zip: {type: String, required: true}
+        city: {type: String},
+        country: {type: String},
+        zip: {type: String}
     },
     dateOrdered: {type: Date},
     dateShipped: {type: Date},
