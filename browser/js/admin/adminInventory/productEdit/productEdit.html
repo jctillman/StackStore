@@ -19,13 +19,25 @@
         <input type="number" ng-model="product.price" class="form-control">
     </div>
     <div class="form-group">
-        <label for="category">Category</label>
+        <label for="category">Current Categories</label>
+            <table>
+                <tr ng-repeat='category in product.categories'> 
+                    <td>{{category.type}}</td>
+                    <td>{{category.data}}</td>
+                    <td>
+                        <button ng-click='removeFromCategories(category)'>Remove</button>
+                    </td>
+                </tr>
+            </table>
+          
+         {{newCategory}} 
         <table>
+            <label for="category">Add More Categories</label>  
         	<tr ng-repeat='category in categories'> 
         		<td>{{category.type}}</td>
         		<td>
-        			<select>
-				          <option ng-repeat='info in category.info'>{{info.data}}</option>
+        			<select ng-model='newCategory.id'>
+				        <option ng-repeat='info in category.info' value="{{info._id}}">{{info.data}}</option>
 					</select>
         		</td>
                 <td>
@@ -33,6 +45,7 @@
                 </td>
       		</tr>
         </table>
+    </div>
 
     <div class="form-group">
         <label for="photoUrls">PhotoUrls</label>

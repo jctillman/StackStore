@@ -16,6 +16,19 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 	$scope.categoryChoices = [];
 	$scope.editPage;
 	$scope.addPage;
+	$scope.newCategory = {
+		id: ''
+	};
+
+	console.log($scope.categoryChoices);
+	
+
+	$scope.getCategoryIds = function(arr){
+		var newArr = arr.map(function(elem){
+			return elem._id;
+		});
+		return newArr;
+	};
 
 
 	$scope.editingProduct = function(){
@@ -29,35 +42,50 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 			$scope.editPage = false;
 			$scope.addPage = true;
 		}
-
-	}
+	};
 
 	$scope.deleteProduct = function(product){
 		ProductEdit.removeProduct(product).then(function(deletedItem){
 
 		});
-	}
+	};
 
 	$scope.updateProduct = function(){
-		$scope.product.categories = $scope.categoryChoices;
+		$scope.product.categories = $scope.getCategoryIds($scope.product.categories)
+																.concat($scope.categoryChoices);
+
 		ProductEdit.updateProductById($scope.product).then(function(updatedProduct){
-		})
-	}
+		});
+	};
 
 	$scope.addToCategories = function(category){
-		$scope.categoryChoices.push(category.info[0]._id);
-	}
+		var exists = _.find($scope.product.categories, function(elem){
+				return elem.type === category.type
+		});
+
+		if(exists === undefined){
+			$scope.categoryChoices.push($scope.newCategory.id);
+		}
+		else console.log('error!!')
+		
+	};
+
+	$scope.removeFromCategories = function(category){
+		$scope.product.categories = _.remove($scope.product.categories, function(elem){
+			return elem.type !== category.type;
+		});
+		console.log($scope.categories);
+	};
 
 	$scope.addNewProduct = function(){
 		$scope.product.categories = $scope.categoryChoices;
 		ProductEdit.addProduct($scope.product).then(function(product){
 			console.log(product);
 		});
-	}
+	};
 
 	$scope.allCategories = function(){
 		InventoryInfo.getAllCategories().then(function(categories){
-			console.log(InventoryInfo.filterCategories(categories));
 			$scope.categories = InventoryInfo.filterCategories(categories);
 		})
 	}
