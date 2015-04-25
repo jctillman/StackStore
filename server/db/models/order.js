@@ -9,7 +9,8 @@ var orderSchema = new mongoose.Schema({
     lineItems: [{type: Schema.ObjectId, ref: 'LineItem'}],
     paymentMethod: {
         type: String,
-        stripeToken: String,
+        stripeSingleToken: String,
+        stripeCustomerToken: String,
         dateSaved: Date
     },
     //Can't embedd non-arrayed schemas.  This needs to match what is in 

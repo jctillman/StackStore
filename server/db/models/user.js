@@ -57,8 +57,6 @@ var userSchema = new mongoose.Schema({
 
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
 
-    paymentMethods: [paymentSchema],
-
     admin: {default: false, required: true, type: Boolean},
 
     

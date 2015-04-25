@@ -86,6 +86,7 @@ router.post('/addproduct/:id', function(req, res, next){
 		if(!(req.session.cart)){
 			console.log("Have no cart");
 			Order.create({}, function(err, data){
+				console.log(err);
 				console.log("Order created.");
 				req.session.cart = data.id;
 				productAdd(productId, data.id);

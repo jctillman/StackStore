@@ -1,29 +1,19 @@
 <h1>PAYMENT</h1>
 
 
-<script src="https://checkout.stripe.com/checkout.js"></script>
-<button id="customButton">Add Payment Method</button>
-<script>
-  var handler = StripeCheckout.configure({
-    key: 'pk_test_tFMZB5jzCey8CpPm3ZnMmpFm',
-    image: '/img/documentation/checkout/marketplace.png',
-    token: function(token) {
-      //Upload token.id
-    }
-  });
 
-  $('#customButton').on('click', function(e) {
-    handler.open({
-      name: 'Stripe.com',
-      description: '2 widgets',
-      amount: 2000
-    });
-    e.preventDefault();
-  });
+{{card}}
 
-</script>
+<div>
+    <input ng-model="card.number" placeholder="Card Number" />
+    <input ng-model="card.cvc" placeholder="CVC" />
+    <input ng-model="card.exp_month" placeholder="Expiration Month" />
+    <input ng-model="card.exp_year" placeholder="Expiration Year" />
+    <button ng-click="submit()">Submit</button>
+</div>
 
 
 <a ui-sref = "cart.address">Previous</a>
 <a ui-sref = "cart.promos">Next</a>
+
 
