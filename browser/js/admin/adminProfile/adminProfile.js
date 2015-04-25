@@ -30,7 +30,27 @@ app.factory('UserInfo', function($http){
 			return $http.get('/api/user/').then(function(response){
 				return response.data;
 			})
-		}
+		},
+		createNewUser: function(newUser){
+      return $http.post('/api/user/newUser', newUser).then(function(response){
+          return response.data;
+      });
+	  },
+	  user: {
+	  	email: '',
+	  	password: '',
+	  	name: {
+	  		first: '',
+	  		middle: '',
+	  		last: ''
+	  	},
+	  	orders: [],
+	  	cart: '',
+	  	addresses: [],
+	  	reviews: [],
+	  	admin: false
+	  }
+
 	}
 
 });

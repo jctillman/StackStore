@@ -11,8 +11,8 @@ app.config(function ($stateProvider) {
 app.controller('AdminOrderController', function ($scope, OrderInfo) {
 
 		$scope.orders = '';
-
-	
+		$scope.statuses = ['all', 'complete', 'in progress', 'cancelled', 'cart'];
+		$scope.chosenStatus = 'all';
 
 		$scope.allOrders = function(){
 			OrderInfo.getAllOrders().then(function(orders){
@@ -20,8 +20,12 @@ app.controller('AdminOrderController', function ($scope, OrderInfo) {
 			})
 		}
 
-			$scope.allOrders();
-    // ADD
+		$scope.changeStatus = function(status){
+			$scope.chosenStatus = status;
+		}
+
+		$scope.allOrders();
+
 
 });
 
@@ -33,8 +37,18 @@ app.factory('OrderInfo', function($http){
 			return $http.get('/api/order/').then(function(response){
 				return response.data;
 			})
+		},
+		order: {
+
 		}
 
 	}
 
 });
+
+app.filter('byStatus', function(){
+	return function(orders, status){
+		if(status === 'all') return orders;
+		else return _.where(orders, {status: status});
+	}
+})

@@ -10,6 +10,15 @@ require('../../../../server/db/models/category');
 var User = mongoose.model('User');
 var Category = mongoose.model('Category');
 
+//should check if the user already has email registered?
+router.post('/newUser', function(req, res, next){
+		User.create(req.body).then(function(user){
+			res.json(user);
+		}, function(err){
+			return next(err);
+		});	
+});
+
 router.use('/:userId', function(req, res, next){
 	if(auth.isAdmin(req) || (auth.isUser(req) && req.user.id == req.params.userId)){
 		next();
@@ -48,13 +57,6 @@ router.put('/:userId', function(req, res, next){
 		);
 });
 
-router.post('/newUser', function(req, res, next){
-	User.create(req.body).then(function(user){
-		res.json(user);
-	}, function(err){
-		return next(err);
-	});
-});
 
 
 router.use(function(req, res, next){
@@ -64,10 +66,20 @@ router.use(function(req, res, next){
 
 
 router.get('/', function(req, res, next){
-	User.find({}, function(err, users){
-		if(err) return next(err);
-		res.json(users);
-	});
+	User.find()
+			.populate('orders cart reviews')
+			.exec()
+			.then(function(suc){
+					res.send(suc);
+				},function(fail){
+					next(fail);
+				}
+			);
+
+	// User.find({}, function(err, users){
+	// 	if(err) return next(err);
+	// 	res.json(users);
+	// });
 });
 
 

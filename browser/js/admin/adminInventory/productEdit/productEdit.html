@@ -19,18 +19,20 @@
         <input type="number" ng-model="product.price" class="form-control">
     </div>
     <div class="form-group">
-        <label for="category">Current Categories</label>
-            <table>
-                <tr ng-repeat='category in product.categories'> 
-                    <td>{{category.type}}</td>
-                    <td>{{category.data}}</td>
-                    <td>
-                        <button ng-click='removeFromCategories(category)'>Remove</button>
-                    </td>
-                </tr>
-            </table>
+        <div ng-show='editPage'>
+            <label for="category">Current Categories</label>
+                <table>
+                    <tr ng-repeat='category in product.categories'> 
+                        <td>{{category.type}}</td>
+                        <td>{{category.data}}</td>
+                        <td>
+                            <button ng-click='removeFromCategories(category)'>Remove</button>
+                        </td>
+                    </tr>
+                </table>
+        </div>
           
-         {{newCategory}} 
+
         <table>
             <label for="category">Add More Categories</label>  
         	<tr ng-repeat='category in categories'> 
@@ -57,6 +59,12 @@
         <label for="splashPhoto">SplashPhoto</label>
         <input type="number" ng-model="product.splashPhoto" class="form-control">
     </div>
+    <div class="form-group">
+        <label>Available?</label></br>  
+        <input ng-model='product.userVisible' type="radio" name="vehicle" value="true"> Yes<br>
+        <input type="radio" ng-model='product.userVisible' name="vehicle" value="false">No
+    </div>
+
 
 <button ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
 <button ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>

@@ -10,6 +10,7 @@ app.config(function ($stateProvider) {
 
 app.controller('AdminProductEditController', function($scope, InventoryInfo, ProductEdit, $rootScope, $stateParams){
 
+	//add function for adding a photoUrl
 
 	$scope.product = InventoryInfo.product;
 	$scope.categories;
@@ -24,10 +25,9 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 	
 
 	$scope.getCategoryIds = function(arr){
-		var newArr = arr.map(function(elem){
+		return arr.map(function(elem){
 			return elem._id;
 		});
-		return newArr;
 	};
 
 
@@ -38,7 +38,6 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 			$scope.addPage = false;
 		}
 		else {
-			console.log('im false');
 			$scope.editPage = false;
 			$scope.addPage = true;
 		}
@@ -66,15 +65,14 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 		if(exists === undefined){
 			$scope.categoryChoices.push($scope.newCategory.id);
 		}
-		else console.log('error!!')
 		
+		else console.log('error!!')	//create error message to alert user	
 	};
 
 	$scope.removeFromCategories = function(category){
-		$scope.product.categories = _.remove($scope.product.categories, function(elem){
-			return elem.type !== category.type;
+		_.remove($scope.product.categories, function(elem){
+			return elem.type === category.type;
 		});
-		console.log($scope.categories);
 	};
 
 	$scope.addNewProduct = function(){
