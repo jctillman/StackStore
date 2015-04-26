@@ -1,21 +1,32 @@
-#about {
+.headerDiv {
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin: 0 auto;
+}
 
-  padding-bottom: 50px;
+.header{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
 
-  p {
-    width: 400px;
-    margin: 0 auto;
-    margin-top: 50px;
-    text-align: justify;
-    font-size: 25px;
-    font-weight: 300;
-  }
+.filter{
+	margin: 0 auto;
+	width: 80%;
+	text-align: center;
+	// padding: 15px;
+	// border-bottom: 1px solid #455a64  ; //gray-blue
+}
 
-  img {
-    display: block;
-    width: 600px;
-    margin: 0 auto;
-    margin-top: 50px;
-  }
+.center{
+	padding: 10px;
+	display: inline-block;
+}
 
+.products{
+	display: inline-block;
+	padding: 40px;
 }

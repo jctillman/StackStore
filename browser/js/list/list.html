@@ -1,9 +1,12 @@
 <ui-view>
-<section id="list"> <!-- change ID -->
-
-	<div id="categoriesFilters">
+<section id="list" class="light"> <!-- change ID -->
+	<div class="headerDiv"> 
+		<h1 class="header">Animals</h1>
+	</div>
+	<div id="categoriesFilters" class="filter">
 		<div ng-hide="typeLoading">
-			<div ng-repeat="categoryType in categoryTypes">
+			<h4 class="center"> Filter by: </h4>
+			<div class="center" ng-repeat="categoryType in categoryTypes">
 				<label for="{{categoryType}}">{{categoryType}}</label>
 				<select ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">
 					<option value=""></option>
@@ -14,10 +17,12 @@
 	</div>
 
 
-    <div ng-repeat="product in products">
+    <div class="products col-md-4" ng-repeat="product in products">
     	<!-- <li ng-click="goToProductDetail(product)"> go to item</li> -->
     	<product-line product="product"></product-line>
     </div>
+
+    
 
 
 </section>
