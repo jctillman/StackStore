@@ -49,6 +49,11 @@ app.factory('OrderInfo', function($http){
 				return response.data;
 			})
 		},
+		editOneOrder: function(order, statusChange){
+			return $http.put('/api/order/' + order._id, statusChange).then(function(response){
+				return response.data;
+			})
+		},
 		order: {
 			user: '',
 			session: '',

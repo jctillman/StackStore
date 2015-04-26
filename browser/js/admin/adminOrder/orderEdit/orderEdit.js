@@ -9,4 +9,13 @@ app.config(function ($stateProvider) {
 app.controller('AdminOrderEditController', function($scope, OrderInfo){
 	$scope.order = OrderInfo.order;
 
+	$scope.status = '';
+
+	$scope.submitOrderStat = function(order){
+		var statChange = {status: $scope.status};
+		OrderInfo.editOneOrder(order, statChange).then(function(order){
+			console.log(order);
+		});
+	};
+
 });
