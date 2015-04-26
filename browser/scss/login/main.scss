@@ -1,15 +1,10 @@
-#login-form {
-  width: 30%;
-  margin: 0 auto;
-  color: white;
-}
 
 .loginBtn{
 	margin: 0 auto;
 	width: 60%;
 	text-align: center;
 	padding: 20px;
-	color: yellow;
+	color: #ffd600; //yellow
 }
 
 .login{
@@ -28,14 +23,18 @@ body{
 
 form{
 	padding: 20px;
-	background-color: #212121 ;
-	border-radius: 7%;
+	background-color: #222C2E; //gray
+	border-radius: 2%;
+	width: 30%;
+	margin: 0 auto;
+	color: white;
+	border: 1px solid #ffd600; //yellow
 }
 
 .btn {
-	background-color: black;
-	color: yellow;
-	border-color: yellow;
+	background-color: transparent;
+	color: #ffd600; //yellow
+	border-color: #ffd600; //yellow
 	&:hover{
 		color: white;
 		border-color: white;
