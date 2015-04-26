@@ -45,16 +45,28 @@ router.get('/:userId', function(req, res, next){
 
 });
 
+//refactor with promises!
 router.put('/:userId', function(req, res, next){
-	User.update(
-		{_id: req.params.userId},
-		req.body,
-		function(err, num){
-			if(err){next(err);}
-			if(num!==1){next(new Error());}
-			if(num===1){res.send("Updated");}
-		}
-		);
+	User.findById(req.params.userId, function(err, user){
+		if(err) return next(err);
+
+		user.password = req.body.password;
+		user.admin = req.body.admin;
+		user.save(function(err){
+			if(err) return next(err);
+		});
+	});
+
+
+	// User.update(
+	// 	{_id: req.params.userId},
+	// 	req.body,
+	// 		function(err, num){
+	// 			if(err){next(err);}
+	// 			if(num!==1){next(new Error());}
+	// 			if(num===1){res.send("Updated");}
+	// 		}
+	// 	);
 });
 
 
@@ -85,6 +97,7 @@ router.get('/', function(req, res, next){
 
 //Delete a user
 router.delete('/:userId', function(req, res, next){
+
 	User.findByIdAndRemove(req.params.userId, function(err, deletedUser){
 		if(err) return next(err);
 		res.json(deletedUser);

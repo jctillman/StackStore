@@ -41,13 +41,6 @@ app.factory('UserInfo', function($http){
           return response.data;
       });
 	  },
-	  prepareForUpdate: function(arrOfRefs){
-	  	arrOfRefs.forEach(function(arr){
-	  		return arr.map(function(elem){
-	  			return elem._id;
-	  		});
-	  	});
-	  },
 	  user: {
 	  	email: '',
 	  	password: '',
@@ -61,6 +54,11 @@ app.factory('UserInfo', function($http){
 	  	addresses: [],
 	  	reviews: [],
 	  	admin: false
+	  },
+	  changeUser: function(user, userInfo){
+	  	return $http.put('/api/user/' + user._id, userInfo).then(function(response){
+	  		return response.data;
+	  	});
 	  }
 
 	}

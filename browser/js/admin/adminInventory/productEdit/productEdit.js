@@ -17,6 +17,7 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 	$scope.categoryChoices = [];
 	$scope.editPage;
 	$scope.addPage;
+	$scope.error = false;
 	$scope.newCategory = {
 		id: ''
 	};
@@ -63,10 +64,11 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 		});
 
 		if(exists === undefined){
+			if($scope.error) $scope.error = false;
 			$scope.categoryChoices.push($scope.newCategory.id);
 		}
 		
-		else console.log('error!!')	//create error message to alert user	
+		else $scope.error = true;	//create error message to alert user	
 	};
 
 	$scope.removeFromCategories = function(category){

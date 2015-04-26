@@ -34,7 +34,8 @@
           
 
         <table>
-            <label for="category">Add More Categories</label>  
+            <label for="category">Add More Categories</label> 
+            <span ng-show='error'>The product already belongs to that category!</span> 
         	<tr ng-repeat='category in categories'> 
         		<td>{{category.type}}</td>
         		<td>
