@@ -1,0 +1,260 @@
+
+<!-- <h2>{{user.name.first}} {{user.name.last}}</h2>
+
+<h3>Profile Details</h3>
+
+<label>Personal Information</label>
+	<table>
+		<tr>
+			<td>
+				Email
+			</td>
+			<td>
+				{{user.email}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Password(encrypted)
+			</td>
+			<td>
+				{{user.password}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				First Name
+			</td>
+			<td>
+				{{user.name.first}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Middle Name
+			</td>
+			<td>
+				{{user.name.middle}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Last Name
+			</td>
+			<td>
+				{{user.name.last}}
+			</td>
+		</tr>		
+</table>
+<hr>
+
+<label>Addresses</label>
+
+	<table ng-repeat='address in user.addresses'>
+		<tr>
+			<td>
+				Line 1
+			</td>
+			<td>
+				{{address.line1}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Line 2
+			</td>
+			<td>
+				{{address.line2}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				City
+			</td>
+			<td>
+				{{address.city}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				State
+			</td>
+			<td>
+				{{address.state}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Country
+			</td>
+			<td>
+				{{address.country}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Zip
+			</td>
+			<td>
+				{{address.zip}}
+			</td>
+		</tr>		
+</table>	
+<hr>
+
+<label>Orders</label>
+	<table ng-repeat='order in user.orders'>
+		<tr>
+			<td>
+				ID
+			</td>
+			<td>
+				{{order._id}}
+				<button ng-click='userOrder(order._id)'>See full details</button>
+			</td>	
+		<tr>
+	</table>
+<hr>
+
+<label>Cart</label>
+	<table>
+		<tr>
+			<td>
+				ID
+			</td>
+			<td>
+				{{user.cart._id}}
+				<button ng-click='userOrder(user.cart._id)'>See full details</button>
+			</td>
+		</tr>
+	</table>
+<hr>
+
+<label>Reviews</label>
+	<table ng-repeat='review in user.reviews'>
+		<tr>
+			<td>
+				Product
+			</td>
+			<td>
+				{{review.product}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Stars
+			</td>
+			<td>
+				{{review.stars}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Content
+			</td>
+			<td>
+				{{review.content}}
+			</td>
+		</tr>
+	</table>
+<hr>
+
+<label>Administrative Status</label>
+	<table>
+		<tr>
+			<td>
+				Admin
+			</td>
+			<td>
+				{{user.admin}}
+			</td>
+		</tr>
+	</table>
+<hr>
+
+<label>Twitter Account</label>
+<table>
+	<tr>
+		<td>
+			ID
+		</td>
+		<td>
+			{{user.twitter.id}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			username
+		</td>
+		<td>
+			{{user.twitter.username}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			token
+		</td>
+		<td>
+			{{user.twitter.token}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			token
+		</td>
+		<td>
+			{{user.twitter.tokenSecret}}
+		</td>
+	</tr>
+</table>
+<hr>
+
+<label>Facebook Account</label>
+<table>
+	<tr>
+		<td>
+			ID
+		</td>
+		<td>
+			{{user.facebook.id}}
+		</td>
+	</tr>
+</table>
+<hr>
+
+<label>Google Account</label>
+<table>
+	<tr>
+		<td>
+			ID
+		</td>
+		<td>
+			{{user.google.id}}
+		</td>
+	</tr>
+</table>
+<hr> -->
+
+<user-profile user="user"></user-profile>
+
+<button ui-sref='admin.adminProfile'>Back to all users</button>
+
+<h3>Edit User</h3>
+
+<form id="user-edit-form" name="userEditForm" ng-submit='updateUserInfo(user)'>
+  <div class="form-group">
+      <label for="password">Change password</label>
+      <input type="text" ng-model="user.password" class="form-control">
+  </div>
+  <div class="form-group">
+      <label for="admin">Admin Status</label><br>
+      <form>
+ 				<input type="radio" name='adminStatus' value='true' ng-model='user.admin'>Yes
+	      <input type="radio" name='adminStatus' value='false' ng-model='user.admin'>No
+	    </form>
+  </div>
+  <button>Submit changes</button>
+</form>
+
+
+

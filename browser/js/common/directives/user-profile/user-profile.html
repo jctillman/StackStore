@@ -1,0 +1,191 @@
+
+
+<h2>{{user.name.first}} {{user.name.last}}</h2>
+
+<h3>Profile Details</h3>
+
+<label>Personal Information</label>
+	<table>
+		<tr>
+			<td>
+				Email
+			</td>
+			<td>
+				{{user.email}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Password(encrypted)
+			</td>
+			<td>
+				{{user.password}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				First Name
+			</td>
+			<td>
+				{{user.name.first}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Middle Name
+			</td>
+			<td>
+				{{user.name.middle}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Last Name
+			</td>
+			<td>
+				{{user.name.last}}
+			</td>
+		</tr>		
+</table>
+<hr>
+
+<label>Addresses</label>
+
+	<div ng-repeat='address in user.addresses'>
+		<address-display address='address'> </address-display>
+	</div>
+
+<hr>
+
+<label>Orders</label>
+	<table ng-repeat='order in user.orders'>
+		<tr>
+			<td>
+				ID
+			</td>
+			<td>
+				{{order._id}}
+				<button ng-click='userOrder(order)'>See full details</button>
+			</td>	
+		<tr>
+	</table>
+<hr>
+
+<label>Cart</label>
+	<table>
+		<tr>
+			<td>
+				ID
+			</td>
+			<td>
+				{{user.cart._id}}
+				<button ng-click='userOrder(user.cart)'>See full details</button>
+			</td>
+		</tr>
+	</table>
+<hr>
+
+<label>Reviews</label>
+	<table ng-repeat='review in user.reviews'>
+		<tr>
+			<td>
+				Product
+			</td>
+			<td>
+				{{review.product}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Stars
+			</td>
+			<td>
+				{{review.stars}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Content
+			</td>
+			<td>
+				{{review.content}}
+			</td>
+		</tr>
+	</table>
+<hr>
+
+<label>Administrative Status</label>
+	<table>
+		<tr>
+			<td>
+				Admin
+			</td>
+			<td>
+				{{user.admin}}
+			</td>
+		</tr>
+	</table>
+<hr>
+
+<label>Twitter Account</label>
+<table>
+	<tr>
+		<td>
+			ID
+		</td>
+		<td>
+			{{user.twitter.id}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			username
+		</td>
+		<td>
+			{{user.twitter.username}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			token
+		</td>
+		<td>
+			{{user.twitter.token}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			token
+		</td>
+		<td>
+			{{user.twitter.tokenSecret}}
+		</td>
+	</tr>
+</table>
+<hr>
+
+<label>Facebook Account</label>
+<table>
+	<tr>
+		<td>
+			ID
+		</td>
+		<td>
+			{{user.facebook.id}}
+		</td>
+	</tr>
+</table>
+<hr>
+
+<label>Google Account</label>
+<table>
+	<tr>
+		<td>
+			ID
+		</td>
+		<td>
+			{{user.google.id}}
+		</td>
+	</tr>
+</table>
+<hr>

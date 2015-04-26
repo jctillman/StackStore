@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
-    console.log(UserInfo.createNewUser);
+    
 
     $scope.login = {};
     $scope.signup = {
