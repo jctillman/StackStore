@@ -8,8 +8,20 @@ app.config(function ($stateProvider) {
     })
 });
 
-app.controller('PromosController', function ($scope) {
+app.controller('PromosController', function ($scope, CartManager) {
 
+
+
+	$scope.addCode = function(){
+		CartManager
+			.setCart({promo: $scope.promo})
+			.then(function(success){
+				//something something it was set
+			})
+			.then(null, function(err){
+				//Something something error
+			})
+	}
 
 
 });

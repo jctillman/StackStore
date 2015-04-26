@@ -2,13 +2,17 @@
 
 	<div id = "categoriesFilters">
 		<div ng-hide="typeLoading">
+
 			<div ng-repeat="categoryType in categoryTypes">
+
 				<label for="{{categoryType}}">{{categoryType}}</label>
 				<select ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">
 					<option value=""></option>
 					<option ng-repeat="data in typeData[categoryType]" value="{{data._id}}">{{data.data}}</option>
 				</select>
+				
 			</div>
+
 		</div>
 	</div>
 

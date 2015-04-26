@@ -1,6 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
+require('./category');
+var Category = mongoose.model('Category');
 
 function validator (v) {return (v.length > 2 && v.length < 15);}
 
@@ -9,7 +11,8 @@ var promoSchema = new mongoose.Schema({
 	amountType: { required: true, type: String, enum: ["Percentage", "Absolute"] },
 	amount: { required: true, type: Number},
 	categories: [{type: Schema.ObjectId, ref: 'Category'}],
-	description: String
+	description: String,
+	expiration: Date
 });
 
 promoSchema.pre('save', function (next) {

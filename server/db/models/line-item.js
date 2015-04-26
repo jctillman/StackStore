@@ -8,5 +8,5 @@ var lineItemSchema = new mongoose.Schema({
     price: Number
 });
 
-
+module.exports = lineItemSchema;
 mongoose.model('LineItem', lineItemSchema);

@@ -8,32 +8,24 @@ app.config(function ($stateProvider) {
     })
 });
 
-app.controller('EditingController', function ($scope, $http, $rootScope) {
+app.controller('EditingController', function ($scope, $http, $rootScope, CartManager) {
 
-	var getItems = function(){
-		$http.get('/api/cart/lineItems')
-			.success(function(data){
-				console.log(data);
-				$scope.items = data.items.lineItems;
-				//console.log($scope.items);
-			})
-			.error(function(data){
-				//console.log(data);
-			});
+	CartManager.getCart().then(function(cart){
+		$scope.items = cart.lineItems;
+		$scope.cart = cart;
+	})
+
+	$scope.modLine = function(index, quantity){
+		if (quantity > 0){
+			$scope.cart.lineItems[index].quantity = quantity;
+		}else{
+			$scope.cart.lineItems.splice(index,1);
 		}
-	getItems();
-
-	$scope.modLine = function(lineItemId, num){
-		$http.put('/api/cart/lineItem/'+lineItemId, {number: num})
-			.success(function(data){
-				console.log(data);
-				getItems();
-				$rootScope.$emit('addedItem');
-			});
-	}
-
-	$scope.removeFrom = function(lineItemId){
-
+		console.log($scope.cart.lineItems);
+		var sender = $scope.cart.lineItems.map(function(n){console.log(n); return {quantity: n.quantity, product: n.product._id}});
+		console.log(sender);
+		CartManager.setCart({lineItems: sender});
+		$rootScope.$emit('addedItem');
 	}
 
 });
