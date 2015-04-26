@@ -26,10 +26,32 @@ router.post('/addproduct/:id', function(req, res, next){
 
 	var productId = req.params.id;
 
+	var ProductToOrder = function(productId, orderId, cb){
+	    Order.findById(orderId)
+	        .exec()
+	        .then(function(order){
+	            var index = order.lineItems.map(function(n){return n.product.toString();}).indexOf(productId);
+	            console.log("Index" + index);
+	            if (index === -1){
+	                //console.log("asda");
+	                order.lineItems.push({product: productId, quantity: 1});
+	            }else{
+	                //console.log("asaaaaaa");
+	                order.lineItems[index].quantity++;
+	            }
+	            order.save(cb);
+	        })
+	        .then(null, function(err){cb("Error", null)});
+	}
+
+
+
 	var productAdd = function(productId, cartId){
 		Product.ProductToOrder(productId, cartId, function(err, data){
-				console.log((data===1) ? 200 : 500);
-				res.sendStatus((data===1) ? 200 : 500);
+				console.log("err", err);
+				console.log("data", data);
+				console.log((err) ? 500 : 200);
+				res.sendStatus((err) ? 500 : 200);
 			});
 	};
 
@@ -105,18 +127,13 @@ router.post('/addproduct/:id', function(req, res, next){
 router.get('/cartcount', function(req, res, next){
 	console.log("Hit cart count.");
 	var cartId = req.session.cart || req.user.cart;
-	console.log(cartId);
-	if(cartId){
-		Order.findOne({_id: cartId}).exec().then(function(data){
-			console.log(data);
-			res.send({items: data.lineItems.length});
-		}, function(fail){
-			console.log("!");
-			res.send({items: 0});
-		});
-	}else{
-		res.send(0);
-	}
+	Order.findById(cartId).exec().then(function(cart){
+		console.log(cart.lineItems.length);
+		res.send({items: cart.lineItems.length});
+	}).then(null, function(){
+		console.log("500 in cartcount");
+		res.send(500);
+	});
 });
 
 
@@ -124,13 +141,9 @@ router.get('/lineItems', function(req, res, next){
 	console.log("Getting line items.");
 	var cartId = req.session.cart || req.user.cart;
 	if(cartId){
-		Order.findOne({_id: cartId}).deepPopulate('lineItems.product')
-			.exec()
-			.then(function(data){
-				res.json({items: (data)});
-			}, function(fail){
-				res.json({items: []});
-			});
+		Order.findOne({_id: cartId}).exec().then(function(order){
+			res.send(order.lineItems);
+		})
 	}else{
 		res.send([]);
 	}
@@ -182,6 +195,8 @@ router.get('/currentstatus', function(req, res, next){
 
 //Update existing order
 router.put('/', function(req, res, next){
+	var find = req.body.find;
+	var replace = req.body.replace;
 	Order.findByIdAndUpdate(req.session.cart, req.body, function(err, foundOrder){
 		if(err) return next(err);
 		res.json(foundOrder);
@@ -189,10 +204,17 @@ router.put('/', function(req, res, next){
 });
 
 router.get('/', function(req, res, next){
-	Order.findById(req.session.cart, function(err, foundOrder){
-		if(err) return next(err);
-		res.json(foundOrder);
-	});
+	Order
+		.findById(req.session.cart)
+		.populate('lineItems.product')
+		.exec()
+		.then(function(foundOrder){
+			res.json(foundOrder);
+		})
+		.then(null, function(){
+
+		});
+		
 });
 
 

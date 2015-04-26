@@ -1,14 +1,18 @@
 'use strict';
 var mongoose = require('mongoose');
-require('../../../server/db/models/category');
-require('../../../server/db/models/line-item');
-require('../../../server/db/models/order');
+// require('../../../server/db/models/category');
+// require('../../../server/db/models/line-item');
+// require('../../../server/db/models/order');
 var deepPopulate = require('mongoose-deep-populate');
 
 
-var Category = mongoose.model('Category');
-var LineItem = mongoose.model('LineItem');
+require('./promo');
+require('./order');
+
 var Order = mongoose.model('Order');
+var Category = mongoose.model('Category');
+
+
 
 var Schema = mongoose.Schema.Types;
 
@@ -30,33 +34,24 @@ var productSchema = new mongoose.Schema({
 productSchema.statics.ProductToOrder = function(productId, orderId, cb){
 
     Order.findById(orderId)
-        .populate('lineItems')
         .exec()
-        .then(function(data){
-
-            var matchingLineItems = data.lineItems.filter(function(lineItem){return lineItem.product == productId;});
-            console.log("GOt here");
-            if (matchingLineItems.length==1){
-                console.log(matchingLineItems[0]);
-                LineItem.update(
-                    {_id: matchingLineItems[0].id},
-                    {quantity: (matchingLineItems[0].quantity + 1)},
-                    {},
-                    cb
-                    );
+        .then(function(order){
+            var index = order.lineItems.map(function(n){return n.product.toString();}).indexOf(productId);
+            console.log("Index" + index);
+            if (index === -1){
+                //console.log("asda");
+                order.lineItems.push({product: productId, quantity: 1});
             }else{
-            LineItem.create({product: productId}, function(err, data){
-                Order.update(
-                        {_id: orderId},
-                        {$push : {lineItems: data.id}},
-                        {},
-                        cb
-                    ); 
-                });
+                //console.log("asaaaaaa");
+                order.lineItems[index].quantity++;
             }
-        }, null)
+            order.save(cb);
+        })
         .then(null, function(err){cb("Error", null)});
     }
+
+
+
 
 productSchema.pre('save', function (next) {
 
