@@ -1,3 +1,5 @@
 <h2>Order details</h2>
 
-<button ui-sref='admin.adminOrder'>Back to orders</button>
+{{order.user.name.first}}
+{{order.lineItems[0].product}}
+<order-detail order='order'></order-detail>

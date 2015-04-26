@@ -1,0 +1,135 @@
+
+
+<h2>Order number: {{order._id}}</h2>
+
+<h3>Details</h3>
+
+	<table>
+		<tr>
+			<td>
+				User
+			</td>
+			<td>
+				{{order.user.name.first}}
+			</td>
+		</tr>
+	</table>
+	</hr>
+
+<label>Line Items</label>
+
+	<div ng-repeat='lineItem in order.lineItems'>
+		{{lineItem}}
+		<table>
+			<tr>
+				<td>
+					Quantity
+				</td>
+				<td>
+					{{lineItem.quantity}}
+				<td>
+			</tr>
+			<tr>
+				<td>
+					Product
+				</td>
+				<td>
+					{{lineItem.product.title}}
+				<td>
+			</tr>
+			<tr>
+				<td>
+					Price
+				</td>
+				<td>
+					{{lineItem.price}}
+				<td>
+			</tr>
+		</table>
+	</div>
+	<hr>
+
+	<label>Payment Method</label>
+	<table>
+		<tr>
+			<td>
+				Type
+			</td>
+			<td>
+				{{lineItem.paymentMethod.type}}
+			</td>
+		</tr>
+	</table>
+	<hr>
+
+	<label>Shipping Address</label>
+	<address-display address='order.address'></address-display>
+	<hr>
+
+<label>Dates</label>
+	<table>
+		<tr>
+				<td>
+					Date ordered
+				</td>
+				<td>
+					{{lineItem.dateOrdered}}
+				<td>
+			</tr>
+			<tr>
+				<td>
+					Date shipped
+				</td>
+				<td>
+					{{lineItem.dateShipped}}
+				<td>
+			</tr>
+			<tr>
+				<td>
+					Date closed
+				</td>
+				<td>
+					{{lineItem.dateClosed}}
+				<td>
+			</tr>
+	</table>
+	<hr>
+	
+	<label>Status</label>
+	<table>
+		<tr>
+			<td>
+				Status
+			</td>
+			<td>
+				{{order.status}}
+			</td>
+		</tr>
+	</table>
+	<hr>
+
+	<label>Total amount</label>
+	<table>
+		<tr>
+			<td>
+				Amount
+			</td>
+			<td>
+				{{order.finalCost}}
+			</td>
+		</tr>
+	</table>
+	<hr>
+
+	<label>Promo</label>
+	<table>
+		<tr>
+			<td>
+				Code
+			</td>
+			<td>
+				{{order.promo}}
+			</td>
+		</tr>
+	</table>
+<hr>

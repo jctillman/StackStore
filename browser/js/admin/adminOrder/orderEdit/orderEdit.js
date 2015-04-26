@@ -6,6 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminOrderEditController', function($scope){
+app.controller('AdminOrderEditController', function($scope, OrderInfo){
+	$scope.order = OrderInfo.order;
 
 });

@@ -8,11 +8,16 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminOrderController', function ($scope, OrderInfo) {
+app.controller('AdminOrderController', function ($scope, OrderInfo, $state) {
 
 		$scope.orders = '';
 		$scope.statuses = ['all', 'complete', 'in progress', 'cancelled', 'cart'];
 		$scope.chosenStatus = 'all';
+
+		$scope.goToOrderDetail = function(order){
+			OrderInfo.order = order;
+			$state.go('admin.adminOrder.edit');
+		}
 
 		$scope.allOrders = function(){
 			OrderInfo.getAllOrders().then(function(orders){
@@ -35,6 +40,7 @@ app.factory('OrderInfo', function($http){
 
 		getAllOrders: function(){
 			return $http.get('/api/order/').then(function(response){
+				console.log(response.data);
 				return response.data;
 			})
 		},
@@ -44,6 +50,16 @@ app.factory('OrderInfo', function($http){
 			})
 		},
 		order: {
+			user: '',
+			session: '',
+			paymentMethod:{},
+			address: {},
+			dateOrdered: Date,
+			dateShipped: Date,
+			dateClosed: Date,
+			status: '',
+			finalCost: null,
+			promo: ''
 
 		}
 
