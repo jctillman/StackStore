@@ -27,6 +27,7 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 			photoUrls: [],
 			splashPhoto: null,
 			reviews: [],
+			userVisible: ''
 		}
 		$state.go('admin.adminInventory.editProd', {editState: false})
 	}
@@ -87,6 +88,7 @@ app.factory('InventoryInfo', function($http){
 			photoUrls: [],
 			splashPhoto: null,
 			reviews: [],
+			userVisible: ''
 		},
 		category: {
 			type: '',

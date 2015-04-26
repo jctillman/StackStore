@@ -8,15 +8,24 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
+    
 
     $scope.login = {};
+    $scope.signup = {
+        name: {
+            first: '',
+            middle: '',
+            last: '',
+        },
+        email: '',
+        password: ''
+    };
+
     $scope.error = null;
 
     $scope.enterAccount = false;
     $scope.newUser = false;
-    
-    console.log($scope.enterAccount);
 
     $scope.loginBtn = function(){
         $scope.enterAccount = true;
@@ -40,6 +49,13 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
 
     };
 
+    $scope.sendSignUp = function (signUpInfo) {
+        UserInfo.createNewUser(signUpInfo).then(function(newUser){
+            console.log(newUser);
+        });
+    };
+
 
 
 });
+

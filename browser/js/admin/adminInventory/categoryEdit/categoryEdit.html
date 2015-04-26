@@ -2,7 +2,7 @@
 
 <pre>{{category}}</pre>
 
-<form id="category-edit-form" name="categoryEditForm" ng-submit="categoryEditForm.$valid" >
+<form id="category-edit-form" name="categoryEditForm">
 
     <div class="form-group">
         <label for="type">Type</label>
@@ -21,6 +21,7 @@
         <label for="order">Order</label>
         <input type="number" ng-model="category.order" class="form-control">
     </div>
+</form>
    
 
 <button ng-show='editCategory' ng-click='updateCategory()'>Submit changes</button>

@@ -25,6 +25,7 @@ module.exports = function (app) {
     app.post('/login', function (req, res, next) {
 
         var authCb = function (err, user) {
+            console.log(user);
 
             if (err) return next(err);
 

@@ -1,4 +1,15 @@
 <h1>adminOrder</h1>
-<ul>
-	<li ng-repeat='order in orders'>{{order}}</li>
-</ul>
+<ui-view>
+
+	<div class="form-group">
+	    <label>Filter by Status</label></br> 
+	    <li ng-repeat='status in statuses' ng-click='changeStatus(status)'>
+	    	{{status}}
+	    </li>
+	</div>
+	<ul>
+		<li ng-repeat='order in orders | byStatus: chosenStatus'>{{order}}
+		<button ui-sref='admin.adminOrder.edit'>Edit</button>
+		</li>
+	</ul>
+</ui-view>
