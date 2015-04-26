@@ -1,9 +1,9 @@
 navbar {
 
   display: block;
-  background-color: #212121 ;
+  background-color: #222C2E; //gray
   margin-bottom: 0 !important;
-  border-bottom: 1px solid yellow;
+  border-bottom: 1px solid #ffd600;
 
   fullstack-logo {
     padding-top: 10px;
@@ -14,7 +14,7 @@ navbar {
   a {
     color: white;
     &:hover {
-      color: yellow;
+      color: #ffd600; //yellow
       text-decoration: none;
     }
   }
@@ -25,11 +25,15 @@ navbar {
   .nav > li > a {
     cursor: pointer;
     &.active {
-      color: yellow;
+      color: #ffd600;
     }
     &:hover {
-      color: yellow;
-      background-color: #212121 ;
+      color: #ffd600;
+      background-color: #222C2E;
+    }
+    &:focus{
+      color: #ffd600;
+      background-color: #222C2E; 
     }
   }
 
@@ -47,7 +51,7 @@ navbar {
       color: white;
     }
     a {
-      color: yellow;
+      color: #ffd600;
       cursor: pointer;
     }
   }
