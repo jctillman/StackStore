@@ -23,10 +23,20 @@ router.use(function(req, res, next){
 
 //Get all orders
 router.get('/', function(req, res, next){
-	Order.find({}, function(err, orders){
-		if(err) return next(err);
-		res.json(orders);
-	});
+	Order.find({})
+			 .populate('user lineItems.product')
+			 .exec()
+			 .then(function(orders){
+			 	console.log(orders);
+			 	res.json(orders);
+			 }, function(err){
+			 	return next(err);
+			 });
+			 
+	// Order.find({}, function(err, orders){
+	// 	if(err) return next(err);
+	// 	res.json(orders);
+	// });
 });
 
 
@@ -36,7 +46,7 @@ router.get('/', function(req, res, next){
 router.get('/:orderId', function(req, res, next){
 	var populateQuery = [
 	{path: 'user'}, 
-	{path: 'lineItems'}, 
+	{path: 'lineItems.product'}, 
 	{path: 'shippingAddress'}
 	];
 

@@ -14,7 +14,9 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('UserCtrl', function($scope, Session){
+app.controller('UserCtrl', function($scope, Session, OrderInfo){
+
+    $scope.order = OrderInfo.order;
 
     $scope.user = Session.user;
 

@@ -82,6 +82,7 @@ router.get('/', function(req, res, next){
 			.populate('orders cart reviews')
 			.exec()
 			.then(function(suc){
+				console.log(suc)
 					res.send(suc);
 				},function(fail){
 					next(fail);

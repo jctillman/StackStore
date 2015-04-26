@@ -1,7 +1,20 @@
 <div class="loginBtn">
     <button class="login btn" ng-click="loginBtn()">Login</button>
     <button class="login btn" ng-click="signupBtn()">Sign Up </button>
+    <span id="signinButton">
 </div>
+   <span
+        &output=embed
+        class="g-signin"
+        data-callback="callbackURL"
+        data-clientid="clientID"
+        data-cookiepolicy="single_host_origin"
+        data-requestvisibleactions="http://schema.org/AddAction"
+        data-scope="https://www.googleapis.com/auth/plus.login">
+      </span>
+    </span>
+
+
 
 <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" ng-show="enterAccount">
 
@@ -22,9 +35,10 @@
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
+
+
 <form id="signUp-form" name="signUpForm" ng-submit="signUpForm.$valid && sendSignUp(signup)" ng-show="newUser">
 
-    {{signup}}
 
     <div class="alert alert-danger" ng-show="error">
         <span class="glyphicon glyphicon-exclamation-sign"></span>

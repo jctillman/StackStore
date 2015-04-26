@@ -1,5 +1,7 @@
 
 
+{{user.cart}}
+
 <h2>{{user.name.first}} {{user.name.last}}</h2>
 
 <h3>Profile Details</h3>
@@ -78,6 +80,7 @@
 				ID
 			</td>
 			<td>
+				{{user.cart}}
 				{{user.cart._id}}
 				<button ng-click='userOrder(user.cart)'>See full details</button>
 			</td>
