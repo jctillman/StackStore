@@ -22,6 +22,14 @@ app.factory('CartManager', function ($http, $q) {
 				})
     	},
 
+    	getFinalCost: function(){
+    		return $http.get('/api/cart/getFinalCost').then(function(data){return data.data;});
+    	},
+
+    	finalizeOrder: function(){
+
+    	},
+
     	getCart: function(){
     		var self = this;
     		if(true){//Object.keys(self.currentCart).length == 0){

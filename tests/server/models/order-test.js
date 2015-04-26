@@ -86,8 +86,8 @@ describe('Order model', function () {
             }).then(function(data){
                 return data.totalPrice();
             }).then(function(data){
-                expect(data.totalCost).to.equal(3600);
-                expect(data.totalCostWithoutPromo).to.equal(4000);
+                expect(data.finalCost).to.equal(3600);
+                expect(data.finalCostWithoutPromo).to.equal(4000);
                 done();
             });
         });
@@ -130,8 +130,8 @@ describe('Order model', function () {
             }).then(function(data){
                 return data.totalPrice();
             }).then(function(data){
-                expect(data.totalCost).to.equal(3200);
-                expect(data.totalCostWithoutPromo).to.equal(4000);
+                expect(data.finalCost).to.equal(3200);
+                expect(data.finalCostWithoutPromo).to.equal(4000);
                 done();
             });
         });
@@ -174,9 +174,9 @@ describe('Order model', function () {
             }).then(function(data){
                 return data.totalPrice();
             }).then(function(data){
-                console.log(data);
-                expect(data.totalCost).to.equal(5400);
-                expect(data.totalCostWithoutPromo).to.equal(6000);
+                console.log("asasdaishasdoiajsd", data);
+                expect(data.finalCost).to.equal(5400);
+                expect(data.finalCostWithoutPromo).to.equal(6000);
                 done();
             });
         });

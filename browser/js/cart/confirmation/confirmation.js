@@ -12,8 +12,9 @@ app.controller('ConfirmationController', function ($scope, CartManager) {
 
 	$scope.order = {};
 
-	CartManager.getCart().then(function(cart){
-		$scope.order = cart;
-	})
+    CartManager.getFinalCost().then(function(finalCost){
+        console.log("final cost?")
+        $scope.finalCost = finalCost;
+    })
 
 });

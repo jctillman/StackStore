@@ -16,8 +16,11 @@ app.controller('PaymentController', function ($state, $scope, CartManager) {
 
 	var stripeResponseHandler = function(status, response){
 		if(status===200){
+			console.log("STATUS", status)
+			console.log("RESPONSE", response);
+			var payment = { type: "Stripe", stripeToken: response.id};
 			CartManager
-				.setCart({ paymentMethod: {type: "Stripe", stripeToken: response.id, dateSaved: Date.now()}})
+				.setCart({paymentMethod: payment})
 				.then(function(suc){
 					//let's go to the confirmation page.
 					console.log(suc);

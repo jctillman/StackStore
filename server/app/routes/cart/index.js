@@ -22,16 +22,52 @@ var LineItem = mongoose.model('LineItem');
 // 5. Confirming all of the above, and paying for all of the above.--undone
 
 
+
+
+
+router.get('/getFinalCost', function(req, res, next){
+	console.log("At get final");
+	Order
+		.findById(req.session.cart)
+		.populate('lineItems.product')
+		.exec()
+		.then(function(foundOrder){
+			console.log("asdasdasdas")
+			foundOrder.totalPrice().then(function(stuff){
+				res.json(stuff);
+			});
+		})
+		.then(null, function(){
+			res.send(500);
+		});
+});
+
+
+router.get('/purchase', function(req, res, next){
+	console.log("At purchase.");
+	Order
+		.findById(req.session.cart)
+		.exec()
+		.then(function(foundOrder){
+			foundOrder.purchase(function(err, data){
+				if(err){res.send(500)}
+				else{
+					if (req.user) { req.user.cart = null; }
+					if (req.session) { req.session.cart = null; }
+					res.send(data);
+				}	
+			});
+		});
+	});
+
 router.post('/addproduct/:id', function(req, res, next){
 
 	var productId = req.params.id;
 
 	var ProductToOrder = function(productId, orderId, cb){
-		console.log("adding to order...")
 	    Order.findById(orderId)
 	        .exec()
 	        .then(function(order){
-	        	console.log(".asdasdasd...");
 	            var index = order.lineItems.map(function(n){return n.product.toString();}).indexOf(productId);
 	            console.log("Index" + index);
 	            if (index === -1){
@@ -44,12 +80,8 @@ router.post('/addproduct/:id', function(req, res, next){
 	        .then(null, function(err){cb("Error", null)});
 	}
 
-
-
 	var productAdd = function(productId, cartId){
 		ProductToOrder(productId, cartId, function(err, data){
-				console.log("err", err);
-				console.log("data", data);
 				console.log((err) ? 500 : 200);
 				res.sendStatus((err) ? 500 : 200);
 			});
@@ -195,8 +227,9 @@ router.get('/currentstatus', function(req, res, next){
 
 //Update existing order
 router.put('/', function(req, res, next){
-	var find = req.body.find;
-	var replace = req.body.replace;
+	//var find = req.body.find;
+	//var replace = req.body.replace;
+	console.log(req.body);
 	Order.findByIdAndUpdate(req.session.cart, req.body, function(err, foundOrder){
 		if(err) return next(err);
 		res.json(foundOrder);
@@ -214,11 +247,6 @@ router.get('/', function(req, res, next){
 		.then(null, function(){
 
 		});
-		
 });
 
-
-
 module.exports = router;
-
-
