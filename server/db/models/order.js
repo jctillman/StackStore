@@ -3,11 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
 var deepPop = require('mongoose-deep-populate');
 var lineItemSchema = require('./line-item');
-
 require('./promo');
 var Promo = mongoose.model('Promo');
-
-
 
 var orderSchema = new mongoose.Schema({
     user: {type: Schema.ObjectId, ref: 'User'},
@@ -49,40 +46,53 @@ orderSchema.methods.totalPrice = function(){
     var pr = this.promo;
     //console.log("promo code in order", pr);
     var lineItemProductIds = self.lineItems.map(function(n){return n.product;});
-    console.log("LIPI", lineItemProductIds);
+    //console.log("LIPI", lineItemProductIds);
 
     return Promo
-        .find()
+        .find({code: pr})
         .exec()
         .then(function(promoFound){
-            console.log("promo object found with that code: ", promoFound);
             return {promo: promoFound};
-        })
-        .then(function(accum){
-            return accum;
         }).then(function(accum){
-            console.log("NNNNN", accum);
-
             return  mongoose.model('Product')
                 .find()
                 .exec()
                 .then(function(p){
-                    console.log("Products attached: ", p)
-                    var attached = p.map(function(n){
-                        n['quantity'] = 3;
-                        return n;
-                    });
-                    console.log("Attached", attached);
-                    return {attached: attached, promo: accum.promo}
+                    //console.log("Products attached: ", p)
+                    var ret = [];
+                    for(var x = 0; x < p.length; x++){
+                        ret.push({prod: p[x]})
+                        ret[x].quant = self.lineItems[x].quantity;
+                        //console.log("immediately afterwards", ret[x]);
+                    }
+                    //console.log("Attached", ret);
+                    return {attached: ret, promo: accum.promo[0]}
                 });
-        }).then(function(productWithNumbers){ß
-            console.log("XXXXX", productWithNumbers);
-            return productWithNumbers;
+        }).then(function(accum){
+            console.log("Accum", accum);
+            var totalCost = 0;
+            var totalCostWithoutPromo = 0;
+            for (var x = 0; x < accum.attached.length; x++){
+                var product = accum.attached[x].prod;
+                var quantity = accum.attached[x].quant;
+                var promoApplies = accum.promo.categories.some(function(category){
+                        return (product.categories.indexOf(category) !== -1)
+                    });
+                var baseAddition = product.price * quantity;
+                var totalCostWithoutPromo = totalCostWithoutPromo + baseAddition;
+                if(promoApplies){
+                    if (accum.promo.amountType == "Percentage"){
+                        totalCost = totalCost + (baseAddition - (baseAddition / 100) * accum.promo.amount);
+                    }else{
+                        totalCost = totalCost + (baseAddition - accum.promo.amount * quantity);
+                    }
+                }else{
+                    totalCost = totalCost + baseAddition;
+                }
+            }
+
+            return {totalCost: totalCost, totalCostWithoutPromo: totalCostWithoutPromo};
         });
-
-    //Do we have a promo?  If so, what categories does it apply to?
-
-    //Get prices for products
 
 };
 
