@@ -27,16 +27,16 @@ router.post('/addproduct/:id', function(req, res, next){
 	var productId = req.params.id;
 
 	var ProductToOrder = function(productId, orderId, cb){
+		console.log("adding to order...")
 	    Order.findById(orderId)
 	        .exec()
 	        .then(function(order){
+	        	console.log(".asdasdasd...");
 	            var index = order.lineItems.map(function(n){return n.product.toString();}).indexOf(productId);
 	            console.log("Index" + index);
 	            if (index === -1){
-	                //console.log("asda");
 	                order.lineItems.push({product: productId, quantity: 1});
 	            }else{
-	                //console.log("asaaaaaa");
 	                order.lineItems[index].quantity++;
 	            }
 	            order.save(cb);
@@ -47,7 +47,7 @@ router.post('/addproduct/:id', function(req, res, next){
 
 
 	var productAdd = function(productId, cartId){
-		Product.ProductToOrder(productId, cartId, function(err, data){
+		ProductToOrder(productId, cartId, function(err, data){
 				console.log("err", err);
 				console.log("data", data);
 				console.log((err) ? 500 : 200);
