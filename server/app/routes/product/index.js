@@ -49,15 +49,26 @@ router.get('/', function(req, res, next){
 		);
 });
 
+
+router.put('/search', function(req, res, next){
+ 	Product.find(req.body).populate('categories reviews').exec().then(function(stuff){
+ 		res.send(stuff[0]);
+ 	}).then(null, function(){
+ 		res.send(500);
+ 	});
+});
+
 router.get('/:productId', function(req, res, next){
 	var populateQuery = [{path: 'categories'}, {path: 'reviews'}];
 	Product.findOne({_id: req.params.productId})
 				 .populate(populateQuery)
-				 .exec(function(err, product){
+			     .exec(function(err, product){
 				 		if(err) return next(err);
 				 		res.json(product);
 				 });
 });
+
+
 
 
 router.use(function(req, res, next){

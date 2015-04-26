@@ -9,42 +9,36 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProductDetail', function ($scope, ProductPhoto, ProductInfo, $http, $stateParams) {
-
-    $scope.product = $stateParams.product;
-
-    $scope.images = function(){
-        ProductPhoto.getPhotoUrl().then(function(photo){
-            $scope.photo = photo;
+app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams) {
+     
+     $scope.productFind = function(){
+        getProduct.getProductDetail().then(function(data){
+            $scope.product = data;
         });
-    };
-    $scope.images();
+     }
 
-    $scope.description = function(){
-       ProductInfo.getProductInfo().then(function(info){
-        $scope.info = info;
-       });
-    };
+    $scope.productFind();
 
 });
 
-app.factory('ProductPhoto', function($http){
+
+app.factory('getProduct', function($http, $stateParams){
     return{
-        getPhotoUrl: function(){
-            return $http.get('/api/product'+ $stateParams.product).then(function(response){
-                return response.data;
-            });
-        }
-    };
-});
-
-app.factory('ProductInfo', function($http){
-     return{
-            getProductInfo: function(){
-                return $http.get('/api/product').then(function(response){
+        getProductInfo: function(){
+                return $http.get('/api/product/'+ $stateParams.product).then(function(response){
                     return response.data;
                 });
-            }
-        };
+            },
+        getProductDetail: function(){
+            console.log("Hey");
+            console.log('/api/product/search/'+ $stateParams.product);
+            return $http.put('/api/product/search/', {title: $stateParams.product}).then(function(response){
+                console.log("ASDASD");
+                return response.data;
+            }).then(null, function(){
+                console.log("I am erroring'");
+            });
+        },
+        
+    }
 });
-
