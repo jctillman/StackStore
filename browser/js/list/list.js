@@ -1,4 +1,3 @@
-
 app.config(function ($stateProvider) {
     $stateProvider.state('list', {
         url: '/list',
@@ -11,7 +10,7 @@ app.config(function ($stateProvider) {
 app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
 
     $scope.listLoading = true;
-    $http.get('/api/product?activeOnly=true')
+    $http.get('/api/product')
         .success(function(data, status, headers, config){
             $scope.products = data;
             $scope.listLoading = false;
@@ -58,7 +57,7 @@ app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
                 var urlList = Object.keys($scope.filterValues).reduce(function(old, key, ind, arr){
                     return ($scope.filterValues[key]=="") ? old : old.concat($scope.filterValues[key]);
                 },[]).join(',');
-                var url = '/api/product?activeOnly=true&categories=' + urlList;
+                var url = '/api/product?categories=' + urlList;
                 $http.get(url)
                     .success(function(data, status, headers, config){
                         $scope.products = data;
@@ -76,12 +75,9 @@ app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
         });
 
         $scope.goToProductDetail = function(product){
-        
-        $state.go('list.productDetail', {product: product.title});
-    }
-            // ProductInfo.product = product;
-            // $state.go('list.productDetail');
-        
+            ProductInfo.product = product;
+            $state.go('list.productDetail');
+        }
 
 });
 
@@ -104,5 +100,4 @@ app.factory('ProductInfo', function($http){
             }
 
         };
-
 });
