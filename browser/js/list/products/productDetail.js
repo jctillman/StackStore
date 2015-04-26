@@ -30,15 +30,11 @@ app.factory('getProduct', function($http, $stateParams){
                 });
             },
         getProductDetail: function(){
-            console.log("Hey");
-            console.log('/api/product/search/'+ $stateParams.product);
             return $http.put('/api/product/search/', {title: $stateParams.product}).then(function(response){
-                console.log("ASDASD");
                 return response.data;
-            }).then(null, function(){
-                console.log("I am erroring'");
+                }).then(null, function(){
             });
-        },
+        }
         
     }
 });

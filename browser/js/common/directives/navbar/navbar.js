@@ -18,11 +18,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
             $rootScope.$on('addedItem', scope.getNewItems);
             $rootScope.$emit('addedItem');
 
-            scope.items = [
-                { label: 'Products', state: 'list'},
-                { label: 'Profile', state: 'user', param: 'user.email', auth: true },
-                { label: 'Admin Only', state: 'admin', admin:true }
-            ];
+        
 
             scope.user = null;
 
@@ -68,6 +64,27 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
+
+            scope.items = [
+                { label: 'Products', state: 'list'},
+                { label: 'Profile', state: 'user', param: 'username', auth: true },
+                { label: 'Admin Only', state: 'admin', admin:true }
+            ];
+
+                 //({ username:{{item.param}} })
+            scope.hasParam = function(item, user){
+                var itemState = item.state;
+                var itemParam = item.param;
+                var itemParamName = user.email;
+                var paramAddress = (itemParam + ":" + itemParamName);
+                if(itemParam){
+                    $state.go(itemState, {itemParam: itemParamName});
+                    console.log(itemParam, itemParamName);
+                }
+                else{
+                    $state.go(itemState);
+                }
+            }
 
         }
 

@@ -5,9 +5,11 @@
         </div>
         <ul class="nav navbar-nav">
             <li ng-repeat="item in items" ng-show="AuthCheck(item)">
-                <a ui-sref-active="active" ui-sref="{{item.state}}({username:{{item.param}} })">{{ item.label }}</a>
+                <a ui-sref-active="active"  ng-click="hasParam(item, user)">{{ item.label }}</a>
             </li>
         </ul>
+        <!-- ng-click="hasParam(item, user)" -->
+        <!-- ui-sref="{{item.state}}" -->
 
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login/Sign Up</button>
 
