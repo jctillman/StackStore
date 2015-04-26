@@ -2,7 +2,7 @@
 <ui-view>
 	<ul>
 		<li ng-repeat='user in users'>{{user}}
-		<button ui-sref='admin.adminProfile.edit'>Edit</button>
+		<button ng-click='editUser(user)'>Edit</button>
 		</li>		
 	<ul>
 </ui-view>

@@ -4,7 +4,7 @@
 <pre>{{categoryChoice}}</pre>
 
 
-<form id="edit-form" name="editForm" ng-submit="editForm.$valid" >
+<form id="edit-form" name="editForm">
 
     <div class="form-group">
         <label for="title">Title</label>
@@ -64,7 +64,7 @@
         <input ng-model='product.userVisible' type="radio" name="vehicle" value="true"> Yes<br>
         <input type="radio" ng-model='product.userVisible' name="vehicle" value="false">No
     </div>
-
+</form>
 
 <button ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
 <button ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>

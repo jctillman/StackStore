@@ -38,6 +38,11 @@ app.factory('OrderInfo', function($http){
 				return response.data;
 			})
 		},
+		getOneOrder: function(orderId){
+			return $http.get('/api/order/' + orderId).then(function(response){
+				return response.data;
+			})
+		},
 		order: {
 
 		}

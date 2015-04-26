@@ -8,9 +8,14 @@ app.config(function ($stateProvider, USER_ROLES) {
     });
 });
 
-app.controller('AdminProfileController', function ($scope, UserInfo) {
+app.controller('AdminProfileController', function ($scope, UserInfo, $state) {
 
 	$scope.users = ['joe', 'smoe'];
+
+	$scope.editUser = function(user){
+		UserInfo.user = user;
+		$state.go('admin.adminProfile.edit');
+	}
 
 	$scope.allUsers = function(){
 		UserInfo.getAllUsers().then(function(users){
@@ -35,6 +40,13 @@ app.factory('UserInfo', function($http){
       return $http.post('/api/user/newUser', newUser).then(function(response){
           return response.data;
       });
+	  },
+	  prepareForUpdate: function(arrOfRefs){
+	  	arrOfRefs.forEach(function(arr){
+	  		return arr.map(function(elem){
+	  			return elem._id;
+	  		});
+	  	});
 	  },
 	  user: {
 	  	email: '',
