@@ -1,4 +1,4 @@
-app.directive('userProfile', function(OrderInfo){
+app.directive('userProfile', function(OrderInfo, $state){
 
 	return {
 		restrict: 'E',
@@ -8,9 +8,10 @@ app.directive('userProfile', function(OrderInfo){
 		templateUrl: 'js/common/directives/user-profile/user-profile.html',
 		link: function(scope, elem, attr){
 			scope.userOrder = function(order){
-				//or set OrderInfo.order to this order...
-				OrderInfo.order = order;
-				console.log(OrderInfo.order)
+				OrderInfo.getOneOrder(order).then(function(order){
+					OrderInfo.order = order;
+					$state.go('user.orderEdit');
+				})
 			}
 		}
 	};

@@ -1,3 +1,15 @@
 <h2>Order details</h2>
 
-<button ui-sref='admin.adminOrder'>Back to orders</button>
+{{order.user.name.first}}
+{{order.lineItems[0].product}}
+<order-detail order='order'></order-detail>
+
+{{status}}
+<div class="form-group">
+    <label>Change Status</label></br>  
+    <input ng-model="status" type="radio" name="stat" value="cart"> Cart<br>
+    <input ng-model="status" type="radio" name="stat" value="in process"> In Process<br>
+    <input ng-model="status" type="radio" name="stat" value="complete"> Complete<br>
+    <input ng-model="status" type="radio" name="stat" value="cancelled"> Cancelled<br>
+</div>
+<button ng-click='submitOrderStat(order)'>Submit changes</button>

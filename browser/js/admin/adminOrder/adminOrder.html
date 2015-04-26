@@ -9,7 +9,7 @@
 	</div>
 	<ul>
 		<li ng-repeat='order in orders | byStatus: chosenStatus'>{{order}}
-		<button ui-sref='admin.adminOrder.edit'>Edit</button>
+		<button ng-click='goToOrderDetail(order)'>Edit</button>
 		</li>
 	</ul>
 </ui-view>
