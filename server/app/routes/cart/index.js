@@ -26,6 +26,26 @@ router.post('/addproduct/:id', function(req, res, next){
 
 	var productId = req.params.id;
 
+	var ProductToOrder = function(productId, orderId, cb){
+	    Order.findById(orderId)
+	        .exec()
+	        .then(function(order){
+	            var index = order.lineItems.map(function(n){return n.product.toString();}).indexOf(productId);
+	            console.log("Index" + index);
+	            if (index === -1){
+	                //console.log("asda");
+	                order.lineItems.push({product: productId, quantity: 1});
+	            }else{
+	                //console.log("asaaaaaa");
+	                order.lineItems[index].quantity++;
+	            }
+	            order.save(cb);
+	        })
+	        .then(null, function(err){cb("Error", null)});
+	}
+
+
+
 	var productAdd = function(productId, cartId){
 		Product.ProductToOrder(productId, cartId, function(err, data){
 				console.log("err", err);

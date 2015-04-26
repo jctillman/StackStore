@@ -1,6 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema.Types;
+require('./category');
+var Category = mongoose.model('Category');
 
 function validator (v) {return (v.length > 2 && v.length < 15);}
 

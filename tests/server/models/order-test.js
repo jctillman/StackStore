@@ -52,34 +52,46 @@ describe('Order model', function () {
 
             var cats = [];
             var prods = [];
-            var li = []
+            var li = [];
 
             Category.create({'type':'size', 'data': 'large'}).then(function(cat1){
                 cats.push(cat1.id);
-                console.log("2nd cat");
+                //console.log("2nd cat");
                 return Category.create({'type':'size', 'data': 'medium'});
             }).then(function(cat2){
                 cats.push(cat2.id);
-                console.log("3rd cat");
+                //console.log("3rd cat");
                 return Category.create({'type':'size', 'data': 'small'});
             }).then(function(cat3){
                 cats.push(cat3.id);
-                console.log("Tiger");
+                //console.log("Tiger");
                 return Product.create({'title':'Tiger', price: 1000, 'description':"aokasdasdasd", categories: [cats[0]]});
             }).then(function(tiger){
-                cats.push(tiger.id);
-                console.log("Lion");
+                prods.push(tiger.id);
+                //console.log("Lion");
                 return Product.create({'title':'Lion', price: 1000, 'description':"aokasdasdasd", categories: [cats[0]]});
             }).then(function(lion){
-                prods.push(lion);
+                prods.push(lion.id);
                 console.log("Promo");
-                return Promo.create({ code: "TEST", amountType: "Absolute", amount: 100, categories: cats });
+                return Promo.create({ code: "TESTSE", amountType: "Absolute", amount: 100, categories: cats });
+            }).then(function(promo){
+                console.log("saved promo", promo);
+                console.log("Just to delay stuff.")
             }).then(function(){
-                LineItems.create({product: prods[0], quantity: 3});
+                console.log("Just work");
             }).then(function(){
-
-            }).then(function(){
-
+                
+                return Order.create({
+                    lineItems: [
+                            { product: prods[0], quantity: 3 },
+                            { product: prods[1], quantity: 1 }
+                        ],
+                    promo: "TESTSE"
+                });
+            }).then(function(data){
+                return data.totalPrice();
+            }).then(function(data){
+                console.log(data);
             }).then(null, function(err){
                 console.log(err);
             });

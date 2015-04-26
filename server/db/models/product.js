@@ -1,14 +1,18 @@
 'use strict';
 var mongoose = require('mongoose');
-require('../../../server/db/models/category');
-require('../../../server/db/models/line-item');
-require('../../../server/db/models/order');
+// require('../../../server/db/models/category');
+// require('../../../server/db/models/line-item');
+// require('../../../server/db/models/order');
 var deepPopulate = require('mongoose-deep-populate');
 
 
-var Category = mongoose.model('Category');
-var LineItem = mongoose.model('LineItem');
+require('./promo');
+require('./order');
+
 var Order = mongoose.model('Order');
+var Category = mongoose.model('Category');
+
+
 
 var Schema = mongoose.Schema.Types;
 
