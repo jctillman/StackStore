@@ -31,27 +31,6 @@ var productSchema = new mongoose.Schema({
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
 
-productSchema.statics.ProductToOrder = function(productId, orderId, cb){
-
-    Order.findById(orderId)
-        .exec()
-        .then(function(order){
-            var index = order.lineItems.map(function(n){return n.product.toString();}).indexOf(productId);
-            console.log("Index" + index);
-            if (index === -1){
-                //console.log("asda");
-                order.lineItems.push({product: productId, quantity: 1});
-            }else{
-                //console.log("asaaaaaa");
-                order.lineItems[index].quantity++;
-            }
-            order.save(cb);
-        })
-        .then(null, function(err){cb("Error", null)});
-    }
-
-
-
 
 productSchema.pre('save', function (next) {
 

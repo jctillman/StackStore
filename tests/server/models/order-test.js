@@ -2,6 +2,7 @@
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
+
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
@@ -48,7 +49,7 @@ describe('Order model', function () {
 
         });
 
-        it('should calculate the total value of the order on request', function(){
+        it('should calculate the total value of the order on request', function(done){
 
             var cats = [];
             var prods = [];
@@ -64,16 +65,21 @@ describe('Order model', function () {
                 return Category.create({'type':'size', 'data': 'small'});
             }).then(function(cat3){
                 cats.push(cat3.id);
-                //console.log("Tiger");
+                console.log("Tiger");
                 return Product.create({'title':'Tiger', price: 1000, 'description':"aokasdasdasd", categories: [cats[0]]});
             }).then(function(tiger){
                 prods.push(tiger.id);
-                //console.log("Lion");
+                console.log(tiger);
                 return Product.create({'title':'Lion', price: 1000, 'description':"aokasdasdasd", categories: [cats[0]]});
             }).then(function(lion){
                 prods.push(lion.id);
-                console.log("Promo");
+                console.log(lion);
                 return Promo.create({ code: "TESTSE", amountType: "Absolute", amount: 100, categories: cats });
+            }).then(function(){
+                return Product.find().exec();
+            }).then(function(products){
+
+
             }).then(function(promo){
                 console.log("saved promo", promo);
                 console.log("Just to delay stuff.")

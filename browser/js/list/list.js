@@ -1,6 +1,4 @@
 
-
-
 app.config(function ($stateProvider) {
     $stateProvider.state('list', {
         url: '/list',
@@ -10,9 +8,7 @@ app.config(function ($stateProvider) {
 });
 
 
-
-
-app.controller('ListController', function ($scope, $http) {
+app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
 
     $scope.listLoading = true;
     $http.get('/api/product?activeOnly=true')
@@ -72,9 +68,6 @@ app.controller('ListController', function ($scope, $http) {
                         $scope.listLoading = false;
                     });
             }
-
-
-
         })
         .error(function(data, status, headers, config){
             //error-handling code -- confer with confreres about this.
@@ -86,4 +79,30 @@ app.controller('ListController', function ($scope, $http) {
         
         $state.go('list.productDetail', {product: product.title});
     }
+            // ProductInfo.product = product;
+            // $state.go('list.productDetail');
+        
+
+});
+
+
+app.factory('ProductInfo', function($http){
+     return{
+            getProductInfo: function(){
+                return $http.get('/api/product/').then(function(response){
+                    return response.data;
+                });
+            },
+            product: {
+                title: "",
+                description: "",
+                price: null,
+                categories: [],
+                photoUrls: [],
+                splashPhoto: null,
+                reviews: [],
+            }
+
+        };
+
 });

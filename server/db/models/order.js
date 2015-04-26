@@ -50,7 +50,6 @@ orderSchema.methods.totalPrice = function(){
     //console.log("promo code in order", pr);
     var lineItemProductIds = self.lineItems.map(function(n){return n.product;});
     console.log("LIPI", lineItemProductIds);
-    //
 
     return Promo
         .find()
@@ -61,16 +60,19 @@ orderSchema.methods.totalPrice = function(){
         })
         .then(function(accum){
             return accum;
-        }).then(function(asd){
-            console.log("NNNNN", asd);
-            //console.log("ACCUM", accum)
+        }).then(function(accum){
+            console.log("NNNNN", accum);
 
-            return mongoose.model('Product')
+            return  mongoose.model('Product')
                 .find()
                 .exec()
-                .then(function(products){
-                    console.log("Products attached: ", products)
-                    var attached = products.map(function(n){n['quantity'] = self.lineItems.filter(function(li){return li.product == n._id;})[0].quantity});
+                .then(function(p){
+                    console.log("Products attached: ", p)
+                    var attached = p.map(function(n){
+                        n['quantity'] = 3;
+                        return n;
+                    });
+                    console.log("Attached", attached);
                     return {attached: attached, promo: accum.promo}
                 });
         }).then(function(productWithNumbers){ß
