@@ -10,12 +10,26 @@ app.config(function ($stateProvider) {
 
 app.controller('AdminProductEditController', function($scope, InventoryInfo, ProductEdit, $rootScope, $stateParams){
 
+	//add function for adding a photoUrl
 
 	$scope.product = InventoryInfo.product;
 	$scope.categories;
 	$scope.categoryChoices = [];
 	$scope.editPage;
 	$scope.addPage;
+	$scope.error = false;
+	$scope.newCategory = {
+		id: ''
+	};
+
+	console.log($scope.categoryChoices);
+	
+
+	$scope.getCategoryIds = function(arr){
+		return arr.map(function(elem){
+			return elem._id;
+		});
+	};
 
 
 	$scope.editingProduct = function(){
@@ -25,39 +39,53 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 			$scope.addPage = false;
 		}
 		else {
-			console.log('im false');
 			$scope.editPage = false;
 			$scope.addPage = true;
 		}
-
-	}
+	};
 
 	$scope.deleteProduct = function(product){
 		ProductEdit.removeProduct(product).then(function(deletedItem){
 
 		});
-	}
+	};
 
 	$scope.updateProduct = function(){
-		$scope.product.categories = $scope.categoryChoices;
+		$scope.product.categories = $scope.getCategoryIds($scope.product.categories)
+																.concat($scope.categoryChoices);
+
 		ProductEdit.updateProductById($scope.product).then(function(updatedProduct){
-		})
-	}
+		});
+	};
 
 	$scope.addToCategories = function(category){
-		$scope.categoryChoices.push(category.info[0]._id);
-	}
+		var exists = _.find($scope.product.categories, function(elem){
+				return elem.type === category.type
+		});
+
+		if(exists === undefined){
+			if($scope.error) $scope.error = false;
+			$scope.categoryChoices.push($scope.newCategory.id);
+		}
+		
+		else $scope.error = true;	//create error message to alert user	
+	};
+
+	$scope.removeFromCategories = function(category){
+		_.remove($scope.product.categories, function(elem){
+			return elem.type === category.type;
+		});
+	};
 
 	$scope.addNewProduct = function(){
 		$scope.product.categories = $scope.categoryChoices;
 		ProductEdit.addProduct($scope.product).then(function(product){
 			console.log(product);
 		});
-	}
+	};
 
 	$scope.allCategories = function(){
 		InventoryInfo.getAllCategories().then(function(categories){
-			console.log(InventoryInfo.filterCategories(categories));
 			$scope.categories = InventoryInfo.filterCategories(categories);
 		})
 	}

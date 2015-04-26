@@ -1,8 +1,9 @@
 <h1>Welcome, {{ user.name.first }}!</h1>
 
-
+<h2>My Profile</h2>
 <div ng-hide='showOrders'>
-	<div>	
+	<user-profile user='user'></user-profile>
+<!-- 	<div>	
 		<h2>My Profile</h2>
 	</div>
 
@@ -16,10 +17,10 @@
 
 	<div>
 		<h2>Payment Methods</h2>
-	</div>
-	<button ng-click="seeOrderHistory()">See order history</button>
+	</div> -->	
 </div>
 
+<button ng-click="seeOrderHistory()">See order history</button>
 
 <div ng-show='showOrders'>
 	<h2>My Order History</h2>

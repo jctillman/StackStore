@@ -1,5 +1,8 @@
 <h1>adminProfile</h1>
-
-<ul>
-	<li ng-repeat='user in users'>{{user}}</li>
-<ul>
+<ui-view>
+	<ul>
+		<li ng-repeat='user in users'>{{user}}
+		<button ng-click='editUser(user)'>Edit</button>
+		</li>		
+	<ul>
+</ui-view>

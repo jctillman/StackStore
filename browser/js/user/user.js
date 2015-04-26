@@ -14,7 +14,9 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('UserCtrl', function($scope){
+app.controller('UserCtrl', function($scope, Session){
+
+    $scope.user = Session.user;
 
     $scope.showOrders = false;
 
