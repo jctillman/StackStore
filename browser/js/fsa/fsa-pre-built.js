@@ -113,6 +113,12 @@
                 });
         };
 
+        this.googleLogin = function(googleObj){
+            return $http.get('auth/google/callback').then(function(response){
+                return response.data;
+            });
+        }
+
         this.logout = function () {
             return $http.get('/logout').then(function () {
                 Session.destroy();

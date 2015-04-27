@@ -16,6 +16,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
+var imageResize = require('gulp-image-resize');
+var parallel = require('concurrent-transform');
 
 // Development tasks
 // --------------------------------------------------------------
@@ -86,6 +88,13 @@ gulp.task('seedDB', function () {
 
 });
 
+gulp.task('imageCrop', function(){
+    return gulp.src('./browser/img/**/*.jpg')
+        .pipe(imageResize({width:100, height:100, imageMagick: true}))
+        .pipe(gulp.dest('./dist'))
+    });
+        
+
 // --------------------------------------------------------------
 
 // Production tasks
@@ -119,7 +128,7 @@ gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
         runSeq(['buildJSProduction', 'buildCSSProduction']);
     } else {
-        runSeq(['buildJS', 'buildCSS']);
+        runSeq(['buildJS', 'buildCSS', 'imageCrop']);
     }
 });
 
@@ -127,6 +136,8 @@ gulp.task('default', function () {
 
     livereload.listen();
     gulp.start('build');
+
+
 
     gulp.watch('browser/js/**', function () {
         runSeq('lintJS', 'buildJS', ['testBrowserJS', 'reload']);
