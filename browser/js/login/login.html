@@ -6,7 +6,7 @@
 
 
 
-<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" ng-show="enterAccount">
+<form class="loginForm" id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" ng-show="enterAccount">
 
     <div class="alert alert-danger" ng-show="error">
         <span class="glyphicon glyphicon-exclamation-sign"></span>
@@ -27,7 +27,7 @@
 
 
 
-<form id="signUp-form" name="signUpForm" ng-submit="signUpForm.$valid && sendSignUp(signup)" ng-show="newUser">
+<form class="loginForm" id="signUp-form" name="signUpForm" ng-submit="signUpForm.$valid && sendSignUp(signup)" ng-show="newUser">
 
 
     <div class="alert alert-danger" ng-show="error">
