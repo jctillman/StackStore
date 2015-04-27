@@ -19,7 +19,7 @@
 			
 			<h4>Reviews</h4>
 			<a ng-click="goToAddReview(product)"> Add Review </a>
-			<p>{{product.reviews}}</p>
+			<p ng-repeat="review in product.reviews">{{review.stars}}  {{review.content}}</p>
 			
 
 		</div>
