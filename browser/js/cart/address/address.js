@@ -18,7 +18,7 @@ app.controller('AddressController', function ($http, $scope, $state, CartManager
 	};
 
 	CartManager.getUser().then(function(user){
-		$scope.addresses = user.addresses;
+		$scope.addresses = user.addresses.map(function(n){return n;});
 		$scope.hasUser = true;
 	})
 
@@ -30,7 +30,7 @@ app.controller('AddressController', function ($http, $scope, $state, CartManager
 	$scope.addAddressSingle = function(){
 		if ($scope.form.$valid){
 			CartManager.setCart({address: $scope.content})
-				.then(function(success){$state.go('cart.payment');})
+				.then(function(success){console.log("Cart set..."); $state.go('cart.payment');})
 				.then(null, function(err){console.log("Some error happened somewhere");});
 			}else{
 				//something was invalid.
@@ -39,14 +39,16 @@ app.controller('AddressController', function ($http, $scope, $state, CartManager
 
 	$scope.addAddressDual = function(){
 		if ($scope.form.$valid){
-			$http.put('/api/cart', {address: $scope.content})
+			CartManager.setCart({address: $scope.content})
 				.then(function(currentStatus){
+					console.log("Cart set...")
 					return CartManager.setUser({$push : {addresses: $scope.content}});
 				})
 				.then(function(success){
 					$state.go('cart.payment');
 				})
 				.then(null, function(err){
+					console.log(err);
 					console.log("Some error happened somewhere");
 				});
 		}else{

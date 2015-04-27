@@ -60,8 +60,9 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
 
     $scope.sendSignUp = function (signUpInfo) {
         UserInfo.createNewUser(signUpInfo).then(function(newUser){
-            console.log(newUser);
-            $state.go('home');
+             AuthService.login(signUpInfo).then(function(){
+                 $state.go('home');
+             })    
         });
     };
 

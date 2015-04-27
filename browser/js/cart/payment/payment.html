@@ -1,19 +1,18 @@
-<h1>PAYMENT</h1>
+<div class="cartSectionHeader"><h3>Add Credit Card Information</h3></div>
 
-
-
-{{card}}
-
-<div>
+<div class="cartFrame">
     <input ng-model="card.number" placeholder="Card Number" />
     <input ng-model="card.cvc" placeholder="CVC" />
     <input ng-model="card.exp_month" placeholder="Expiration Month" />
-    <input ng-model="card.exp_year" placeholder="Expiration Year" />
+    <input ng-model="card.exp_year" placeholder="Expiration Year" /><br>
     <button ng-click="submit()">Submit</button>
+    <span class="alert" ng-show="hasCard !== ''">{{hasCard}}</span>
+    <span class="alert" ng-show="error !== ''">{{error}}</span>
 </div>
 
-
-<a ui-sref = "cart.address">Previous</a>
-<a ui-sref = "cart.promos">Next</a>
+<div class="invisibleFrame">
+	<a class="floatLeft" ui-sref = "cart.address">Previous</a>
+	<a class="floatRight" ui-sref = "cart.promos" ng-show="hasCard !== ''">Next</a>
+</div>
 
 

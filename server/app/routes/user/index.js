@@ -20,6 +20,7 @@ router.post('/newUser', function(req, res, next){
 });
 
 router.use('/:userId', function(req, res, next){
+	console.log(req);
 	if(auth.isAdmin(req) || (auth.isUser(req) && req.user.id == req.params.userId)){
 		next();
 	}else{
@@ -45,17 +46,32 @@ router.get('/:userId', function(req, res, next){
 
 });
 
+
+
 //refactor with promises!
 router.put('/:userId', function(req, res, next){
-	User.findById(req.params.userId, function(err, user){
-		if(err) return next(err);
 
-		user.password = req.body.password;
-		user.admin = req.body.admin;
-		user.save(function(err){
+	if(!req.body.password && !req.body.admin){
+		User.update(
+			{_id: req.params.userId},
+			req.body,
+				function(err, num){
+					if(err){next(err);}
+					if(num!==1){next(new Error());}
+					if(num===1){res.send("Updated");}
+				}
+			);
+	}else{
+		User.findById(req.params.userId, function(err, user){
 			if(err) return next(err);
+			
+			user.password = req.body.password;
+			user.admin = req.body.admin;
+			user.save(function(err){
+				if(err) return next(err);
+			});
 		});
-	});
+	}
 
 
 	// User.update(
@@ -68,6 +84,8 @@ router.put('/:userId', function(req, res, next){
 	// 		}
 	// 	);
 });
+
+
 
 
 
