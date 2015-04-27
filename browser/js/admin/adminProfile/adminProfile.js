@@ -59,6 +59,11 @@ app.factory('UserInfo', function($http){
 	  	return $http.put('/api/user/' + user._id, userInfo).then(function(response){
 	  		return response.data;
 	  	});
+	  },
+	  loginGoogle: function(){
+	  	return $http.get('/auth/google/callback').then(function(response){
+	  		return response.data;
+	  	})
 	  }
 
 	}

@@ -5,9 +5,20 @@
 	</div>
 	<div id="categoriesFilters" class="filter">
 		<div ng-hide="typeLoading">
-			<h4 class="center"> Filter by: </h4>
+			<h4 class="center"> Filter: </h4>
 			<div class="center" ng-repeat="categoryType in categoryTypes">
 				<label for="{{categoryType}}">{{categoryType}}</label>
+				
+				<!--<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type='button' data-toggle="dropdown" aria-expanded="true" ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">{{categoryType}}
+						<span class="caret"></span>
+					</button>
+					<ul class='dropdown-menu' role='menu' aria-labelledby="{{categoryType}}">
+						<li role="presentation" ng-repeat="data in typeData[categoryType]" value="{{data._id}}">
+							<a role="menuitem" tabindex="-1" value="{{data._id}}" ng-click="updateList()">{{data.data}}</a>
+						</li>
+					</ul>
+				</div>-->
 				<select ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">
 					<option value=""></option>
 					<option ng-repeat="data in typeData[categoryType]" value="{{data._id}}">{{data.data}}</option>

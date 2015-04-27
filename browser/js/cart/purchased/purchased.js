@@ -13,7 +13,7 @@ app.controller('PurchasedController', function ($http, $rootScope, $scope, CartM
 
 	$http.get('/api/cart/purchase').then(function(suc){
 		console.log(suc);
-		$rootScope.$emit('itemAdded');
+		$rootScope.$emit('addedItem');
 		$scope.news = true;
 	}).then(null, function(fail){
 		$scope.news = false;

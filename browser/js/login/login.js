@@ -49,9 +49,13 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
 
     };
 
+    $scope.callbackURL = AuthService.googleLogin;
+    window.callbackURL = $scope.callbackURL;
+
     $scope.sendSignUp = function (signUpInfo) {
         UserInfo.createNewUser(signUpInfo).then(function(newUser){
             console.log(newUser);
+            $state.go('home');
         });
     };
 
