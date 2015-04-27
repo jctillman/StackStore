@@ -14,7 +14,6 @@ var validateEmail = function(email) {
 var userSchema = new mongoose.Schema({
 
     email: {
-        required: true,
         unique: true,
         type: String,
         validate: [validateEmail, 'Please give a valid email address']
