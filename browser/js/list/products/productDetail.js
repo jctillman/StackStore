@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams, $state) {
+app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams, $state, Session) {
      
      $scope.productFind = function(){
         getProduct.getProductDetail().then(function(data){

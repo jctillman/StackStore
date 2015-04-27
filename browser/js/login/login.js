@@ -37,6 +37,12 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
         $scope.enterAccount = false;
     };
 
+    $scope.googleSignIn = function(){
+        AuthService.googleLogin().then(function(user){
+            console.log(user);
+        })
+    }
+
     $scope.sendLogin = function (loginInfo) {
 
         $scope.error = null;
@@ -49,7 +55,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
 
     };
 
-    $scope.callbackURL = AuthService.googleLogin;
+    $scope.callbackURL = AuthService.googleCB;
     window.callbackURL = $scope.callbackURL;
 
     $scope.sendSignUp = function (signUpInfo) {
