@@ -15,6 +15,7 @@ router.use('/product', require('./product'));
 
 router.use('/category', require('./category'));
 
+router.use('/review', require('./review'));
 
 // Make sure this is after all of
 // the registered routes!
