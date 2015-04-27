@@ -2,6 +2,64 @@
 #cart {
 }
 
+.lineItem{
+
+	height: 50px;
+
+	button{
+		background: black;
+		border: solid 1px #ffd600;
+		border-radius: 2px;
+		color: #ffd600;
+	}
+
+}
+
+.floatLeft{
+	float: left;
+	display: block-inline;
+}
+
+.floatRight{
+	float: right;
+	display: block-inline;
+	color: white;
+	border: 10px white solid;
+}
+
+.cartFrame{
+	padding: 20px;
+	background-color: #222C2E; //gray
+	border: 1px solid #ffd600; //yellow
+	border-radius: 5px;
+	width: 500px;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.invisibleFrame{
+	padding: 20px;
+	background-color: black; //gray
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 500px;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.cartSectionHeader{
+	width: 500px;
+	color: #ffd600;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+}
+
 .checkout-section{
 	padding: 10px;
 	margin: 10px;

@@ -1,8 +1,12 @@
-<h1>EDIT</h1>
-<div ng-repeat="item in items">
-	<span>{{item.product.title}}</span>
-	<span>{{item.quantity}}</span>
-	<button ng-click="modLine($index, item.quantity-1)">Remove One</button>
-	<button ng-click="modLine($index, item.quantity+1)">Add One</button>
+<div class="cartSectionHeader"><h3>Edit Cart Contents</h3></div>
+<div class="cartFrame">
+	<div class="lineItem" ng-repeat="item in items">
+		<span style="display: inline-block; width: 250px;">{{item.product.title}} </span>
+		<span style="display: inline-block; width: 100px;">Quantity: {{item.quantity}} </span>
+		<button ng-click="modLine($index, item.quantity-1)"> - </button>
+		<button ng-click="modLine($index, item.quantity+1)">+</button>
+	</div>
 </div>
-<a ui-sref = "cart.address">Next</a>
+<div class="invisibleFrame">
+	<a class = "floatRight" ui-sref = "cart.address">Next</a>
+</div>
