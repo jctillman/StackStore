@@ -11,19 +11,19 @@
 			
 			<label for="stars">Rate</label>
 			{{rating}}
-			<p>
-				<input ng-model="rating" type="radio" value="1" id="rating"></input>
-				<input ng-model="rating" type="radio" value="2" id="rating"></input>
-				<input ng-model="rating" type="radio" value="3" id="rating"></input>
-				<input ng-model="rating" type="radio" value="4" id="rating"></input>
-				<input ng-model="rating" type="radio" value="5" id="rating"></input>
+			<p required>
+				<input ng-model="rating" type="radio" name="rating" value="5" id="rating5"></input>
+				<input ng-model="rating" type="radio" name="rating" value="4" id="rating4"></input>
+				<input ng-model="rating" type="radio" name="rating" value="3" id="rating3"></input>
+				<input ng-model="rating" type="radio" name="rating" value="2" id="rating2"></input>
+				<input ng-model="rating" type="radio" name="rating" value="1" id="rating1"></input>
 			</p>
 
 			<label for="content">Review</label>
-			<input ng-model="content" type="text"></input>
-			<p>{{content}}</p>
+			<p><textarea ng-model="content" type="text"></textarea></p>
+			<!-- <p>{{content}}</p> -->
 
-			<button class="btn" ng-click="submitReview(product)"> Submit Review </button>
+			<button class="btn btn-default" ng-click="submitReview(product)"> Submit Review </button>
 		</div>
 	</div>
 
