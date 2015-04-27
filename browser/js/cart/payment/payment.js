@@ -13,24 +13,31 @@ app.controller('PaymentController', function ($state, $scope, CartManager) {
 
 	$scope.submitting = false;
 	$scope.card = {};
+	$scope.hasCard = "";
+	$scope.error = "";
+
+	
+	CartManager.getCart().then(function(cart){
+		if (cart.paymentMethod.stripeToken){$scope.hasCard = "Credit card attached."}
+	});
 
 	var stripeResponseHandler = function(status, response){
 		if(status===200){
-			console.log("STATUS", status)
-			console.log("RESPONSE", response);
 			var payment = { type: "Stripe", stripeToken: response.id};
 			CartManager
 				.setCart({paymentMethod: payment})
 				.then(function(suc){
-					//let's go to the confirmation page.
-					console.log(suc);
-					$state.go('cart.promos');
+					$scope.hasCard = "Success saving new payment method";
 				})
 				.then(null, function(err){
-					//something went wrong trying to save card values.
+					console.log("Error saving");
+					$scope.error = "Something went wrong trying to save the credit card.  Please try again."
+					$scope.$digest();
 				});
 		}else{
-			//something went wrong trying to process the card.
+			console.log("Error processing")
+			$scope.error = "Something went wrong trying to process the credit card.  Please try again."
+			$scope.$digest();
 		}
 	};
 

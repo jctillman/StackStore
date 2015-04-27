@@ -7,24 +7,27 @@
 			<h2>{{product.title}}</h2>
 		</div>
 
-		<div class="productInfo">
+		<form novalidate class="productInfo" name="reviewForm">
 			
-			<label for="stars">Rate</label>
+			<p class="error" ng-show="reviewForm.$submitted && reviewForm.ratingParagraph.$error.required">Rating is required.</p>
+			<label for="rating">Rate</label>
 			{{rating}}
-			<p>
-				<input ng-model="rating" type="radio" value="1" id="rating"></input>
-				<input ng-model="rating" type="radio" value="2" id="rating"></input>
-				<input ng-model="rating" type="radio" value="3" id="rating"></input>
-				<input ng-model="rating" type="radio" value="4" id="rating"></input>
-				<input ng-model="rating" type="radio" value="5" id="rating"></input>
+			<p required name="ratingParagraph" ng-model="rating">
+				<input ng-model="rating" type="radio" name="rating" value="1"></input>
+				<input ng-model="rating" type="radio" name="rating" value="2"></input>
+				<input ng-model="rating" type="radio" name="rating" value="3"></input>
+				<input ng-model="rating" type="radio" name="rating" value="4"></input>
+				<input ng-model="rating" type="radio" name="rating" value="5"></input>
 			</p>
 
-			<label for="content">Review</label>
-			<input ng-model="content" type="text"></input>
-			<p>{{content}}</p>
+			<label for="content" class="review">Review</label>
+			<p class="error" ng-show="reviewForm.$submitted && reviewForm.content.$error.minlength">Review must be at least 5 characters long.</p>
+			<p class="error" ng-show="reviewForm.$submitted && reviewForm.content.$error.maxlength">Review must be less than 5000 characters long.</p></br>
+			<textarea ng-model="content" name="content" input-type="text" required ng-minlength="5" ng-maxlength="5000"></textarea>
+			
 
-			<button class="btn" ng-click="submitReview(product)"> Submit Review </button>
-		</div>
+			<button class="btn btn-default review" ng-click="submitReview(product)"> Submit Review </button>
+		</form>
 	</div>
 
 </div>

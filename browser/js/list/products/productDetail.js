@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams, $state, Session) {
+app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams, $state, Session, ProductInfo) {
      
      $scope.productFind = function(){
         getProduct.getProductDetail().then(function(data){
@@ -20,6 +20,7 @@ app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParam
     $scope.productFind();
 
     $scope.goToAddReview = function(product){
+            ProductInfo.product = product;
             $state.go('list.productDetail.addReview');
         }
 
