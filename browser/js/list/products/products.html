@@ -14,15 +14,20 @@
 		<div class="productInfo">
 			
 			<h3>{{product.price | currency}}</h3>
-			<h3> Add to cart <add-product product="product"></add-product> </h3>
+			<h3 class="spaceBottom"> Add to cart <add-product product="product" class="spaceLeft"></add-product> </h3>
 			
 			
 			<h4>Details</h4>
 			<p>{{product.description}}</p>
 			
+			<p class="right"><a ng-click="goToAddReview(product)" class="right"> Add Review </a></p>
 			<h4>Reviews</h4>
-			<a ng-click="goToAddReview(product)"> Add Review </a>
-			<p ng-repeat="review in product.reviews">{{review.stars}}  {{review.content}}</p>
+			
+			<div class="box">
+				<p ng-repeat="review in product.reviews">
+					<span ng-repeat="star in showStars(review.stars)"><i class="fa fa-paw stars"></i></span>
+					 {{review.stars}}  {{review.content}}</p>
+			</div>
 			
 
 		</div>

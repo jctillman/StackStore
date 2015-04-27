@@ -14,15 +14,26 @@ app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParam
      $scope.productFind = function(){
         getProduct.getProductDetail().then(function(data){
             $scope.product = data;
+
         });
      }
 
     $scope.productFind();
 
+
     $scope.goToAddReview = function(product){
             ProductInfo.product = product;
             $state.go('list.productDetail.addReview');
         }
+
+    $scope.showStars = function(stars){
+        var show = [];
+        for(var i = 0; i<stars; i++){
+            show.push([]);
+        }
+        return show;
+    }    
+
 
 });
 

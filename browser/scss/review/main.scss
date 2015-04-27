@@ -5,5 +5,30 @@ textarea{
 
 
 .error{
-	color: #ffd600; //yellow
+	color: #b71c1c; //red
+}
+
+.stars{
+	padding: 1px;
+	margin: 1px;
+	color: #90a4ae; //gray-blue
+	// color: #ffd600; //yellow
+}
+
+.right{
+	text-align: right;
+}
+
+// .box {
+// 	width: 100%;
+// 	background-color: #222C2E; //gray;
+// 	color: white;
+// }
+
+.spaceLeft{
+	margin-left: 10px;
+}
+
+.spaceBottom{
+	margin-bottom: 25px;
 }
