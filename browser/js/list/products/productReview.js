@@ -19,7 +19,7 @@ app.controller('ProductReview', function ($scope, ReviewFactory, $http, $statePa
      $scope.submitReview = function(product){
         var review = {
             user: Session.user._id,
-            product: $scope.product._id,
+            product: product._id,
             stars: $scope.rating,
             content: $scope.content
         };

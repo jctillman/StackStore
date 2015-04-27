@@ -7,7 +7,7 @@
 			<h2>{{product.title}}</h2>
 		</div>
 
-		<form novalidate class="productInfo" name="reviewForm" ng-submit="reviewForm.$valid && submitReview(product)">
+		<form novalidate class="productInfo" name="reviewForm">
 			
 			<p class="error" ng-show="reviewForm.$submitted && reviewForm.ratingParagraph.$error.required">Rating is required.</p>
 			<label for="rating">Rate</label>
