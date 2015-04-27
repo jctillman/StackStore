@@ -1,19 +1,22 @@
 <div class="headerDiv"><h1 class="header">Product Details</h1></div>
 
-<div class="light centerDiv productDiv">
-	<div class="productDiv">
-		<div>{{product.photourl}}</div>
-
+<div class="light centerDiv">
+	<div class="productDiv box">
 		<div>
 			<h2>{{product.title}}</h2>
-			<h3>{{product.price}}</h3>
-			
-			<h4 class="productInfo">{{product.description}}</h4>
+			{{product.photourl}}
+		</div>
 
-			<add-product product="product"></add-product>
+		<div class="productInfo">
+			
+			<h3>{{product.price}}</h3>
+			<h3> Add to cart <add-product product="product"></add-product> </h3>
+			
+			
+			<h4>{{product.description}}</h4>
 			
 			<h4>Reviews</h4>
-			<p class="productInfo">{{product.reviews}}</p>
+			<p>{{product.reviews}}</p>
 			
 
 		</div>
