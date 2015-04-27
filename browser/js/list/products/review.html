@@ -7,24 +7,27 @@
 			<h2>{{product.title}}</h2>
 		</div>
 
-		<div class="productInfo">
+		<form novalidate class="productInfo" name="reviewForm" ng-submit="reviewForm.$valid && submitReview(product)">
 			
-			<label for="stars">Rate</label>
+			<p class="error" ng-show="reviewForm.$submitted && reviewForm.ratingParagraph.$error.required">Rating is required.</p>
+			<label for="rating">Rate</label>
 			{{rating}}
-			<p required>
-				<input ng-model="rating" type="radio" name="rating" value="5" id="rating5"></input>
-				<input ng-model="rating" type="radio" name="rating" value="4" id="rating4"></input>
-				<input ng-model="rating" type="radio" name="rating" value="3" id="rating3"></input>
-				<input ng-model="rating" type="radio" name="rating" value="2" id="rating2"></input>
-				<input ng-model="rating" type="radio" name="rating" value="1" id="rating1"></input>
+			<p required name="ratingParagraph" ng-model="rating">
+				<input ng-model="rating" type="radio" name="rating" value="1"></input>
+				<input ng-model="rating" type="radio" name="rating" value="2"></input>
+				<input ng-model="rating" type="radio" name="rating" value="3"></input>
+				<input ng-model="rating" type="radio" name="rating" value="4"></input>
+				<input ng-model="rating" type="radio" name="rating" value="5"></input>
 			</p>
 
-			<label for="content">Review</label>
-			<p><textarea ng-model="content" type="text"></textarea></p>
-			<!-- <p>{{content}}</p> -->
+			<label for="content" class="review">Review</label>
+			<p class="error" ng-show="reviewForm.$submitted && reviewForm.content.$error.minlength">Review must be at least 5 characters long.</p>
+			<p class="error" ng-show="reviewForm.$submitted && reviewForm.content.$error.maxlength">Review must be less than 5000 characters long.</p></br>
+			<textarea ng-model="content" name="content" input-type="text" required ng-minlength="5" ng-maxlength="5000"></textarea>
+			
 
-			<button class="btn btn-default" ng-click="submitReview(product)"> Submit Review </button>
-		</div>
+			<button class="btn btn-default review" ng-click="submitReview(product)"> Submit Review </button>
+		</form>
 	</div>
 
 </div>

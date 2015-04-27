@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProductReview', function ($scope, ReviewFactory, $http, $stateParams, Session, $state, ProductInfo) {
-    $scope.product = ProductInfo.product
+    $scope.product = ProductInfo.product;
 
      $scope.rating;
      $scope.content;
@@ -19,18 +19,16 @@ app.controller('ProductReview', function ($scope, ReviewFactory, $http, $statePa
      $scope.submitReview = function(product){
         var review = {
             user: Session.user._id,
-            product: product._id,
+            product: $scope.product._id,
             stars: $scope.rating,
             content: $scope.content
-        }
-            ReviewFactory.createReview(review).then(function(data){
-                $state.go('list');
-            })
-        
         };
-     
-
-    });
+            
+        ReviewFactory.createReview(review).then(function(data){
+                $state.go('list');
+        });
+    };
+});
 
 
 app.factory('ReviewFactory', function($http, $stateParams){
