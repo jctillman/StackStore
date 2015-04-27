@@ -38,8 +38,8 @@ module.exports = function (app) {
                 });
             }
 
-        });
-
+        }
+);
     };
 
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
