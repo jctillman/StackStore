@@ -1,24 +1,20 @@
-<h1>ADDRESS</h1>
+<div class="cartSectionHeader"><h3>Add Order Address</h3></div>
 
-<div ng-repeat="address in addresses">
+<div class="cartFrame" ng-repeat="address in addresses">
 	<address-display address="address" myclick="pushAddr"></address-display>
 </div>
 
-{{form.$valid}}
-
-
-<form name="form">
-	<label>Line 1</label><input ng-model="content.line1" required ng-minlength=5 type="text" name="line1"></input><br>
-	<label>Line 2</label><input ng-model="content.line2" type="text" name="line2"></input><br>
-	<label>State</label><input ng-model="content.state" required type="text" name="state"></input><br>
-	<label>City</label><input ng-model="content.city" ng-minlength=2 required type="text" name="city"></input><br>
-	<label>Country</label><input ng-model="content.country" ng-minlength=2 required type="text" name="country"></input><br>
-	<label>Zip</label><input ng-model="content.zip" type="text" name="zip"></input><br>
+<form name="form" class="cartFrame">
+	<input placeholder="Address Line 1" ng-model="content.line1" required ng-minlength=4 type="text" name="line1"></input><br>
+	<input placeholder="Address Line 2 (Optional)" ng-model="content.line2" type="text" name="line2"></input><br>
+	<input placeholder="State" ng-model="content.state" required type="text" name="state"></input><br>
+	<input placeholder="City" ng-model="content.city" ng-minlength=2 required type="text" name="city"></input><br>
+	<input placeholder="Country" ng-model="content.country" ng-minlength=2 required type="text" name="country"></input> <br>
+	<input placeholder="Zip" ng-model="content.zip" type="text" name="zip"></input><br>
 </form>
 	
-
-<a ui-sref = "cart.editing">Previous | </a>
-
-<a ng-click="addAddressSingle()">Add Address to Order</a>
-
-<a ng-click="addAddressDual()" ng-show="hasUser"> | Add Address to Order and to User Account</a>
+<div class="invisibleFrame">
+	<a class = "floatLeft" ui-sref = "cart.editing">Previous</a>
+	<a class = "floatRight" ng-click="addAddressSingle()" ng-show="form.$valid"> Next </a>
+	<a class = "floatRight" ng-click="addAddressDual()" ng-show="hasUser && form.$valid"> Add Address To User Account </a>
+</div>

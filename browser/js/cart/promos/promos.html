@@ -1,8 +1,13 @@
-<h1>PROMOS</h1>
+<div class="cartSectionHeader"><h3>Add Promotional Code</h3></div>
 
-<label>Enter Promotional Code:</label>
-<input type="text" name="promo" ng-model="promo"></input>
-<input type="button" ng-click="addCode()">Add Promo</input>
-<p>Only one promotional code may be applied per order.</p>
-<a ui-sref = "cart.payment">Previous</a>
-<a ui-sref = "cart.confirmation">Next</a>
+<div class="cartFrame">
+	<input type="text" name="promo" ng-model="promo" placeholder="Code">{{code}}</input>
+	<button ng-click="addCode()">Change Code</button>
+	<span class="alert" ng-show="added !== ''">{{added}}</span>
+	<p>Only one promotional code may be applied per order.</p>
+</div>
+
+<div class="invisibleFrame">
+	<a class="floatLeft" ui-sref = "cart.payment">Previous</a>
+	<a class="floatRight" ui-sref = "cart.confirmation">Next</a>
+</div>

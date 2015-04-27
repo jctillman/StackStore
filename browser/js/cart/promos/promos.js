@@ -5,21 +5,22 @@ app.config(function ($stateProvider) {
         url: '/promos',
         controller: 'PromosController',
         templateUrl: 'js/cart/promos/promos.html'
-    })
+    });
 });
 
 app.controller('PromosController', function ($scope, CartManager) {
 
 
+	$scope.added = "";
 
 	$scope.addCode = function(){
 		CartManager
 			.setCart({promo: $scope.promo})
 			.then(function(success){
-				//something something it was set
+				$scope.added = "Promo code added."
 			})
 			.then(null, function(err){
-				//Something something error
+				$scope.added = "Something went wrong trying to add the code.  Please try again.";
 			})
 	}
 
