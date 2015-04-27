@@ -1,23 +1,39 @@
 <ui-view>
-<section id="list"> <!-- change ID -->
-
-	<div id="categoriesFilters">
+<section id="list" class="light"> <!-- change ID -->
+	<div class="headerDiv"> 
+		<h1 class="header">Animals</h1>
+	</div>
+	<div id="categoriesFilters" class="filter">
 		<div ng-hide="typeLoading">
-			<div ng-repeat="categoryType in categoryTypes">
-				<label for="{{categoryType}}">{{categoryType}}</label>
-				<select ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">
+			<h4 class="center"> Filter: </h4>
+			<div class="center" ng-repeat="categoryType in categoryTypes">
+				<!-- <label for="{{categoryType}}">{{categoryType}}</label> -->
+				
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type='button' data-toggle="dropdown" aria-expanded="true" ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">{{categoryType}}
+						<span class="caret"></span>
+					</button>
+					<ul class='dropdown-menu' role='menu' aria-labelledby="{{categoryType}}">
+						<li role="presentation" ng-repeat="data in typeData[categoryType]" value="{{data._id}}">
+							<a role="menuitem" tabindex="-1" value="{{data._id}}" ng-click="updateList()">{{data.data}}</a>
+						</li>
+					</ul>
+				</div>
+				<!-- <select ng-model="filterValues[categoryType]" id="{{categoryType}}" name="{{categoryType}}" ng-change="updateList()">
 					<option value=""></option>
 					<option ng-repeat="data in typeData[categoryType]" value="{{data._id}}">{{data.data}}</option>
-				</select>
+				</select> -->
 			</div>
 		</div>
 	</div>
 
 
-    <div ng-repeat="product in products">
+    <div class="products col-md-4" ng-repeat="product in products">
     	<!-- <li ng-click="goToProductDetail(product)"> go to item</li> -->
     	<product-line product="product"></product-line>
     </div>
+
+    
 
 
 </section>

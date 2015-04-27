@@ -31,7 +31,7 @@ var orderSchema = new mongoose.Schema({
     dateOrdered: {type: Date},
     dateShipped: {type: Date},
     dateClosed: {type: Date},
-    status: {type: String, default: "cart", required: true, enum: ['cart', 'purchased', 'in progress', 'cancelled']},
+    status: {type: String, default: "cart", required: true, enum: ['cart', 'purchased', 'in progress', 'cancelled','complete']},
     finalCost: Number,
     finalCostWithoutPromo: Number,
     finalCostCreatedDate: Date,
