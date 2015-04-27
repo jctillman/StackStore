@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
 app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
 
     $scope.listLoading = true;
-    $http.get('/api/product')
+    $http.get('/api/product?activeOnly=true')
         .success(function(data, status, headers, config){
             $scope.products = data;
             $scope.listLoading = false;
