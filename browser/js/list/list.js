@@ -19,6 +19,8 @@ app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
             $scope.listloading = false;
         });
 
+        
+
     $scope.typeLoading = true;
     $http.get('/api/category')
         .success(function(data, status, headers, config){
@@ -61,6 +63,7 @@ app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
                 $http.get(url)
                     .success(function(data, status, headers, config){
                         $scope.products = data;
+
                         $scope.listLoading = false;
                     })
                     .error(function(data, status, headers, config){
@@ -78,6 +81,8 @@ app.controller('ListController', function ($scope, $http, ProductInfo, $state) {
             ProductInfo.product = product;
             $state.go('list.productDetail');
         }
+
+           
 
 });
 
