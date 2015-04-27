@@ -1,8 +1,16 @@
-<h1>adminProfile</h1>
+<div class='headerDiv'>
+	<h1 class='header'>CURRENT USERS</h1>
+</div>
+
 <ui-view>
-	<ul>
-		<li ng-repeat='user in users'>{{user}}
-		<button ng-click='editUser(user)'>Edit</button>
-		</li>		
-	<ul>
+	<div class='light centerDiv'>
+		<div class='inventory'>
+
+				<p ng-repeat='user in users'>{{user.email}}<br>
+				 ID: {{user._id}}<br>
+				<button ng-click='editUser(user)'>Edit</button>
+				</p>		
+
+		</div>
+	<div>
 </ui-view>

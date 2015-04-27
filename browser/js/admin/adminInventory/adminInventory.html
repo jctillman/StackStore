@@ -1,37 +1,41 @@
-<h1>adminInventory</h1>
+<div class='headerDiv'>
+	<h1 class='header'>STORE INVENTORY</h1>
+</div>
 
 <ui-view>
-	<div>
-		
-		<ul>
-			PRODUCTS
-			<li ng-repeat='product in products' ng-model='product'>
-				{{product.title}}
-				<button ng-click='goToEdit(product)'>Edit</button>
-			</li>		
-		</ul>
+	<div class='light centerDiv'>
+		<div class='inventory'>
 
-		CATEGORIES
-		<table class="table" ng-repeat='category in categories'>
-		  	<thead>
-			  	<tr>
-				  	<td>
-				  		{{category.type}}
-				  		<button ng-click='goToCategoryEdit(category)'>Edit</button>
-				  	</td>
-				  <tr>
-			  </thead>
-			  <tbody>
-				  <tr ng-repeat='info in category.info'>
-				  	<td>
-				  		{{info.data}}
-				  	</td>
-				  </tr>
-			</tbody>
-		</table>
+					PRODUCTS
+					<p ng-repeat='product in products' ng-model='product'>
+						{{product.title}}<br>
+						ID: {{product._id}}<br>
+						<button ng-click='goToEdit(product)'>Edit</button>
+					</p>		
 
 
-		<button ng-click='goToAdd()'>Add Products</button>
-		<button ng-click='goToCategoryAdd()'>Add Categories</button>
+				CATEGORIES
+				<table class="table" ng-repeat='category in categories'>
+				  	<thead>
+					  	<tr>
+						  	<td>
+						  		{{category.type}}
+						  		<button ng-click='goToCategoryEdit(category)'>Edit</button>
+						  	</td>
+						  <tr>
+					  </thead>
+					  <tbody>
+						  <tr ng-repeat='info in category.info'>
+						  	<td>
+						  		{{info.data}}
+						  	</td>
+						  </tr>
+					</tbody>
+				</table>
+
+
+				<button ng-click='goToAdd()'>Add Products</button>
+				<button ng-click='goToCategoryAdd()'>Add Categories</button>
+		<div>
 	</div>
 </ui-view>

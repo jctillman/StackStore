@@ -31,7 +31,7 @@ module.exports = function (app) {
                         id: profile.id
                     }
                 }).then(function (user) {
-                    done(null, user);
+                    done(null, user);             
                 }, function (err) {
                     console.error('Error creating user from Google authentication', err);
                     done(err);

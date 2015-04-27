@@ -1,4 +1,21 @@
 
+.googleAndFbook {
+	text-align: center;
+	a {
+		border: 1px solid #ffd600;
+		padding: 6px;
+		margin: 15px;
+		border-radius: 4px;
+		color: #ffd600;
+		&:hover {
+			color: white;
+			border: 1px solid white;
+			text-decoration: none;
+		}
+	}
+}
+
+
 .loginBtn{
 	margin: 0 auto;
 	width: 60%;
