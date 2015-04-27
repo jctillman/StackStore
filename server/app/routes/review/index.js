@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var Auth = require('../../configure/authCheck');
+var auth = require('../../configure/authCheck');
 
 require('../../../../server/db/models/review');
 require('../../../../server/db/models/product');
