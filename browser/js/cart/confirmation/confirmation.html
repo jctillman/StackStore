@@ -1,7 +1,30 @@
-<h1>CONFIRMATION</h1>
+<div class="cartSectionHeader"><h3>Confirmation</h3></div>
 
-{{order}}
+<div class="cartSectionHeader"><p>Items</p></div>
 
-<br>
-<a ui-sref="cart.promos">Previous</a>
-<input type="button" text="Purchase items" ui-sref="cart.purchased"></input>
+<div class="cartFrame">
+	<div class="lineItem" ng-repeat="item in finalCost.lineItems">
+		<span style="display: inline-block; width: 250px;">{{item.product.title}} </span>
+		<span style="display: inline-block; width: 100px;">Quantity: {{item.quantity}} </span>
+	</div>
+</div>
+
+
+<div class="cartSectionHeader"><p>Address</p></div>
+
+<div class="cartFrame">
+	<address-display address="finalCost.address"></address-display>
+</div>
+
+
+
+
+
+<div class="cartFrame">
+{{finalCost}}
+</div>
+
+<div class="invisibleFrame">
+	<a ui-sref="cart.promos">Previous</a>
+	<input type="button" text="Purchase items" ui-sref="cart.purchased"></input>
+</div>
