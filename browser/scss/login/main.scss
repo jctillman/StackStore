@@ -38,17 +38,24 @@ form{
 	&:hover{
 		color: white;
 		border-color: white;
+		outline: none;
 	}
 	&:active{
 		color: white;
 		border-color: white;
+		outline: none;
 	}
 	&:visited{
 		color: white;
 		border-color: white;
+		outline: none;
 	}
 	&:focus{
 		color: white;
 		border-color: white;
+		outline: none;
+	}
+	&:active:focus{
+		outline: none;
 	}
 }
