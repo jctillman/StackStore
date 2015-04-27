@@ -113,11 +113,24 @@
                 });
         };
 
-        this.googleLogin = function(googleObj){
-            return $http.get('auth/google/callback').then(function(response){
+        this.googleLogin = function(){
+            return $http.get('/auth/google').then(function(response){
                 return response.data;
-            });
+            })
         }
+
+        this.googleCB = function(googleObj){
+            return $http.get('/auth/google/callback', googleObj)
+                   .then(onSuccessfulLogin)
+                   .catch(function(response){
+                        return $q.reject({message: 'Invalid login credentials'});
+                   });
+            // return $http.get('auth/google/')
+            //    .then(onSuccessfulLogin)
+            //    .catch(function(response){
+            //         return $q.reject({ message: 'Invalid login credentials.'})
+            //    });
+        };
 
         this.logout = function () {
             return $http.get('/logout').then(function () {
@@ -127,6 +140,7 @@
         };
 
         function onSuccessfulLogin(response) {
+            console.log("Is this html?", response);
             var data = response.data;
             var admin = (!!data && !!data.user) ? data.user.admin : null;
             Session.create(data.id, data.user, admin);
@@ -155,6 +169,7 @@
 
 
         this.create = function (sessionId, user, adminStatus) {
+            console.log(user);
             this.id = sessionId;
             this.user = user;
             this.admin = adminStatus;

@@ -8,7 +8,7 @@ var UserModel = mongoose.model('User');
 module.exports = function (app) {
 
     var googleConfig = app.getValue('env').GOOGLE;
-    console.log(googleConfig.callbackURL);
+
 
     var googleCredentials = {
         clientID: googleConfig.clientID,
@@ -17,15 +17,16 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
+         console.log(profile);
         UserModel.findOne({ 'google.id': profile.id }, function (err, user) {
-
+            
             if (err) return done(err);
 
             if (user) {
                 done(null, user);
             } else {
                 UserModel.create({
+                    email: profile._json.email,
                     google: {
                         id: profile.id
                     }
@@ -53,6 +54,7 @@ module.exports = function (app) {
     app.get('/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
         function (req, res) {
+            console.log("ASDASDASDASD");
             res.redirect('/');
         });
 

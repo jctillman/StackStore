@@ -55,6 +55,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, CartRelo
 
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
+                   
                     scope.user = user;
                 });
             };

@@ -90,7 +90,7 @@ gulp.task('seedDB', function () {
 
 gulp.task('imageCrop', function(){
     return gulp.src('./browser/img/**/*.jpg')
-        .pipe(imageResize({width:100, height:100, imageMagick: true}))
+        .pipe(imageResize({width:200, height:200, crop: true, imageMagick: true}))
         .pipe(gulp.dest('./dist'))
     });
         
