@@ -1,3 +1,4 @@
+<ui-view>
 <div class="headerDiv"><h1 class="header">Product Details</h1></div>
 
 <div class="light centerDiv">
@@ -9,7 +10,7 @@
 
 		<div class="productInfo">
 			
-			<h3>{{product.price}}</h3>
+			<h3>{{product.price | currency}}</h3>
 			<h3> Add to cart <add-product product="product"></add-product> </h3>
 			
 			
@@ -17,9 +18,11 @@
 			<p>{{product.description}}</p>
 			
 			<h4>Reviews</h4>
+			<a ng-click="goToAddReview(product)"> Add Review </a>
 			<p>{{product.reviews}}</p>
 			
 
 		</div>
 	</div>
 </div>
+</ui-view>

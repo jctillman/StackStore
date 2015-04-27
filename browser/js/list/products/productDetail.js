@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams) {
+app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParams, $state) {
      
      $scope.productFind = function(){
         getProduct.getProductDetail().then(function(data){
@@ -18,6 +18,10 @@ app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParam
      }
 
     $scope.productFind();
+
+    $scope.goToAddReview = function(product){
+            $state.go('list.productDetail.addReview');
+        }
 
 });
 
@@ -30,15 +34,11 @@ app.factory('getProduct', function($http, $stateParams){
                 });
             },
         getProductDetail: function(){
-            console.log("Hey");
-            console.log('/api/product/search/'+ $stateParams.product);
             return $http.put('/api/product/search/', {title: $stateParams.product}).then(function(response){
-                console.log("ASDASD");
                 return response.data;
             }).then(null, function(){
-                console.log("I am erroring'");
             });
-        },
+        }
         
     }
 });
