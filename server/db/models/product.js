@@ -22,8 +22,7 @@ var productSchema = new mongoose.Schema({
     description: {required: true, type: String},
     price: {required: true, type: Number},
     categories: [{type: Schema.ObjectId, ref: 'Category'}],
-    photoUrls: [String],
-    splashPhoto: {default: 0, type: Number},
+    photoUrl: {type:String},
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
     userVisible: {type: Boolean, default: true}
 });
@@ -33,10 +32,6 @@ var productSchema = new mongoose.Schema({
 
 
 productSchema.pre('save', function (next) {
-
-    if(this.photoUrls === null || this.photoUrls.length === 0){
-        this.photoUrls.push("DEFAULT TO BE SET."); //TO DO!!!
-    }
 
     if(!this.categoryByName){
 
@@ -51,10 +46,6 @@ productSchema.pre('save', function (next) {
 
 });
 
-productSchema.method('getSplashPhoto', function () {
-    return this.photoUrls[this.splashPhoto];
-    //return the url for splash photo...
-});
 
 productSchema.method('getCategoryEntry', function(categoryType){
     

@@ -81,7 +81,7 @@ describe('Product model', function () {
         });
 
 
-        it('should set a default photoUrl if there is none', function (done) {
+        xit('should set a default photoUrl if there is none', function (done) {
 
 
             testProductPromise.then(function(product){
@@ -90,7 +90,7 @@ describe('Product model', function () {
             });
         });
 
-        it('should set splashPhoto index to 0 if not specified', function (done) {
+        xit('should set splashPhoto index to 0 if not specified', function (done) {
            testProductPromise.then(function(product){
             expect(product.splashPhoto).to.equal(0);
             done();
