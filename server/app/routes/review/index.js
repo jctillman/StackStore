@@ -12,13 +12,13 @@ var User = mongoose.model('User');
 
 
 
-router.use('/:userId', function(req, res, next){
-	if(auth.isAdmin(req) || (auth.isUser(req) && req.user.id == req.params.userId)){
-		next();
-	}else{
-		next(new Error("No user found."));
-	}
-});
+// router.use('/:userId', function(req, res, next){
+// 	if(auth.isAdmin(req) || (auth.isUser(req) && req.user.id == req.params.userId)){
+// 		next();
+// 	}else{
+// 		next(new Error("No user found."));
+// 	}
+// });
 
 router.get('/', function(req, res, next){
 
@@ -60,29 +60,6 @@ router.get('/:reviewId', function(req, res, next){
 	 });
 });
 
-
-// router.use(function(req, res, next){
-// 	if(Auth.isAdmin(req)) next();
-// 	else res.status(401);
-// });
-
-
-// //Update existing revuew
-// router.put('/:reviewId', function(req, res, next){
-// 	console.log(req.body);
-// 	Product.findByIdAndUpdate(req.params.reviewId, req.body, function(err, foundReview){	
-// 		if(err) return next(err);
-// 		res.json(foundReview);
-// 	});
-// });
-
-// //Delete a review
-// router.delete('/:reviewId', function(req, res, next){
-// 	Product.findByIdAndRemove(req.params.reviewId, function(err, deletedReview){
-// 		if(err) return next(err);
-// 		res.json(deletedReview);
-// 	});
-// });
 
 //Create a new review
 router.post('/newReview', function(req, res, next){
