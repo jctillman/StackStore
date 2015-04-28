@@ -48,7 +48,6 @@ router.get('/:userId', function(req, res, next){
 
 
 
-//refactor with promises!
 router.put('/:userId', function(req, res, next){
 
 	if(!req.body.password && !req.body.admin){
@@ -97,7 +96,7 @@ router.use(function(req, res, next){
 
 router.get('/', function(req, res, next){
 	User.find()
-			.populate('orders cart reviews')
+			.populate('orders address cart reviews paymentMethods')
 			.exec()
 			.then(function(suc){
 				console.log(suc)

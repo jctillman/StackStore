@@ -15,8 +15,7 @@ app.controller('AdminOrderController', function ($scope, OrderInfo, $state) {
 		$scope.chosenStatus = 'all';
 
 		$scope.goToOrderDetail = function(order){
-			OrderInfo.order = order;
-			$state.go('admin.adminOrder.edit');
+			$state.go('admin.adminOrder.edit', {orderId: order._id});
 		}
 
 		$scope.allOrders = function(){

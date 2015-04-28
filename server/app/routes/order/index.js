@@ -15,9 +15,29 @@ var Order = mongoose.model('Order');
 var LineItem = mongoose.model('LineItem');
 
 
-router.use(function(req, res, next){
-	if(Auth.isAdmin(req)) next();
+
+//Get order info
+
+
+
+router.use('/:orderId', function(req, res, next){
+	if(Auth.isAdmin(req) || req.user.orders.indexOf(req.params.orderId !== -1)) next();
 	else res.status(401);
+});
+
+router.get('/:orderId', function(req, res, next){
+	var populateQuery = [
+	{path: 'user'}, 
+	{path: 'lineItems.product'}, 
+	{path: 'shippingAddress'}
+	];
+
+	Order.findOne({_id: req.params.orderId})
+			 .populate(populateQuery)
+			 .exec(function(err, order){
+			 		if(err) return next(err);
+			 		res.json(order);
+			 });
 });
 
 
@@ -41,22 +61,6 @@ router.get('/', function(req, res, next){
 
 
 
-
-//Get order info
-router.get('/:orderId', function(req, res, next){
-	var populateQuery = [
-	{path: 'user'}, 
-	{path: 'lineItems.product'}, 
-	{path: 'shippingAddress'}
-	];
-
-	Order.findOne({_id: req.params.orderId})
-			 .populate(populateQuery)
-			 .exec(function(err, order){
-			 		if(err) return next(err);
-			 		res.json(order);
-			 });
-});
 
 
 //Update existing order
