@@ -68,6 +68,7 @@ router.put('/:userId', function(req, res, next){
 			user.admin = req.body.admin;
 			user.save(function(err){
 				if(err) return next(err);
+				res.send(200);
 			});
 		});
 	}

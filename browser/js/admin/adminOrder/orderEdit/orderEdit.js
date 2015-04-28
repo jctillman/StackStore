@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminOrderEditController', function($scope, OrderInfo, order){
+app.controller('AdminOrderEditController', function($scope, OrderInfo, order, $state){
 	$scope.order = order;
 
 	$scope.status = '';
@@ -19,7 +19,7 @@ app.controller('AdminOrderEditController', function($scope, OrderInfo, order){
 	$scope.submitOrderStat = function(order){
 		var statChange = {status: $scope.status};
 		OrderInfo.editOneOrder(order, statChange).then(function(order){
-			console.log(order);
+			$state.go('admin.adminOrder');
 		});
 	};
 

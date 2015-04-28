@@ -1,6 +1,6 @@
 <div class="userDiv">
 
-<h2>{{user.name.first}} {{user.name.last}}</h2>
+<h1 class='header'>{{user.name.first}} {{user.name.last}}</h1>
 
 <h3 class="title">Profile Details</h3>
 
@@ -67,7 +67,7 @@
 			</td>
 			<td>
 				{{order._id}}
-				<button class="btn btn-default" ng-click='userOrder(order)'>See cart details</button>
+				<button class="btn btn-default" ng-click='userOrder(order)' ng-show='hasOrder'>See details</button>
 			</td>	
 		<tr>
 	</table>
@@ -82,9 +82,7 @@
 			</td>
 			<td>
 				{{user.cart._id}}
-			</td>
-			<td>
-				<button class="btn btn-default" ng-click='userOrder(user.cart)'>See full details</button>
+				<button class="btn btn-default" ng-click='userOrder(user.cart)' ng-show='hasCart'>See details</button>
 			</td>
 		</tr>
 	</table>

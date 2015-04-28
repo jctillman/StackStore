@@ -3,19 +3,23 @@
 </div>
 
 <ui-view>
+	<button class='btn btn-default' ng-click='goToAdd()'>Add Products</button>
+	<button class='btn btn-default' ng-click='goToCategoryAdd()'>Add Categories</button>
+	
 	<div class='light centerDiv'>
-		<div class='inventory'>
-
+		<div class='inventory row'>
+			<div class='col-md-6'>
 					PRODUCTS
 					<p ng-repeat='product in products' ng-model='product'>
 						{{product.title}}<br>
 						ID: {{product._id}}<br>
 						<button ng-click='goToEdit(product)'>Edit</button>
-					</p>		
+					</p>
+			</div>		
 
-
+			<div class='col-md-6'>
 				CATEGORIES
-				<table class="table" ng-repeat='category in categories'>
+				<table  ng-repeat='category in categories'>
 				  	<thead>
 					  	<tr>
 						  	<td>
@@ -32,10 +36,7 @@
 						  </tr>
 					</tbody>
 				</table>
-
-
-				<button ng-click='goToAdd()'>Add Products</button>
-				<button ng-click='goToCategoryAdd()'>Add Categories</button>
+			</div>
 		<div>
 	</div>
 </ui-view>
