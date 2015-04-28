@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('AdminProductEditController', function($scope, InventoryInfo, ProductEdit, $rootScope, $stateParams){
+app.controller('AdminProductEditController', function($scope, InventoryInfo, ProductEdit, $rootScope, $stateParams, $state){
 
 	//add function for adding a photoUrl
 
@@ -46,7 +46,7 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 
 	$scope.deleteProduct = function(product){
 		ProductEdit.removeProduct(product).then(function(deletedItem){
-
+			$state.go('admin.adminInventory');
 		});
 	};
 
@@ -55,6 +55,7 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 																.concat($scope.categoryChoices);
 
 		ProductEdit.updateProductById($scope.product).then(function(updatedProduct){
+			$state.go('admin.adminInventory');
 		});
 	};
 
@@ -80,7 +81,7 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 	$scope.addNewProduct = function(){
 		$scope.product.categories = $scope.categoryChoices;
 		ProductEdit.addProduct($scope.product).then(function(product){
-			console.log(product);
+			$state.go('admin.adminInventory');
 		});
 	};
 

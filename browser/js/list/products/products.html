@@ -9,7 +9,7 @@
 	<div class="productDiv">
 			
 		<!-- <div class="spaceBottom"> -->
-			<h2 class="spaceBottom title">{{product.title}}</h2>
+			<h2 class="spaceBottom title noTop">{{product.title}}</h2>
 			
 			<div class="productInfo">
 				
@@ -23,7 +23,7 @@
 				
 				
 				<h4 class="inline">Reviews</h4>
-				<span class="right"><a ng-click="goToAddReview(product)" class="reviewLink right"> Add Review </a></span>
+				<span><a ng-click="goToAddReview(product)" class="reviewLink"> Add Review </a></span>
 
 				<div class="box">
 					<p ng-repeat="review in product.reviews">

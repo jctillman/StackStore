@@ -91,10 +91,10 @@ router.put('/:categoryId', function(req, res, next){
 });
 
 //Delete a category
-router.delete('/:categoryId', function(req, res, next){
-	Category.findByIdAndRemove(req.params.categoryId, function(err, deletedCategory){
+router.delete('/', function(req, res, next){
+	Category.find(req.body).remove().exec(function(err){
 		if(err) return next(err);
-		res.json(deletedCategory);
+		res.json(200);
 	});
 });
 

@@ -8,7 +8,8 @@ app.config(function ($stateProvider, USER_ROLES) {
     });
 });
 
-app.controller('AdminProfileController', function ($scope, UserInfo, $state) {
+app.controller('AdminProfileController', function ($scope, UserInfo, $state, $stateParams) {
+
 
 	$scope.users = ['joe', 'smoe'];
 
@@ -50,7 +51,6 @@ app.factory('UserInfo', function($http){
 	  		last: ''
 	  	},
 	  	orders: [],
-	  	cart: '',
 	  	addresses: [],
 	  	reviews: [],
 	  	admin: false
