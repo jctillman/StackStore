@@ -1,8 +1,10 @@
 <div>
 	<div class="block centerDiv">
-		<div><img class="product-line-inline" src="{{product.photoUrl}}"/></div>
+		<div>
+			<img class="product-line-inline" src="{{product.photoUrl}}" ui-sref="list.productDetail({product: product.title})" ng-click="goToProductDetail(product)"/>
+		</div>
 		<span class='product-line-always block'>
-			<a class="productLink" ui-sref="list.productDetail({product: product.title})"ng-click="goToProductDetail(product)">{{product.title}}</a>
+			<a class="productLink" ui-sref="list.productDetail({product: product.title})" ng-click="goToProductDetail(product)">{{product.title}}</a>
 		</span>
 		<span class='product-line-always'>
 			{{product.price | currency}}
