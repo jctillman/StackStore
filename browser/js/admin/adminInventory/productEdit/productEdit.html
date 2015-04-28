@@ -1,18 +1,21 @@
-<h1>editing</h1>
 
 <form id="edit-form" name="editForm">
+    {{editForm}}
 
     <div class="form-group">
+        <span>Error! Title is a required field.</span></br>
         <label for="title">Title</label>
-        <input type="text" ng-model="product.title" class="form-control">
+        <input type="text" ng-model="product.title" class="form-control" required>
     </div>
     <div class="form-group">
+        <span>Error! Description is a required field.</span></br>
         <label for="description">Description</label>
-        <input type="text" ng-model="product.description" class="form-control">
+        <input type="text" ng-model="product.description" class="form-control" required>
     </div>
     <div class="form-group">
+        <span>Error! Price is a required field.</span></br>
         <label for="price">Price</label>
-        <input type="number" ng-model="product.price" class="form-control">
+        <input type="number" ng-model="product.price" class="form-control" required>
     </div>
     <div class="form-group">
         <div ng-show='editPage'>
