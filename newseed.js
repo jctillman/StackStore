@@ -95,14 +95,16 @@ describe('function', function(done){
                             title: 'Tiger',
                             description: 'An endangered freaking tiger.',
                             price: 1000,
-                            categories: [catA, catC]
+                            categories: [catA, catC],
+                            photoUrl: "default.jpg"
                     }).then(de, de);
 
                 Product.create({
                         title: 'Ocelot',
                         description: 'An ocelot.',
                         price: 1000,
-                        categories: [catA, catC]
+                        categories: [catA, catC],
+                        photoUrl: "default.jpg"
                 }).then(de, de);
 
 
@@ -111,7 +113,8 @@ describe('function', function(done){
                         title: 'Turtle',
                         description: 'Are any turtles endangered?',
                         price: 1000,
-                        categories: [catB, catD]
+                        categories: [catB, catD],
+                        photoUrl: "default.jpg"
                 }).then(de, de);
 
 
@@ -119,14 +122,16 @@ describe('function', function(done){
                         title: 'Nessie',
                         description: 'The Loche Ness Monster',
                         price: 1000,
-                        categories: [catA, catD]
+                        categories: [catA, catD],
+                        photoUrl: "default.jpg"
                 }).then(de, de);
 
                 Product.create({
                         title: 'Dodo',
                         description: 'Really, really endangered.',
                         price: 1000,
-                        categories: [catB, catD]
+                        categories: [catB, catD],
+                        photoUrl: "default.jpg"
                 }).then(de, de);
             });
         });
