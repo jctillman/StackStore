@@ -1,21 +1,23 @@
-
-<form id="edit-form" name="editForm" novalidate>
+<div class="light centerDiv">
+    <h2> EDIT PRODUCT </h2>
+<div class="adminDiv left">
+<form class="tableDiv pad" id="edit-form" name="editForm" novalidate>
 
     <div class="form-group">
         
-        <label for="title">Title</label><span 
+        <label class="title adminFilter" for="title">Title</label><span 
             ng-show='editForm.title.$error.required'
             > *required</span></br>
         <input type="text" ng-model="product.title" class="form-control" required name='title'>
     </div>
     <div class="form-group">
-        <label for="description">Description</label><span 
+        <label class="title adminFilter" for="description">Description</label><span 
             ng-show='editForm.description.$error.required'
             > *required</span></br>
         <input type="text" ng-model="product.description" class="form-control" required name='description'>
     </div>
     <div class="form-group">
-        <label for="price">Price</label><span 
+        <label class="title adminFilter" for="price">Price</label><span 
             ng-show='editForm.price.$error.required'
             > *required</span></br>
         <input type="number" ng-model="product.price" class="form-control" name='price' required>
@@ -37,7 +39,7 @@
 
         <table>
             
-            <label for="category">Add Categories</label><span ng-show='addPage && editForm.category.$error.required'> *required!<span></br> 
+            <label class="title adminFilter" for="category">Add Categories</label><span ng-show='addPage && editForm.category.$error.required'> *required!<span></br> 
             <span ng-show='error'>The product already belongs to that category!</span>
 
         	<tr ng-repeat='category in categories'> 
@@ -48,22 +50,22 @@
 					</select>
         		</td>
                 <td>
-                    <button ng-click='addToCategories(category)'>Add</button>
+                    <button class="btn btn-default" ng-click='addToCategories(category)'>Add</button>
                 </td>
       		</tr>
         </table>
     </div>
 
     <div class='form-group'>
-        <label for="photoUrls">PhotoUrl</label></br>
+        <label class="title adminFilter" for="photoUrls">PhotoUrl</label></br>
         <li ng-show='product.photoUrl'>{{product.photoUrl}}</li>
-        Enter new:
+        Enter new photo url:
         <input type=text ng-model='product.photoUrl'>
     </div>
 
 
     <div class="form-group">
-        <label>Available?</label></br>  
+        <label class="title adminFilter">Availability</label></br>  
         <input ng-model='product.userVisible' type="radio" name="vehicle" value="true"> Yes<br>
         <input type="radio" ng-model='product.userVisible' name="vehicle" value="false">No
     </div>
@@ -72,4 +74,7 @@
 <button class='btn btn-default' ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
 <button class='btn btn-default' ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>
 <button class='btn btn-default' ng-show='addPage && !editForm.$error.required' ng-click='addNewProduct()'>Add item</button>
-<button class='btn btn-default' ui-sref='admin.adminInventory'>Return to inventory</button>
+<button class='btn' ui-sref='admin.adminInventory'>Return to inventory</button>
+
+</div>
+</div>

@@ -1,42 +1,47 @@
-<div class='headerDiv'>
-	<h1 class='header'>STORE INVENTORY</h1>
-</div>
-
 <ui-view>
-	<button class='btn btn-default' ng-click='goToAdd()'>Add Products</button>
-	<button class='btn btn-default' ng-click='goToCategoryAdd()'>Add Categories</button>
+<div class='light centerDiv'>
 	
-	<div class='light centerDiv'>
-		<div class='inventory row'>
-			<div class='col-md-6'>
-					PRODUCTS
-					<p ng-repeat='product in products' ng-model='product'>
-						{{product.title}}<br>
-						ID: {{product._id}}<br>
-						<button ng-click='goToEdit(product)'>Edit</button>
-					</p>
-			</div>		
+	<h2>STORE INVENTORY</h2>
+	
+	<div class='adminDiv'>
+		<div class="btnDiv">
+		<button class='btn spaceRight spaceBottom' ng-click='goToCategoryAdd()'>Add Categories</button>
+		<button class='btn spaceLeft spaceBottom' ng-click='goToAdd()'>Add Products</button>
+		</div>
+		
+		<div class='tableDiv left pad'>
+			<h3 class="title noTop">CATEGORIES</h3>
+			<table  ng-repeat='category in categories'>
+			  	<thead>
+				  	<tr>
+					  	<td class="spaceRight">
+					  		{{category.type}}
+					  	</td>
+					  	<td>
+					  		<button class="btn btn-default spaceLeft" ng-click='goToCategoryEdit(category)'>Edit</button>
+					  	</td>
+					  </tr>
+				  </thead>
+				  <tbody>
+					  <tr ng-repeat='info in category.info'>
+					  	<td>
+					  		{{info.data}}
+					  	</td>
+					  </tr>
+				</tbody>
+			</table>
+		</div> <!--end table col div-->
 
-			<div class='col-md-6'>
-				CATEGORIES
-				<table  ng-repeat='category in categories'>
-				  	<thead>
-					  	<tr>
-						  	<td>
-						  		{{category.type}}
-						  		<button ng-click='goToCategoryEdit(category)'>Edit</button>
-						  	</td>
-						  <tr>
-					  </thead>
-					  <tbody>
-						  <tr ng-repeat='info in category.info'>
-						  	<td>
-						  		{{info.data}}
-						  	</td>
-						  </tr>
-					</tbody>
-				</table>
-			</div>
-		<div>
-	</div>
+		<div class='tableDiv left pad'>
+				<h3 class="title noTop">PRODUCTS</h3>
+				<p class="spaceBottom spaceTop spaceRight" ng-repeat='product in products' ng-model='product'>
+					<span class="spaceBottom spaceTop">{{product.title}}</span><br>
+					<span class="spaceBottom spaceTop">ID: {{product._id}}</span><br>
+					<button class="btn btn-default spaceTop" ng-click='goToEdit(product)'>Edit</button>
+				</p>
+		</div>		
+
+			
+		</div>	<!--end admin div-->
+	</div> <!--end center div-->
 </ui-view>

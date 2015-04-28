@@ -1,27 +1,27 @@
-
-<form id="category-edit-form" name="categoryEditForm" novalidate>
+<div class="light centerDiv">
+    <h2> EDIT CATEGORY </h2>
+<div class="adminDiv left">
+<form class="tableDiv" id="category-edit-form" name="categoryEditForm" novalidate>
     <span class='success' ng-show='typeSuccess'>Success! Type changed.</span>
     <div class="form-group">
-        <label for="type">Type</label><span ng-show='categoryEditForm.category.$error.required'> *required</span></br>
+        <label class="title adminFilter" for="type">Type</label><span ng-show='categoryEditForm.category.$error.required'> *required</span></br>
         <input type="text" ng-model="category.newType" class="form-control" name='category' required>
-        <button class='btn btn-default' ng-click='changeType(category.type, category.newType)'>Change Type</button>
+        <button class='btn btn-default spaceTop' ng-click='changeType(category.type, category.newType)'>Change Type</button>
     </div>
     <div class="form-group">
         <span class='success' ng-show='dataSuccess'>Success! Data added.</span></br>
-        <label for="data">Data</label><span ng-show='categoryEditForm.data.$error.required && addCategory'> *required</span></br>
+        <label class="title adminFilter" for="data">Data</label><span ng-show='categoryEditForm.data.$error.required && addCategory'> *required</span></br>
         <ul ng-show='editCategory'>
             <li ng-repeat='info in category.info'>{{info.data}}</li>
         </ul>
         <input type="text" ng-model="category.newData" class="form-control"name='data' required>
-        <button class='btn btn-default' ng-click='addDataEntry(category.type, category.newData)'>Add data</button>
-    </div>
-    <div class="form-group">
-        <label for="order">Order</label>
-        <input type="number" ng-model="category.order" class="form-control">
+        <button class='btn btn-default spaceTop' ng-click='addDataEntry(category.type, category.newData)'>Add data</button>
     </div>
 </form>
    
 <span class='success' ng-show='deleteSuccess'>Success! Category deleted.</span></br>
 <button class='btn btn-default' ng-show='editCategory' ng-click='deleteCategory()'>Remove category</button>
 <button class='btn btn-default' ng-show='addCategory && !categoryEditForm.$error.required' ng-click='addNewCategory()'>Add category</button>
-<button class='btn btn-default' ui-sref='admin.adminInventory'>Return to inventory</button>
+<button class='btn' ui-sref='admin.adminInventory'>Return to inventory</button>
+</div>
+</div>
