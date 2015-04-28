@@ -1,11 +1,9 @@
 
-
 <user-profile user="user"></user-profile>
 
-<button ui-sref='admin.adminProfile'>Back to all users</button>
 
 <h3>Edit User</h3>
-
+<span ng-show='success'>Success! User has been updated.</span>
 <form id="user-edit-form" name="userEditForm">
   <div class="form-group">
       <label for="password">Change password</label>
@@ -18,7 +16,8 @@
 	      <input type="radio" name='adminStatus' value='false' ng-model='user.admin'>No
 	    </form>
   </div>
-  <button ng-click='updateUserInfo(user)'>Submit changes</button>
+  <button class='btn btn-default' ng-click='updateUserInfo(user)'>Submit changes</button>
+  <button class='btn btn-default' ui-sref='admin.adminProfile'>Back to all users</button>
 </form>
 
 

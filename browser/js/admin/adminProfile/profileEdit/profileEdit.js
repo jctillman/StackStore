@@ -6,7 +6,9 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminProfileEditController', function($scope, UserInfo, OrderInfo, $state){
+app.controller('AdminProfileEditController', function($scope, UserInfo, OrderInfo, $state, $timeout){
+
+	$scope.success = false;
 
 	$scope.user = UserInfo.user;
 
