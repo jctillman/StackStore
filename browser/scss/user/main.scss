@@ -1,4 +1,3 @@
-
 .userDiv{
 	margin: 0 auto;
 	text-align: left;
@@ -10,13 +9,17 @@
 	margin-bottom: 20px;
 	border: 1px solid #90a4ae; //gray-blue
 	padding: 10px;
+	width: 100%;
 }
 
 td{
 	padding: 5px !important;
-	width: 100%;
 }
 
 .borderBottom{
 	border-bottom: 1px solid gray;
+}
+
+.tdBorder{
+	width: 100%;
 }
