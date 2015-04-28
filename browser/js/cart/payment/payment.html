@@ -1,14 +1,32 @@
 <div class="cartSectionHeader"><h3>Add Credit Card Information</h3></div>
 
-<div class="cartFrame">
-    <input ng-model="card.number" placeholder="Card Number" />
-    <input ng-model="card.cvc" placeholder="CVC" />
-    <input ng-model="card.exp_month" placeholder="Expiration Month" />
-    <input ng-model="card.exp_year" placeholder="Expiration Year" /><br>
-    <button ng-click="submit()">Submit</button>
+<form name="form" class="cartFrame">
+
+    <input name="number" required integer type = "number" ng-pattern="integerval" ng-model="card.number" placeholder="Card Number" />
+    <div class="alert" ng-show="form.number.$error.number">Value is not a valid number.</div>
+
+    <input name="cvc"  required integer type = "number" ng-pattern="integerval" ng-model="card.cvc" min="0" max="999" placeholder="CVC" />
+    <div class="alert" ng-show="form.cvc.$error.number">Value is not a valid integer.</div>
+    <div class="alert" ng-show="form.cvc.$error.max">Value is too high.</div>
+    <div class="alert" ng-show="form.cvc.$error.min">Value is too low.</div>
+
+    <input name="month" required integer type = "number" ng-pattern="integerval" ng-model="card.exp_month" min="0" max="12" placeholder="Expiration Month" />
+    <div class="alert" ng-show="form.month.$error.number">Value is not a valid integer.</div>
+    <div class="alert" ng-show="form.month.$error.max">Value is too high.</div>
+    <div class="alert" ng-show="form.month.$error.min">Value is too low.</div>
+
+    <input name="year" required integer type = "number" ng-pattern="integerval" ng-model="card.exp_year" min="0" max="9999" placeholder="Expiration Year" /><br>
+    <div class="alert" ng-show="form.year.$error.number">Value is not a valid integer.</div>
+    <div class="alert" ng-show="form.year.$error.max">Value is too high.</div>
+    <div class="alert" ng-show="form.year.$error.min">Value is too low.</div>
+
+
+    <button ng-click="form.$valid && submit()">Submit</button>
     <span class="alert" ng-show="hasCard !== ''">{{hasCard}}</span>
     <span class="alert" ng-show="error !== ''">{{error}}</span>
-</div>
+
+
+</form>
 
 <div class="invisibleFrame">
 	<a class="floatLeft" ui-sref = "cart.address">Previous</a>

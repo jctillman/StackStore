@@ -11,6 +11,7 @@ app.config(function ($stateProvider) {
 
 app.controller('PaymentController', function ($state, $scope, CartManager) {
 
+	$scope.onlyNumbers = /^\d+$/;
 	$scope.submitting = false;
 	$scope.card = {};
 	$scope.hasCard = "";
@@ -32,12 +33,12 @@ app.controller('PaymentController', function ($state, $scope, CartManager) {
 				.then(null, function(err){
 					console.log("Error saving");
 					$scope.error = "Something went wrong trying to save the credit card.  Please try again."
-					//$scope.$digest();
+					$scope.$digest();
 				});
 		}else{
 			console.log("Error processing")
 			$scope.error = "Something went wrong trying to process the credit card.  Please try again."
-			//$scope.$digest();
+			$scope.$digest();
 		}
 	};
 

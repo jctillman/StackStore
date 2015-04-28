@@ -100,13 +100,14 @@ orderSchema.methods.totalPrice = function(){
 
 
 orderSchema.methods.purchase = function(userID, cb){
+    //throw new Error("Back from stripe");
     console.log("In purchase...");
     var self = this;
     var diff = (new Date() - this.finalCostCreatedDate );
     console.log(diff);
 
     console.log(this.paymentMethod);
-
+    
     if ( diff < 1000 * 60){
         var stripeToken = this.paymentMethod.stripeToken;
         console.log("Stripetoken", stripeToken);
@@ -115,6 +116,7 @@ orderSchema.methods.purchase = function(userID, cb){
             currency: "USD",
             source: stripeToken
         }, function(err, data){
+
             console.log("Back from stripe...")
             console.log("err", err);
             console.log("data", data);
@@ -127,15 +129,20 @@ orderSchema.methods.purchase = function(userID, cb){
                     User.findById(userID)
                         .exec()
                         .then(function(user){
+                            if (!user.orders) {user.orders = [];}
                             user.orders.push(user.cart);
                             user.cart = null;
                             user.save(cb);
                         }).then(null, function(err){
                             console.log("error here,", err);
+                            cb(null, "ok");
                         });
                 }else{
-                    cb(err, data);
+                    cb(null, "ok");
                 };
+            }).then(null, function(err){
+                console.log("There was an error");
+                cb(err, null);
             });
         });
     }else{
