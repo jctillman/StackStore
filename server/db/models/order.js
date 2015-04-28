@@ -122,6 +122,8 @@ orderSchema.methods.purchase = function(userID, cb){
             console.log("data", data);
             if (err) { cb(err, data); return; }
             self.status = 'purchased';
+            self.dateOrdered = Date.now();
+            self.user = userID;
             self.saveAsync().then(function(user){
                 console.log("userID", userID);
                 if (userID){
@@ -130,7 +132,7 @@ orderSchema.methods.purchase = function(userID, cb){
                         .exec()
                         .then(function(user){
                             if (!user.orders) {user.orders = [];}
-                            user.orders.push(user.cart);
+                            user.orders.push(self._id);
                             user.cart = null;
                             user.save(cb);
                         }).then(null, function(err){

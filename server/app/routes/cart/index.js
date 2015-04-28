@@ -52,6 +52,8 @@ router.use(function(req, res, next){
 				console.log("Checking to make sure user cart is same as session cart.");
 				req.user.cart = req.session.cart;
 				next();
+			}else{
+				next();
 			}
 		}
 	}else{
@@ -70,14 +72,22 @@ router.use(function(req, res, next){
 
 
 
+
+
+
+
+
+
+
+
+
 router.get('/getFinalCost', function(req, res, next){
-	console.log("At get final");
+	console.log("At get final cost");
 	Order
 		.findById(req.session.cart)
 		.populate('lineItems.product')
 		.exec()
 		.then(function(foundOrder){
-			console.log("asdasdasdas")
 			foundOrder.totalPrice().then(function(stuff){
 				res.json(stuff);
 			});
@@ -97,9 +107,15 @@ router.get('/purchase', function(req, res, next){
 		console.log("Found order")
 		console.log("this is the found order", foundOrder);
 		console.log("cart id", req.session.cart);
-			foundOrder.purchase(req.session.cart, function(err, data){
+		var userID
+		if (req.user && req.user._id){
+			var userID = req.user._id
+		}else{
+			var userID = null;
+		}
+			foundOrder.purchase(userID, function(err, data){
 				if(err){
-					console.log("Some error", err);
+					console.log("An error occurred while trying to purchase", err);
 					res.send(500);
 				}else{
 					console.log("No error");
@@ -237,51 +253,51 @@ router.get('/cartcount', function(req, res, next){
 });
 
 
-router.get('/lineItems', function(req, res, next){
-	console.log("Getting line items.");
-	var cartId = req.session.cart || req.user.cart;
-	if(cartId){
-		Order.findOne({_id: cartId}).exec().then(function(order){
-			res.send(order.lineItems);
-		})
-	}else{
-		res.send([]);
-	}
-});
+// router.get('/lineItems', function(req, res, next){
+// 	console.log("Getting line items.");
+// 	var cartId = req.session.cart || req.user.cart;
+// 	if(cartId){
+// 		Order.findOne({_id: cartId}).exec().then(function(order){
+// 			res.send(order.lineItems);
+// 		})
+// 	}else{
+// 		res.send([]);
+// 	}
+// });
 
 
-router.put('/lineItem/:id/', function(req, res, next){
-	console.log("Modifying line item.");
-	var lineItemId = req.params.id;
-	var lineItemNumber = req.body.number;
-	var cartId = req.session.cart || req.user.cart;
-	if(cartId){
-		if(lineItemNumber === 0){
-			console.log("Trying to del.");
-			Order.update(
-				{_id: cartId},
-				{$pullAll : { lineItems : [lineItemId]}},
-				function(err, data){
-					if(err){next(err);}
-					res.send(201);
-				}
-			);
+// router.put('/lineItem/:id/', function(req, res, next){
+// 	console.log("Modifying line item.");
+// 	var lineItemId = req.params.id;
+// 	var lineItemNumber = req.body.number;
+// 	var cartId = req.session.cart || req.user.cart;
+// 	if(cartId){
+// 		if(lineItemNumber === 0){
+// 			console.log("Trying to del.");
+// 			Order.update(
+// 				{_id: cartId},
+// 				{$pullAll : { lineItems : [lineItemId]}},
+// 				function(err, data){
+// 					if(err){next(err);}
+// 					res.send(201);
+// 				}
+// 			);
 
-		}else{
-			console.log("Trying to mod.");
-			LineItem.update(
-				{_id: lineItemId},
-				{quantity: lineItemNumber},
-				function(err, data){
-					if(err){next(err);}
-					res.send(201);
-				}
-			);
-		}
-	}else{
-		res.send(0);
-	}
-});
+// 		}else{
+// 			console.log("Trying to mod.");
+// 			LineItem.update(
+// 				{_id: lineItemId},
+// 				{quantity: lineItemNumber},
+// 				function(err, data){
+// 					if(err){next(err);}
+// 					res.send(201);
+// 				}
+// 			);
+// 		}
+// 	}else{
+// 		res.send(0);
+// 	}
+// });
 
 router.get('/currentstatus', function(req, res, next){
 	if (req.session.cart){

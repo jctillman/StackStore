@@ -29,6 +29,7 @@ app.controller('PaymentController', function ($state, $scope, CartManager) {
 				.setCart({paymentMethod: payment})
 				.then(function(suc){
 					$scope.hasCard = "Success saving new payment method";
+					$scope.error = "";
 				})
 				.then(null, function(err){
 					console.log("Error saving");
