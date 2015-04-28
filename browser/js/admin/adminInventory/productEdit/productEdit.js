@@ -46,6 +46,9 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 
 	$scope.deleteProduct = function(product){
 		ProductEdit.removeProduct(product).then(function(deletedItem){
+			_.remove(InventoryInfo.products, function(elem){
+				return elem._id === deletedItem._id;
+			});
 			$state.go('admin.adminInventory');
 		});
 	};
