@@ -1,22 +1,18 @@
-<h1>category editing</h1>
 
-<pre>{{category}}</pre>
-
-
-<form id="category-edit-form" name="categoryEditForm">
+<form id="category-edit-form" name="categoryEditForm" novalidate>
     <span class='success' ng-show='typeSuccess'>Success! Type changed.</span>
     <div class="form-group">
-        <label for="type">Type</label>
-        <input type="text" ng-model="category.newType" class="form-control">
+        <label for="type">Type</label><span ng-show='categoryEditForm.category.$error.required'> *required</span></br>
+        <input type="text" ng-model="category.newType" class="form-control" name='category' required>
         <button class='btn btn-default' ng-click='changeType(category.type, category.newType)'>Change Type</button>
     </div>
     <div class="form-group">
         <span class='success' ng-show='dataSuccess'>Success! Data added.</span></br>
-        <label for="data">Data</label>
-        <ul>
+        <label for="data">Data</label><span ng-show='categoryEditForm.data.$error.required && addCategory'> *required</span></br>
+        <ul ng-show='editCategory'>
             <li ng-repeat='info in category.info'>{{info.data}}</li>
         </ul>
-        <input type="text" ng-model="category.newData" class="form-control">
+        <input type="text" ng-model="category.newData" class="form-control"name='data' required>
         <button class='btn btn-default' ng-click='addDataEntry(category.type, category.newData)'>Add data</button>
     </div>
     <div class="form-group">
@@ -27,5 +23,5 @@
    
 <span class='success' ng-show='deleteSuccess'>Success! Category deleted.</span></br>
 <button class='btn btn-default' ng-show='editCategory' ng-click='deleteCategory()'>Remove category</button>
-<button class='btn btn-default' ng-show='addCategory' ng-click='addNewCategory()'>Add category</button>
+<button class='btn btn-default' ng-show='addCategory && !categoryEditForm.$error.required' ng-click='addNewCategory()'>Add category</button>
 <button class='btn btn-default' ui-sref='admin.adminInventory'>Return to inventory</button>

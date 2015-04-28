@@ -1,8 +1,14 @@
-<h1>HI I'm an Admin!</h1>
+<div class="headerDiv">
+	 <h1 class="header">Admin</h1>
+</div>
 
-<a ui-sref='admin.adminProfile'>Users</a>
-<a ui-sref='admin.adminOrder'>Orders</a>
-<a ui-sref='admin.adminInventory'>Inventory</a>
+<div class="light centerDiv">
+	<div class="adminDiv">
+		<a class="adminOps title" ui-sref='admin.adminProfile'>Users</a>
+		<a class="adminOps title" ui-sref='admin.adminOrder'>Orders</a>
+		<a class="adminOps title" ui-sref='admin.adminInventory'>Inventory</a>
+	</div>
+	<ui-view></ui-view>
+</div>
 
 
-<ui-view></ui-view>
