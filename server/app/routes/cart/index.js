@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var qs =  require('qs');
-var mongoose = require('mongoose');
+var Promise = require('bluebird')
+var mongoose = Promise.promisifyAll(require('mongoose'));
 var Auth = require('../../configure/authCheck');
 
 
@@ -21,7 +22,51 @@ var LineItem = mongoose.model('LineItem');
 // 4. Adding a payment method (to one's cart / order, etc).--undone
 // 5. Confirming all of the above, and paying for all of the above.--undone
 
+router.use(function(req, res, next){
+	console.log("Hit middleware")
 
+	var sessionCart = req.session && req.session.cart;
+	var userCart = req.user && req.user.cart;
+
+	if(req.user){
+
+		if (!sessionCart && !userCart){
+			Order.create({}, function(err, data){
+				console.log("Creating cart for user & session");
+		  		req.session.cart = data._id;
+		  		req.user.cart = data._id;
+		  		next();
+			});}
+		if(!sessionCart && userCart){
+			console.log("Setting user cart to session cart");
+	  		req.session.cart = req.user.cart;
+	  		next();
+		}
+		if(sessionCart && !userCart){
+			console.log("Setting session cart to user cart");
+	  		req.user.cart = req.session.cart;
+	  		next();
+		}
+		if(sessionCart && userCart){
+			if(req.user.cart !== req.session.cart){
+				console.log("Checking to make sure user cart is same as session cart.");
+				req.user.cart = req.session.cart;
+				next();
+			}
+		}
+	}else{
+		if(!sessionCart){
+			Order.create({}, function(err, data){
+				console.log("Making a new cart and setting session cart to it.");
+				req.session.cart = data._id;
+				next();
+			});
+		}else{
+			console.log("Already is a cart, is no user.  Carry on.");
+			next();
+		}
+	}
+});
 
 
 
@@ -89,6 +134,8 @@ router.post('/addproduct/:id', function(req, res, next){
 			});
 	};
 
+	productAdd(productId, req.session.cart);
+/*
 	//If there is any user currently attached
 	if(!!req.user){
 		console.log("There is a user attached.");
@@ -153,13 +200,13 @@ router.post('/addproduct/:id', function(req, res, next){
 			console.log("Have order attached");
 			productAdd(productId, req.session.cart);
 		}
-	}
+	}*/
 });
 
 
 
 router.get('/cartcount', function(req, res, next){
-	console.log("Hit cart count.");
+	/*console.log("Hit cart count.");
 	if (!req.session.cart){
 		console.log("In iff");
 		Order.create({}, function(err, data){
@@ -169,8 +216,8 @@ router.get('/cartcount', function(req, res, next){
 			res.send({items: 0});
 		});
 		return;
-	};
-	var cartId = req.session.cart || req.user.cart;
+	};*/
+	var cartId = req.session.cart;
 	Order.findById(cartId).exec().then(function(cart){
 		console.log(cart.lineItems.length);
 		res.send({items: cart.lineItems.length});

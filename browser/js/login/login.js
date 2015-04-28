@@ -60,9 +60,19 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserInfo) {
 
     $scope.sendSignUp = function (signUpInfo) {
         UserInfo.createNewUser(signUpInfo).then(function(newUser){
-             AuthService.login(signUpInfo).then(function(){
-                 $state.go('home');
-             })    
+            console.log("newUser", newUser);
+            if (newUser.name=="MongoError"){
+                if(newUser.err.toLowerCase().indexOf("duplicate") !== -1){
+                    $scope.error = "A user already exists with that email address"
+                }
+            }else{
+                 AuthService.login(signUpInfo).then(function(){
+                     $state.go('home');
+                 }).then(null, function(err){
+                    console.log("An error ocurred");
+                    //console.log(err)
+                 });   
+             } 
         });
     };
 

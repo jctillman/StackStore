@@ -28,6 +28,19 @@ app.controller('ProductReview', function ($scope, ReviewFactory, $http, $statePa
                 $state.go('list');
         });
     };
+
+    $scope.ratingvalidate = function(reviewForm){
+        return reviewForm.$submitted && reviewForm.ratingParagraph.$error.required;
+    }
+
+    $scope.contentValidate = function(reviewForm){
+        if(reviewForm.$submitted && reviewForm.content.$error.minlength){
+            return true;
+        }
+        if(reviewForm.$submitted && reviewForm.content.$error.maxlength){
+            return true;
+        }
+    }
 });
 
 
