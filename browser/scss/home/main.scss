@@ -1,5 +1,6 @@
 body{
   background-color: #222C2E; //gray
+  color: #cfd8dc; //light gray
 }
 
 #home {
@@ -61,4 +62,8 @@ a {
     text-decoration: none;
     outline: none;
   }
+}
+
+.spaceRight{
+  padding-right: 20px;
 }

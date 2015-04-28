@@ -1,7 +1,18 @@
-
-* {
-	color: white;
+.adminDiv{
+	margin: 0 auto;
+	text-align: center;
+	padding: 20px;
+	width: 50%;
 }
+
+.adminOps{
+	padding: 15px;
+	font-size: 20px;
+	&:hover{
+		color: white;
+	}
+}
+
 
 .inventory {
 	padding: 10px;
