@@ -41,7 +41,7 @@ app.controller('CartController', function ($scope, CartFactory) {
 
     CartFactory.onChange(function(state){
         $scope.checkoutStage = state;
-        $scope.$digest();
+        //$scope.$digest();
     });
 
 });

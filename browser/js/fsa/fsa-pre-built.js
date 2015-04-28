@@ -136,6 +136,9 @@
             return $http.get('/logout').then(function () {
                 Session.destroy();
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+                $rootScope.$emit('addedItem');
+            }).then(null, function(err){
+                console.log(err);
             });
         };
 

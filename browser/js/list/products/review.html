@@ -4,12 +4,12 @@
 <div class="light centerDiv">
 	<div class="productDiv box">
 		<div>
-			<h2>{{product.title}}</h2>
+			<h2 class="title">{{product.title}}</h2>
 		</div>
-
+		
 		<form novalidate class="productInfo" name="reviewForm" ng-submit="reviewForm.$valid">
 			
-			<p class="error" ng-show="reviewForm.$submitted && reviewForm.ratingParagraph.$error.required">Rating is required.</p>
+			<p class="error" ng-show="ratingValidate(reviewForm)">Rating is required.</p>
 			<label for="rating">Rate</label>
 			{{rating}}
 			<p required name="ratingParagraph" ng-model="rating">
@@ -21,8 +21,8 @@
 			</p>
 
 			<label for="content" class="review">Review</label>
-			<p class="error" ng-show="reviewForm.$submitted && reviewForm.content.$error.minlength">Review must be at least 5 characters long.</p>
-			<p class="error" ng-show="reviewForm.$submitted && reviewForm.content.$error.maxlength">Review must be less than 5000 characters long.</p></br>
+			<p class="error" ng-show="contentValidate(reviewForm)">Review must be at least 5 characters long.</p>
+			<p class="error" ng-show="contentValidate(reviewForm)">Review must be less than 5000 characters long.</p></br>
 			<textarea ng-model="content" name="content" input-type="text" required ng-minlength="5" ng-maxlength="5000"></textarea>
 			
 
