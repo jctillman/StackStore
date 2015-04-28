@@ -11,12 +11,12 @@
 
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login/Sign Up</button>
 
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
+        <div ng-show="user" class="nav navbar-nav welcomeUser right">
+            <span>Welcome {{ user.email }}!</span>
             <a ng-click="logout()">Logout</a>
         </div>
 
-        <div ng-show="admin" class="welcome">
+        <div ng-show="admin" class="nav navbar-nav welcomeUser right">
             <span>Welcome, {{ user.email }}!</span>
             <a ng-click="logout()">Logout</a>
         </div>

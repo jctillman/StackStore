@@ -2,14 +2,8 @@ navbar {
 
   display: block;
   background-color: #222C2E; //gray
-  margin-bottom: 0 !important;
+  margin: 0 !important;
   border-bottom: 1px solid #ffd600;
-
-  fullstack-logo {
-    padding-top: 10px;
-    margin-right: 20px;
-    width: 30px;
-  }
 
   a {
     color: white;
@@ -44,7 +38,7 @@ navbar {
 
   .welcome {
     float: right;
-    padding: 15px;
+    padding: 10px;
     margin: 0;
     
     span {
@@ -58,6 +52,10 @@ navbar {
 
 }
 
+.welcomeUser{
+  padding: 15px;
+}
+
 .cart{
   padding-right: 10px;
   color: white;
@@ -65,7 +63,7 @@ navbar {
 }
 
 .fa-paw{
-  padding: 15px;
+  padding: 10px;
   color: white;
   font-size: 20px; 
 }
