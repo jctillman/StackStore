@@ -1,21 +1,41 @@
 
-#cart {
+.cartDiv {
+	margin: 0 auto;
+	text-align: center;
+	width: 40%;
 }
 
 .lineItem{
-
 	height: 50px;
-
-	button{
-		background: black;
-		border: solid 1px #ffd600;
-		border-radius: 2px;
-		color: #ffd600;
-	}
-
+	text-align: left;
+	font-size: 16px;
+	vertical-align: middle;
 }
 
+.fa-chevron-right{
+	color: #ffd600; //yellow
+}
 
+.tdSpan{
+	width: 25%;
+}
+
+.tdSpan60{
+	width: 60%;
+}
+
+.tdSpan100{
+	width: 100%;
+}
+
+.underDiv{
+	clear: both;
+	margin-top: 40px;
+}
+
+.rightAlign{
+	text-align: right;
+}
 
 .floatLeft{
 	float: left;
@@ -36,9 +56,29 @@
 .floatRight{
 	float: right;
 	display: block-inline;
-	color: #ddb400;
-	margin-left: 10px;
-	margin-right: 10px;
+	color: #ffd600; //yellow
+	// margin-left: 10px;
+	// margin-right: 10px;
+	font-size: 16px;
+	&:hover{
+		color: white;
+	}
+}
+
+.plus{
+	color: #ffd600;
+	background: transparent;
+	border: solid 1px #ffd600;		
+	border-radius: 2px;
+	padding: 2px 7px;
+}
+
+.minus{
+	color: #ffd600;
+	background: transparent;
+	border: solid 1px #ffd600;		
+	border-radius: 2px;
+	padding: 2px 8px;
 }
 
 .cartFrame{
@@ -46,19 +86,12 @@
 	background-color: #222C2E; //gray
 	border: 1px solid #ffd600; //yellow
 	border-radius: 5px;
-	width: 500px;
-	color: white;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 10px;
+	margin-top: 40px;
 	margin-bottom: 10px;
-
-	button{
-		background: black;
-		border: solid 1px #ffd600;
-		border-radius: 2px;
-		color: #ffd600;
-	}
+	text-align: center;
 
 	input{
 		border: 0px;
@@ -73,33 +106,24 @@
 
 }
 
-.invisibleFrame{
-	padding: 20px;
-	background-color: #222C2E; //gray
-	border: 0px solid black;
-	border-radius: 5px;
-	width: 500px;
-	color: white;
-	margin-left: auto;
-	margin-right: auto;
+// .invisibleFrame{
+// 	padding: 20px;
+// 	border-radius: 5px;
+// 	color: white;
+// 	margin-left: auto;
+// 	margin-right: auto;
 
-	button{
-		background: black;
-		border: solid 1px #ffd600;
-		border-radius: 2px;
-		color: #ffd600;
-	}
-	
-}
+// }
 
 .cartSectionHeader{
-	width: 500px;
+	width: 100%;
 	color: #ffd600;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	font-size: 16px;
 
 }
 
@@ -107,4 +131,13 @@
 	padding: 10px;
 	margin: 10px;
 	background: #BBBBBB;
+}
+
+.cartContent{
+	width: 90%;
+	border: 1px solid #90a4ae; //gray-blue
+	text-align: left;
+	padding: 20px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 }

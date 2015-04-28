@@ -1,12 +1,17 @@
-<div class="cartSectionHeader"><h3>Edit Cart Contents</h3></div>
-<div class="cartFrame">
-	<div class="lineItem" ng-repeat="item in items">
-		<span style="display: inline-block; width: 250px;">{{item.product.title}} </span>
-		<span style="display: inline-block; width: 100px;">Quantity: {{item.quantity}} </span>
-		<button ng-click="modLine($index, item.quantity-1)"> - </button>
-		<button ng-click="modLine($index, item.quantity+1)">+</button>
-	</div>
+<div class="headerDiv"><h3 class="header">Edit Cart Contents</h3></div>
+<div class="cartDiv">
+	<div class="cartFrame">
+	<table class="lineItem" ng-repeat="item in items">
+		<tr>
+			<td class="tdSpan">{{item.product.title}} </td>
+			<td class="tdSpan">Quantity: {{item.quantity}} </td>
+			<td class="tdSpan spaceRight"><button class="minus spaceRight" ng-click="modLine($index, item.quantity-1)"> - </button>
+			<button class="plus" ng-click="modLine($index, item.quantity+1)">+</button></td>
+		</tr>
+	</table>
 </div>
-<div class="invisibleFrame">
-	<a class = "floatRight" ng-show="items.length" ui-sref = "cart.address">Next</a>
+	<a class="floatRight" ng-show="items.length" ui-sref="cart.address">
+		<span> Next <span>
+		<i class="fa fa-chevron-right spaceLeft"></i>
+	</a>
 </div>

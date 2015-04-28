@@ -1,36 +1,80 @@
-<div class="cartSectionHeader"><h3>Add Credit Card Information</h3></div>
+<div class="headerDiv"><h3 class="header">Add Credit Card Information</h3></div>
 
-<form name="form" class="cartFrame">
+<div class="cartDiv">
+    <div class='cartFrame'>
+    <form name="form">
+        <table>
+            <tr>
+                <td class="left">Card Number</td>
+                <td class="tdSpan60">
+                    <input name="number" required integer type = "number" ng-pattern="integerval" ng-model="card.number" placeholder="Card Number" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.number.$error.number">Value is not a valid number.</td>
+            </tr>
+            <tr>
+                <td class="left">CVC</td>
+                <td class="tdSpan60">
+                    <input name="cvc"  required integer type = "number" ng-pattern="integerval" ng-model="card.cvc" min="0" max="999" placeholder="CVC" />
+                </td>
+            </tr>
+             <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.cvc.$error.number">Value is not a valid integer.</td>
+                
+            </tr>
+             <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.cvc.$error.max">Value is too high.</td>
+            </tr>
+             <tr>
+                <td class="left">Expiration Month</td>
+                <td class="tdSpan60">
+                    <input name="month" required integer type = "number" ng-pattern="integerval" ng-model="card.exp_month" min="0" max="12" placeholder="Expiration Month" />
+                </td>
+            </tr>
+             <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.month.$error.number">Value is not a valid integer.</td>
+            </tr>
+             <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.month.$error.max">Value is too high.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.month.$error.min">Value is too low.</td>
+            </tr>
+            <tr>
+                <td class="left">Expiration Year</td>
+                <td class="tdSpan60">
+                    <input name="year" required integer type = "number" ng-pattern="integerval" ng-model="card.exp_year" min="0" max="9999" placeholder="Expiration Year" /><br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.year.$error.number">Value is not a valid integer.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.year.$error.max">Value is too high.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="alert rightAlign tdSpan60" ng-show="form.year.$error.min">Value is too low.</td>
+            </tr>
+            <tr ng-show="hasCard !== ''"><td></td><td class="alert rightAlign tdSpan100">{{hasCard}}</td></tr>
+            <tr ng-show="error !== ''"><td></td><td class="alert rightAlign tdSpan100">{{error}}</td></tr>
+            <tr><td></td><td class="tdSpan100 rightAlign"><button class="btn right" ng-click="form.$valid && submit()">Submit</button></td></tr>
 
-    <input name="number" required integer type = "number" ng-pattern="integerval" ng-model="card.number" placeholder="Card Number" />
-    <div class="alert" ng-show="form.number.$error.number">Value is not a valid number.</div>
-
-    <input name="cvc"  required integer type = "number" ng-pattern="integerval" ng-model="card.cvc" min="0" max="999" placeholder="CVC" />
-    <div class="alert" ng-show="form.cvc.$error.number">Value is not a valid integer.</div>
-    <div class="alert" ng-show="form.cvc.$error.max">Value is too high.</div>
-    <div class="alert" ng-show="form.cvc.$error.min">Value is too low.</div>
-
-    <input name="month" required integer type = "number" ng-pattern="integerval" ng-model="card.exp_month" min="0" max="12" placeholder="Expiration Month" />
-    <div class="alert" ng-show="form.month.$error.number">Value is not a valid integer.</div>
-    <div class="alert" ng-show="form.month.$error.max">Value is too high.</div>
-    <div class="alert" ng-show="form.month.$error.min">Value is too low.</div>
-
-    <input name="year" required integer type = "number" ng-pattern="integerval" ng-model="card.exp_year" min="0" max="9999" placeholder="Expiration Year" /><br>
-    <div class="alert" ng-show="form.year.$error.number">Value is not a valid integer.</div>
-    <div class="alert" ng-show="form.year.$error.max">Value is too high.</div>
-    <div class="alert" ng-show="form.year.$error.min">Value is too low.</div>
-
-
-    <button ng-click="form.$valid && submit()">Submit</button>
-    <span class="alert" ng-show="hasCard !== ''">{{hasCard}}</span>
-    <span class="alert" ng-show="error !== ''">{{error}}</span>
-
-
-</form>
-
-<div class="invisibleFrame">
-	<a class="floatLeft" ui-sref = "cart.address">Previous</a>
-	<a class="floatRight" ui-sref = "cart.promos" ng-show="hasCard !== ''">Next</a>
+        </table>
+    </form>
 </div>
 
-
+<div class="invisibleFrame">
+	<a class="floatLeft" ui-sref = "cart.address"><i class="fa fa-chevron-left spaceRight"></i>Previous</a>
+	<a class="floatRight" ui-sref = "cart.promos" ng-show="hasCard !== ''">Next<i class="fa fa-chevron-right spaceLeft"></i></a>
+</div>
+</div>

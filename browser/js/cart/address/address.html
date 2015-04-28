@@ -1,20 +1,56 @@
-<div class="cartSectionHeader"><h3>Add Order Address</h3></div>
+<div class="headerDiv"><h3 class="header">Add Order Address</h3></div>
 
+<div class='cartDiv'>
 <div class="cartFrame" ng-repeat="address in addresses">
 	<address-display address="address" myclick="pushAddr"></address-display>
 </div>
 
-<form name="form" class="cartFrame">
-	<input placeholder="Address Line 1" ng-model="content.line1" required ng-minlength=4 type="text" name="line1"></input><br>
-	<input placeholder="Address Line 2 (Optional)" ng-model="content.line2" type="text" name="line2"></input><br>
-	<input placeholder="State" ng-model="content.state" required type="text" name="state"></input><br>
-	<input placeholder="City" ng-model="content.city" ng-minlength=2 required type="text" name="city"></input><br>
-	<input placeholder="Country" ng-model="content.country" ng-minlength=2 required type="text" name="country"></input> <br>
-	<input placeholder="Zip" ng-model="content.zip" type="text" name="zip"></input><br>
+<div class="cartFrame">
+<form name="form">
+	<table>
+		<tr>
+			<td class="left">Address Line 1</td>
+			<td class="tdSpan60">
+				<input placeholder="Address Line 1" ng-model="content.line1" required ng-minlength=4 type="text" name="line1"></input>
+			</td>
+		</tr>
+		<tr>
+			<td class="left">Address Line 2</td>
+			<td class="tdSpan60">
+				<input placeholder="Address Line 2 (Optional)" ng-model="content.line2" type="text" name="line2"></input>
+			</td>
+		</tr>
+		<tr>
+			<td class="left"> State </td>
+			<td class="tdSpan60">
+				<input placeholder="State" ng-model="content.state" required type="text" name="state"></input>
+			</td>
+		<tr>
+			<td class="left">City</td>
+			<td class="tdSpan60">
+				<input placeholder="City" ng-model="content.city" ng-minlength=2 required type="text" name="city"></input>
+			</td>
+		<tr>
+			<td class="left">Country</td>
+			<td class="tdSpan60">
+				<input placeholder="Country" ng-model="content.country" ng-minlength=2 required type="text" name="country"></input> 
+			</td>
+		</tr>
+		<tr>
+			<td class="left">Zip</td>
+			<td class="tdSpan60">
+				<input placeholder="Zip" ng-model="content.zip" type="text" name="zip"></input>
+			</td>
+		</tr>
+	<table>
 </form>
+</div>
+</div>
+<div class="underDiv">
+	<a class="floatLeft" ui-sref = "cart.editing"><i class="fa fa-chevron-left spaceRight"></i>Previous</a>
 	
-<div class="invisibleFrame">
-	<a class = "floatLeft" ui-sref = "cart.editing">Previous</a>
-	<a class = "floatRight" ng-click="addAddressSingle()" ng-show="form.$valid"> Next </a>
-	<a class = "floatRight" ng-click="addAddressDual()" ng-show="hasUser && form.$valid"> Add Address To User Account </a>
+	<a  class="floatRight" ng-click="addAddressSingle()" ng-show="form.$valid"> Next <i class="fa fa-chevron-right spaceLeft"></i></a>
+
+	<a class="floatRight spaceRight" ng-click="addAddressDual()" ng-show="hasUser && form.$valid"> Add Address To User Account </a>
+
 </div>

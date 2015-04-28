@@ -1,9 +1,10 @@
-<div class="cartSectionHeader"><h3>Confirmation</h3></div>
+<div class="headerDiv"><h3 class="header">Confirmation</h3></div>
 
-
+<div class="cartDiv">
+	<div class="cartFrame">
 <div class="cartSectionHeader"><p>Items</p></div>
-<div class="cartFrame">
-	<div class="lineItem" ng-repeat="item in finalCost.lineItems">
+<div>
+	<div class="lineItem cartContent" ng-repeat="item in finalCost.lineItems">
 		<span style="display: inline-block; width: 250px;">{{item.product.title}} </span>
 		<span style="display: inline-block; width: 100px;">Quantity: {{item.quantity}} </span>
 	</div>
@@ -12,28 +13,28 @@
 
 
 <div class="cartSectionHeader"><p>Address</p></div>
-<div class="cartFrame">
+<div class="cartContent">
 	<address-display address="finalCost.address"></address-display>
 </div>
 
 
 
 <div class="cartSectionHeader"><p>Payment Method</p></div>
-<div class="cartFrame">
+<div class="cartContent">
 	<div ng-show="finalCost.paymentMethod.stripeToken">Payment method attached.</div>
 </div>
 
 
 <div ng-show="finalCost.promo !== ''">
 	<div class="cartSectionHeader"><p>Promo code</p></div>
-	<div class="cartFrame">
+	<div class="cartContent">
 		<p>Promotional Code: {{finalCost.promo}}</p>
 	</div>
 </div>
 
 
 <div class="cartSectionHeader"><p>Costs</p></div>
-<div class="cartFrame">
+<div class="cartContent">
 	<p>Final Cost: ${{finalCost.finalCost / 100}}
 	<p>Date this final cost was calculated: {{finalCost.finalCostCreatedDate}} </p>
 	<p>(If you do not purchase soon after this cost was calculated, you will need to recalculate a final cost by reloading this page)</p>
@@ -44,11 +45,12 @@
 {{finalCost}}
 </div>-->
 
-<div class="invisibleFrame">
-	<a class="floatLeft" ui-sref="cart.promos">Previous</a>
+</div>
+<div>
+	<a class="floatLeft" ui-sref="cart.promos"><i class="fa fa-chevron-left spaceRight"></i>Previous</a>
 	<span class="floatRight">
-		<button ui-sref="cart.purchased">Purchase Items</button>
+		<button class="btn" ui-sref="cart.purchased">Purchase Items</button>
 	</span>
 </div>
-
+</div>
 <br><br><br>
