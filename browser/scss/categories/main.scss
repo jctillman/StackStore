@@ -1,10 +1,11 @@
 .headerDiv {
   width: 100%;
   background-color: black;
-  color: white;
+  color: #ffd600; //yellow
   text-align: center;
   padding: 25px;
   margin: 0 auto;
+  border-bottom: 1px solid #ffd600; //yellow
 }
 
 .header{
@@ -15,9 +16,8 @@
 
 .filter{
 	margin: 0 auto;
-	width: 75%;
+	width: 80%;
 	text-align: center;
-	// padding: 15px;
 	border-bottom: 1px solid #90a4ae; //gray-blue
 }
 
@@ -35,9 +35,12 @@
 }
 
 .productLink{
-  color: black;
-  font-weight: bold;
+  color: #ffd600; //yellow
+  // font-weight: bold;
   font-size: 16px; 
+  &:hover{
+  	color: white;
+  }
 }
 
 .product-line-always{
@@ -58,12 +61,12 @@
 	color: #90a4ae; //gray-blue
 	background-color: transparent;
 	border: 1px solid #90a4ae; //gray-blue
-	padding: 2px 8px;
+	padding: 0px 8px 4px 8px;
 }
 
 .add:hover{
-	border: 1px solid #222C2E; //gray;
-	color: #222C2E; //gray;
+	border: 1px solid white;
+	color: white
 }
 
 .centerDiv{
@@ -78,13 +81,12 @@
 
 .productDiv{
 	padding: 20px;
-	width: 75%;
 	margin: 0 auto;
 }
 
 .productInfo{
 	text-align: left;
-	width: 30%;
+	width: 25%;
 	margin: 0 auto;
 	padding: 20px;
 	border: 1px solid #90a4ae; //gray-blue
@@ -92,4 +94,39 @@
 
 .price {
 	margin: 10px 0px !important;
+}
+
+.filterOption{
+	font-weight: normal;
+}
+
+h5{
+	font-weight: normal;
+}
+
+img{
+	border: 1px solid #90a4ae !important; //gray-blue
+}
+
+
+.leftDiv{
+	width: 50%;
+	float: left;
+}
+
+.detailImg{
+	width: 20%;
+	margin-top: 40px;
+}
+
+.reviewLink{
+	color: #ffd600; //yellow
+	margin-top: 10px;
+	&:hover{
+		color: white;
+	}
+}
+
+.title{
+	color: #ffd600; //yellow
 }

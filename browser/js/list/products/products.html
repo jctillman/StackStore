@@ -3,38 +3,38 @@
 <div class="headerDiv"><h1 class="header">Details</h1></div>
 
 <div class="light centerDiv">
+	
+	<div><img class="detailImg" src='{{product.photoUrl}}'/></div>
+	
 	<div class="productDiv">
-		<img src='{{product.photoUrl}}'/>
+			
+		<!-- <div class="spaceBottom"> -->
+			<h2 class="spaceBottom title">{{product.title}}</h2>
+			
+			<div class="productInfo">
+				
+				<h3 class="price title">{{product.price | currency}}</h3>
+				<h3 class="inline title"> Add to cart <add-product product="product" class="spaceLeft inline"></add-product></h3> 
+				
+				
+				<h4>Details</h4>
+				<p>{{product.description}}</p>
+				
+				
+				
+				<h4 class="inline">Reviews</h4>
+				<span class="right"><a ng-click="goToAddReview(product)" class="reviewLink right"> Add Review </a></span>
 
-		<div class="spaceBottom">
-			<h2 class="spaceBottom">{{product.title}}</h2>
-			{{product.photourl}}
-		</div>
+				<div class="box">
+					<p ng-repeat="review in product.reviews">
+						<span ng-repeat="star in showStars(review.stars) track by $index"><i class="fa fa-paw stars"></i></span>
+						 {{review.stars}}  {{review.content}}</p>
+				</div> <!--end review box-->
+			</div> <!--end productInfo box-->
 
-		<div class="productInfo">
-			
-			<h3 class="price">{{product.price | currency}}</h3>
-			<h3 class="spaceBottom inline"> Add to cart </h3> <add-product product="product" class="spaceLeft inline"></add-product>
-			
-			
-			<h4 class="dark">Details</h4>
-			<p>{{product.description}}</p>
-			
-			
-			
-			<h4 class="dark inline">Reviews</h4>
-			<span class="right"><a ng-click="goToAddReview(product)" class="right"> Add Review </a></span>
-
-			<div class="box">
-				<p ng-repeat="review in product.reviews">
-					<span ng-repeat="star in showStars(review.stars) track by $index"><i class="fa fa-paw stars"></i></span>
-					 {{review.stars}}  {{review.content}}</p>
-			</div> 
-			
-
-		</div>
-	</div>
-</div>
+		<!-- </div> <!--end box-->
+	</div><!--productDiv box-->
+</div> <!--end centerDiv box-->
 
 </ui-view>
 

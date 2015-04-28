@@ -2,10 +2,10 @@
 
 <h2>{{user.name.first}} {{user.name.last}}</h2>
 
-<h3>Profile Details</h3>
+<h3 class="title">Profile Details</h3>
 
 <div class="tableDiv">
-<label>Personal Information</label>
+<label class="title">Personal Information</label>
 	<table>
 		<tr>
 			<td id="td">
@@ -51,7 +51,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Addresses</label>
+<label class="title">Addresses</label>
 
 	<div ng-repeat='address in user.addresses'>
 		<address-display address='address'> </address-display>
@@ -59,7 +59,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Orders</label>
+<label class="title">Orders</label>
 	<table ng-repeat='order in user.orders'>
 		<tr>
 			<td>
@@ -74,7 +74,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Cart</label>
+<label class="title">Cart</label>
 	<table>
 		<tr>
 			<td>
@@ -82,14 +82,16 @@
 			</td>
 			<td>
 				{{user.cart._id}}
-				<button ng-click='userOrder(user.cart)'>See full details</button>
+			</td>
+			<td>
+				<button class="btn btn-default" ng-click='userOrder(user.cart)'>See full details</button>
 			</td>
 		</tr>
 	</table>
 </div>
 
 <div class="tableDiv">
-<label>Reviews</label>
+<label class="title">Reviews</label>
 	<table class="borderBottom" ng-repeat='review in user.reviews'>
 		<tr>
 			<td>
@@ -119,7 +121,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Administrative Status</label>
+<label class="title">Administrative Status</label>
 	<table>
 		<tr>
 			<td>
@@ -133,7 +135,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Twitter Account</label>
+<label class="title">Twitter Account</label>
 <table>
 	<tr>
 		<td>
@@ -171,7 +173,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Facebook Account</label>
+<label class="title">Facebook Account</label>
 <table>
 	<tr>
 		<td>
@@ -185,7 +187,7 @@
 </div>
 
 <div class="tableDiv">
-<label>Google Account</label>
+<label class="title">Google Account</label>
 <table>
 	<tr>
 		<td>
