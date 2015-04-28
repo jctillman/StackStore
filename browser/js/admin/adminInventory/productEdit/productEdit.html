@@ -1,21 +1,24 @@
 
 <form id="edit-form" name="editForm">
-    {{editForm}}
 
     <div class="form-group">
-        <span>Error! Title is a required field.</span></br>
-        <label for="title">Title</label>
-        <input type="text" ng-model="product.title" class="form-control" required>
+        
+        <label for="title">Title</label><span 
+            ng-show='editForm.title.$error.required'
+            > *required</span></br>
+        <input type="text" ng-model="product.title" class="form-control" required name='title'>
     </div>
     <div class="form-group">
-        <span>Error! Description is a required field.</span></br>
-        <label for="description">Description</label>
-        <input type="text" ng-model="product.description" class="form-control" required>
+        <label for="description">Description</label><span 
+            ng-show='editForm.description.$error.required'
+            > *required</span></br>
+        <input type="text" ng-model="product.description" class="form-control" required name='description'>
     </div>
     <div class="form-group">
-        <span>Error! Price is a required field.</span></br>
-        <label for="price">Price</label>
-        <input type="number" ng-model="product.price" class="form-control" required>
+        <label for="price">Price</label><span 
+            ng-show='editForm.price.$error.required'
+            > *required</span></br>
+        <input type="number" ng-model="product.price" class="form-control" name='price' required>
     </div>
     <div class="form-group">
         <div ng-show='editPage'>
@@ -33,12 +36,14 @@
           
 
         <table>
-            <label for="category">Add More Categories</label> 
-            <span ng-show='error'>The product already belongs to that category!</span> 
+            
+            <label for="category">Add Categories</label><span ng-show='addPage && editForm.category.$error.required'> *required!<span></br> 
+            <span ng-show='error'>The product already belongs to that category!</span>
+
         	<tr ng-repeat='category in categories'> 
         		<td>{{category.type}}</td>
-        		<td>
-        			<select ng-model='newCategory.id'>
+        		<td> 
+        			<select ng-model='newCategory.id' name='category' required>
 				        <option ng-repeat='info in category.info' value="{{info._id}}">{{info.data}}</option>
 					</select>
         		</td>
@@ -51,7 +56,7 @@
 
     <div class='form-group'>
         <label for="photoUrls">PhotoUrl</label></br>
-        <li>{{photoUrl}}</li>
+        <li ng-show='product.photoUrl'>{{product.photoUrl}}</li>
         Enter new:
         <input type=text ng-model='product.photoUrl'>
     </div>
@@ -66,5 +71,5 @@
 
 <button class='btn btn-default' ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
 <button class='btn btn-default' ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>
-<button class='btn btn-default' ng-show='addPage' ng-click='addNewProduct()'>Add item</button>
+<button class='btn btn-default' ng-show='addPage && !editForm.$error.required' ng-click='addNewProduct()'>Add item</button>
 <button class='btn btn-default' ui-sref='admin.adminInventory'>Return to inventory</button>
