@@ -81,7 +81,6 @@
 				ID
 			</td>
 			<td>
-				{{user.cart}}
 				{{user.cart._id}}
 				<button ng-click='userOrder(user.cart)'>See full details</button>
 			</td>
@@ -91,7 +90,7 @@
 
 <div class="tableDiv">
 <label>Reviews</label>
-	<table ng-repeat='review in user.reviews'>
+	<table class="borderBottom" ng-repeat='review in user.reviews'>
 		<tr>
 			<td>
 				Product
