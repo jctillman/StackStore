@@ -15,7 +15,7 @@ router.post('/newUser', function(req, res, next){
 		User.create(req.body).then(function(user){
 			res.json(user);
 		}, function(err){
-			return next(err);
+			res.json(err);
 		});	
 });
 
