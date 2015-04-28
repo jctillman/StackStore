@@ -40,3 +40,25 @@ text-align: center;
   color: black;
 }
 
+a {
+  &:hover{
+    text-decoration: none;
+    outline: none;
+  }
+  &:active{
+    text-decoration: none;
+    outline: none;
+  }
+  &:visited{
+    text-decoration: none;
+    outline: none;
+  }
+  &:focus{
+    text-decoration: none;
+    outline: none !important;
+  }
+  &:active:focus{
+    text-decoration: none;
+    outline: none;
+  }
+}

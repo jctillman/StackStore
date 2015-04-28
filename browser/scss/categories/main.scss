@@ -59,10 +59,11 @@
 	background-color: transparent;
 	border: 1px solid #90a4ae; //gray-blue
 	padding: 2px 8px;
-	a:hover{
-		background-color: #e6e6e6;
-	}
-	// display: inline-block;
+}
+
+.add:hover{
+	border: 1px solid #222C2E; //gray;
+	color: #222C2E; //gray;
 }
 
 .centerDiv{
@@ -89,4 +90,6 @@
 	border: 1px solid #90a4ae; //gray-blue
 }
 
-
+.price {
+	margin: 10px 0px !important;
+}

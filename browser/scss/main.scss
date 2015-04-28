@@ -10,17 +10,13 @@
   }
 }
 
-.review{
-	margin-top: 10px;
-}
+
 
 @import 'directives/main';
 @import 'home/main';
 @import 'categories/main';
 @import 'cart/main';
-
 @import 'admin/main';
 @import 'login/main';
-
 @import 'review/main';
-
+@import 'user/main';

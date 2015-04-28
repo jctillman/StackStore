@@ -6,23 +6,25 @@
 	<div class="productDiv">
 		<div>{{product.photourl}}</div>
 
-		<div>
-			<h2>{{product.title}}</h2>
+		<div class="spaceBottom">
+			<h2 class="spaceBottom">{{product.title}}</h2>
 			{{product.photourl}}
 		</div>
 
 		<div class="productInfo">
 			
-			<h3>{{product.price | currency}}</h3>
-			<h3 class="spaceBottom"> Add to cart <add-product product="product" class="spaceLeft"></add-product> </h3>
+			<h3 class="price">{{product.price | currency}}</h3>
+			<h3 class="spaceBottom inline"> Add to cart </h3> <add-product product="product" class="spaceLeft inline"></add-product>
 			
 			
-			<h4>Details</h4>
+			<h4 class="dark">Details</h4>
 			<p>{{product.description}}</p>
 			
-			<p class="right"><a ng-click="goToAddReview(product)" class="right"> Add Review </a></p>
-			<h4>Reviews</h4>
 			
+			
+			<h4 class="dark inline">Reviews</h4>
+			<span class="right"><a ng-click="goToAddReview(product)" class="right"> Add Review </a></span>
+
 			<div class="box">
 				<p ng-repeat="review in product.reviews">
 					<span ng-repeat="star in showStars(review.stars)"><i class="fa fa-paw stars"></i></span>

@@ -1,17 +1,18 @@
-<div class="loginBtn">
+<div>
+<div class="loginBtn googleAndFbook">
     <button class="login btn" ng-click="loginBtn()">Login</button>
+    
     <button class="login btn" ng-click="signupBtn()">Sign Up </button>
-    <span id="signinButton">
+    
+    <a target="_self" href='/auth/google' class="login btn">
+        <i class="fa fa-google-plus"></i> Sign in with google
+    </a>
+    
+    <a target="_self" href='/auth/facebook' class="login btn">
+        <i class="fa fa-facebook"></i> Sign in with facebook
+    </a>
+    
 </div>
-<div class="googleAndFbook">
- <a target="_self" href='/auth/google'>
-    <i class="fa fa-google-plus"></i> Sign in with google
-</a>
- <a target="_self" href='/auth/facebook'>
-    <i class="fa fa-facebook"></i> Sign in with facebook
-</a>
-</div>
-
 
 
 <form class="loginForm" id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" ng-show="enterAccount">

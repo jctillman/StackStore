@@ -17,6 +17,11 @@ textarea{
 
 .right{
 	text-align: right;
+	float: right !important;
+
+	&:hover{
+		text-decoration: none;
+	}
 }
 
 // .box {
@@ -31,4 +36,20 @@ textarea{
 
 .spaceBottom{
 	margin-bottom: 25px;
+}
+
+.dark{
+	color: #222C2E; //gray;
+
+	&:hover{
+		text-decoration: none;
+	}
+}
+
+.inline{
+	display: inline-block;
+}
+
+.review{
+	margin-top: 10px;
 }
