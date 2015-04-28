@@ -11,15 +11,6 @@ var Product = mongoose.model('Product');
 var User = mongoose.model('User');
 
 
-
-// router.use('/:userId', function(req, res, next){
-// 	if(auth.isAdmin(req) || (auth.isUser(req) && req.user.id == req.params.userId)){
-// 		next();
-// 	}else{
-// 		next(new Error("No user found."));
-// 	}
-// });
-
 router.get('/', function(req, res, next){
 
 	Review
@@ -60,6 +51,14 @@ router.get('/:reviewId', function(req, res, next){
 	 });
 });
 
+
+router.use(function(req, res, next){
+	if(auth.isAdmin(req) || auth.isUser(req)){
+		next();
+	}else{
+		next(new Error("No user found."));
+	}
+});
 
 //Create a new review
 router.post('/newReview', function(req, res, next){
