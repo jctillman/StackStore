@@ -98,6 +98,15 @@ router.delete('/', function(req, res, next){
 	});
 });
 
+//Delete data within a category
+router.delete('/:categoryId', function(req, res, next){
+	Category.findByIdAndRemove(req.params.categoryId, function(err, deletedCategory){
+		console.log(deletedCategory)
+		if(err) return next(err);
+		res.json(deletedCategory);
+	});
+});
+
 //Create a new category
 router.post('/newCategory', function(req, res, next){
 	Category.create(req.body).then(function(category){

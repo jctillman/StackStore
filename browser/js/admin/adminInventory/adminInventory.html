@@ -9,13 +9,18 @@
 		<button class='btn spaceLeft spaceBottom' ng-click='goToAdd()'>Add Products</button>
 		</div>
 		
+
 		<div class='tableDiv left pad'>
 			<h3 class="title noTop">CATEGORIES</h3>
 			<table  ng-repeat='category in categories'>
+
 			  	<thead>
 				  	<tr>
 					  	<td class="spaceRight">
-					  		{{category.type}}
+					  		{{category.type}}:
+					  	</td>
+					  	<td>
+					  		{{category.data}}
 					  	</td>
 					  	<td>
 					  		<button class="btn btn-default spaceLeft" ng-click='goToCategoryEdit(category)'>Edit</button>

@@ -22,7 +22,7 @@ var productSchema = new mongoose.Schema({
     description: {required: true, type: String},
     price: {required: true, type: Number},
     categories: [{type: Schema.ObjectId, ref: 'Category'}],
-    photoUrl: {type:String, default: 'default.jpg'},
+    photoUrl: {type:String, default: 'snoopy.jpg'},
     reviews: [{type: Schema.ObjectId, ref: 'Review'}],
     userVisible: {type: Boolean, default: true}
 });

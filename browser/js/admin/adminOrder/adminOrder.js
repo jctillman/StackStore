@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 app.controller('AdminOrderController', function ($scope, OrderInfo, $state) {
 
 		$scope.orders = '';
-		$scope.statuses = ['cart', 'purchased', 'in progress', 'cancelled', 'complete'];
+		$scope.statuses = ['all', 'cart', 'purchased', 'in progress', 'cancelled', 'complete'];
 		$scope.chosenStatus = 'all';
 
 		$scope.goToOrderDetail = function(order){

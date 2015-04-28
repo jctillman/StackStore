@@ -1,5 +1,5 @@
 <div class="light centerDiv">
-    <h2> EDIT CATEGORY </h2>
+    <h2> ADD/EDIT CATEGORY </h2>
 <div class="adminDiv left">
 <form class="tableDiv" id="category-edit-form" name="categoryEditForm" novalidate>
     <span class='success' ng-show='typeSuccess'>Success! Type changed.</span>
@@ -14,7 +14,9 @@
         <span class='success' ng-show='dataSuccess'>Success! Data added.</span></br>
         <label class="title adminFilter" for="data">Data</label><span ng-show='categoryEditForm.data.$error.required && addCategory'> *required</span></br>
         <ul ng-show='editCategory'>
-            <li ng-repeat='info in category.info'>{{info.data}}</li>
+            <li ng-repeat='info in category.info' class='spaceLeft'>{{info.data}}
+            <button class='btn btn-default' ng-click='removeData(info)'>x</button>    
+            </li>
         </ul>
         <input type="text" ng-model="category.newData" class="form-control"name='data' required>
         <button class='btn btn-default spaceTop' ng-click='addDataEntry(category.type, category.newData)' ng-show='editCategory'>Add data</button>
@@ -31,9 +33,6 @@
 
 <span class='success' ng-show='deleteSuccess'>Success! Category deleted.</span></br>
 <button class='btn btn-default' ng-show='editCategory' ng-click='deleteCategory()'>Remove category</button>
-
-<button class='btn btn-default' ui-sref='admin.adminInventory'>Return to inventory</button>
-
 <button class='btn btn-default' ng-show='addCategory && !categoryEditForm.$error.required' ng-click='addNewCategory()'>Add category</button>
 <button class='btn' ui-sref='admin.adminInventory'>Return to inventory</button>
 </div>

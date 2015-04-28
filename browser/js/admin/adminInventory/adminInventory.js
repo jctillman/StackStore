@@ -21,9 +21,9 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 	InventoryInfo.products = products;
 	$scope.products = InventoryInfo.products;
 
-	InventoryInfo.categories = categories;
+	InventoryInfo.categories = InventoryInfo.filterCategories(categories);
 	$scope.categories = InventoryInfo.categories;
-
+	console.log($scope.categories);
 	$scope.goToEdit = function(product){
 		InventoryInfo.product = product;
 		$state.go('admin.adminInventory.editProd', {editState: true});
