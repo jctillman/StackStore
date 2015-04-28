@@ -27,11 +27,7 @@ app.controller('ProductDetail', function ($scope, getProduct, $http, $stateParam
         }
 
     $scope.showStars = function(stars){
-        var show = [];
-        for(var i = 0; i<stars; i++){
-            show.push([]);
-        }
-        return show;
+        return new Array(stars);
     }    
 
 
