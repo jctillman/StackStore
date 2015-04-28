@@ -51,7 +51,6 @@ app.factory('UserInfo', function($http){
 	  		last: ''
 	  	},
 	  	orders: [],
-	  	cart: '',
 	  	addresses: [],
 	  	reviews: [],
 	  	admin: false

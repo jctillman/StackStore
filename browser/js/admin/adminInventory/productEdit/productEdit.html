@@ -1,9 +1,5 @@
 <h1>editing</h1>
 
-<pre>{{product}}</pre>
-<pre>{{categoryChoice}}</pre>
-
-
 <form id="edit-form" name="editForm">
 
     <div class="form-group">
@@ -65,7 +61,7 @@
     </div>
 </form>
 
-<button ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
-<button ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>
-<button ng-show='addPage' ng-click='addNewProduct()'>Add item</button>
-<button ui-sref='admin.adminInventory'>Return to inventory</button>
+<button class='btn btn-default' ng-show='editPage' ng-click='updateProduct()'>Submit changes</button>
+<button class='btn btn-default' ng-show='editPage' ng-click='deleteProduct(product)'>Remove item</button>
+<button class='btn btn-default' ng-show='addPage' ng-click='addNewProduct()'>Add item</button>
+<button class='btn btn-default' ui-sref='admin.adminInventory'>Return to inventory</button>

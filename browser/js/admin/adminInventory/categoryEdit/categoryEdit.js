@@ -7,13 +7,17 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('AdminCategoryEditController', function($scope, InventoryInfo, CategoryEdit, $stateParams){
+app.controller('AdminCategoryEditController', function($scope, $timeout, $state, InventoryInfo, CategoryEdit, $stateParams){
 	$scope.category = InventoryInfo.category;
 	$scope.category.newData = "";
 	$scope.category.newType = $scope.category.type;
 
 	$scope.editCategory;
 	$scope.addCategory;
+
+	$scope.dataSuccess = false;
+	$scope.typeSuccess = false;
+	$scope.deleteSuccess = false;
 
 
 	$scope.editingProduct = function(){
@@ -33,8 +37,9 @@ app.controller('AdminCategoryEditController', function($scope, InventoryInfo, Ca
 	//scope function to change category type should set type to newtype afterwards
 
 	$scope.addNewCategory = function(){
-		CategoryEdit.newCategory($scope.category).then(function(newCategory){
-			console.log(newCategory);
+		var newCat = {type: $scope.category.newType, data: $scope.category.newData};
+		CategoryEdit.newCategory(newCat).then(function(newCategory){
+			$state.go('admin.adminInventory');
 		});
 	};
 
@@ -42,17 +47,23 @@ app.controller('AdminCategoryEditController', function($scope, InventoryInfo, Ca
 		var typeObj = {type: type, newType: newType};
 		CategoryEdit.editCategoryType(typeObj).then(function(editedCategories){
 			$scope.category.type = $scope.category.newType;
+			$scope.typeSuccess = true;
 		});
-
 	};
 
 	$scope.addDataEntry = function(type, data){
 		var category = {type: type, data: data};
 		CategoryEdit.newCategory(category).then(function(newCategory){
-			console.log(newCategory);
+			$scope.dataSuccess = true;
 		});
-
 	};
+
+	$scope.deleteCategory = function(){
+		var categoryType = {type: $scope.category.type}
+		CategoryEdit.deleteCategory(categoryType).then(function(){
+			$scope.deleteSuccess = true;
+		})
+	}
 
 	$scope.editingProduct();
 	
@@ -70,6 +81,11 @@ app.factory('CategoryEdit', function($http){
 			return $http.put('/api/category/', typeObj).then(function(response){
 				return response.data;
 			})
+		},
+		deleteCategory: function(category){
+			return $http.delete('/api/category/', category).then(function(response){
+				return response.data;
+			});
 		}
 	}
 

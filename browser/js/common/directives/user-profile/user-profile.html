@@ -67,7 +67,7 @@
 			</td>
 			<td>
 				{{order._id}}
-				<button class="btn btn-default" ng-click='userOrder(order)'>See details</button>
+				<button class="btn btn-default" ng-click='userOrder(order)' ng-show='hasOrder'>See details</button>
 			</td>	
 		<tr>
 	</table>
@@ -82,7 +82,7 @@
 			</td>
 			<td>
 				{{user.cart._id}}
-				<button class="btn btn-default" ng-click='userOrder(user.cart)'>See details</button>
+				<button class="btn btn-default" ng-click='userOrder(user.cart)' ng-show='hasCart'>See details</button>
 			</td>
 		</tr>
 	</table>
