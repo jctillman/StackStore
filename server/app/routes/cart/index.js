@@ -48,8 +48,8 @@ router.get('/purchase', function(req, res, next){
 	Order
 		.findById(req.session.cart)
 		.exec()
-		.then(function(foundOrder){
-			foundOrder.purchase(function(err, data){
+	.then(function(foundOrder){
+			foundOrder.purchase(req.user._id, function(err, data){
 				if(err){res.send(500)}
 				else{
 					if (req.user) { req.user.cart = null; }
@@ -57,8 +57,10 @@ router.get('/purchase', function(req, res, next){
 					res.send(data);
 				}	
 			});
-		});
+	}).then(function(){
+
 	});
+});
 
 router.post('/addproduct/:id', function(req, res, next){
 
@@ -158,12 +160,23 @@ router.post('/addproduct/:id', function(req, res, next){
 
 router.get('/cartcount', function(req, res, next){
 	console.log("Hit cart count.");
+	if (!req.session.cart){
+		console.log("In iff");
+		Order.create({}, function(err, data){
+			console.log(err);
+			console.log("Order created.");
+			req.session.cart = data.id;
+			res.send({items: 0});
+		});
+		return;
+	};
 	var cartId = req.session.cart || req.user.cart;
 	Order.findById(cartId).exec().then(function(cart){
 		console.log(cart.lineItems.length);
 		res.send({items: cart.lineItems.length});
-	}).then(null, function(){
+	}).then(null, function(err){
 		console.log("500 in cartcount");
+		console.log(err);
 		res.send(500);
 	});
 });

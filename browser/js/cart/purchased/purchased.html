@@ -1,6 +1,21 @@
-<div ng-show="news">
-	
+<div class="cartSectionHeader"><h3>Final</h3></div>
+
+<div class="cartFrame">
+
+	<div ng-hide="finished">
+		Processing...
+	</div>
+
+	<div ng-show="finished">
+		
+		<div ng-show="news">
+			Purchase successful!
+		</div>
+
+		<div ng-hide="news">
+			Purchase not succesful.  
+		</div>
+	</div>
+
 </div>
 
-<div ng-show="news">
-</div>

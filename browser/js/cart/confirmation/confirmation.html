@@ -1,7 +1,7 @@
 <div class="cartSectionHeader"><h3>Confirmation</h3></div>
 
-<div class="cartSectionHeader"><p>Items</p></div>
 
+<div class="cartSectionHeader"><p>Items</p></div>
 <div class="cartFrame">
 	<div class="lineItem" ng-repeat="item in finalCost.lineItems">
 		<span style="display: inline-block; width: 250px;">{{item.product.title}} </span>
@@ -10,21 +10,45 @@
 </div>
 
 
-<div class="cartSectionHeader"><p>Address</p></div>
 
+<div class="cartSectionHeader"><p>Address</p></div>
 <div class="cartFrame">
 	<address-display address="finalCost.address"></address-display>
 </div>
 
 
 
-
-
+<div class="cartSectionHeader"><p>Payment Method</p></div>
 <div class="cartFrame">
-{{finalCost}}
+	<div ng-show="finalCost.paymentMethod.stripeToken">Payment method attached.</div>
 </div>
+
+
+<div ng-show="finalCost.promo !== ''">
+	<div class="cartSectionHeader"><p>Promo code</p></div>
+	<div class="cartFrame">
+		<p>Promotional Code: {{finalCost.promo}}</p>
+	</div>
+</div>
+
+
+<div class="cartSectionHeader"><p>Costs</p></div>
+<div class="cartFrame">
+	<p>Final Cost: ${{finalCost.finalCost / 100}}
+	<p>Date this final cost was calculated: {{finalCost.finalCostCreatedDate}} </p>
+	<p>(If you do not purchase soon after this cost was calculated, you will need to recalculate a final cost by reloading this page)</p>
+</div>
+
+
+<!--<div class="cartFrame">
+{{finalCost}}
+</div>-->
 
 <div class="invisibleFrame">
-	<a ui-sref="cart.promos">Previous</a>
-	<input type="button" text="Purchase items" ui-sref="cart.purchased"></input>
+	<a class="floatLeft" ui-sref="cart.promos">Previous</a>
+	<span class="floatRight">
+		<button ui-sref="cart.purchased">Purchase Items</button>
+	</span>
 </div>
+
+<br><br><br>

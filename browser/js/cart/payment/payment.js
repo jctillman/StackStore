@@ -18,7 +18,7 @@ app.controller('PaymentController', function ($state, $scope, CartManager) {
 
 	
 	CartManager.getCart().then(function(cart){
-		if (cart.paymentMethod.stripeToken){$scope.hasCard = "Credit card attached."}
+		if (cart.paymentMethod && cart.paymentMethod.stripeToken){$scope.hasCard = "Credit card attached."}
 	});
 
 	var stripeResponseHandler = function(status, response){
