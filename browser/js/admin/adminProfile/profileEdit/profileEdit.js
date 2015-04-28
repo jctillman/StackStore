@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AdminProfileEditController', function($scope, UserInfo, OrderInfo){
+app.controller('AdminProfileEditController', function($scope, UserInfo, OrderInfo, $state){
 
 	$scope.user = UserInfo.user;
 
@@ -18,6 +18,7 @@ app.controller('AdminProfileEditController', function($scope, UserInfo, OrderInf
 	$scope.updateUserInfo = function(user){
 		var updatedUser = {password: user.password, admin: user.admin};
 		UserInfo.changeUser(user, updatedUser).then(function(user){
+			$state.go('admin.adminProfile');
 		});
 	};
 
