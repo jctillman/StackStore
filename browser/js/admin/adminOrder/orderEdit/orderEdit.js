@@ -1,13 +1,18 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('admin.adminOrder.edit', {
-        url: '/edit',
+        url: '/:orderId',
         controller: 'AdminOrderEditController',
-        templateUrl: 'js/admin/adminOrder/orderEdit/orderEdit.html'
+        templateUrl: 'js/admin/adminOrder/orderEdit/orderEdit.html',
+        resolve: {
+        	order: function(OrderInfo, $stateParams){
+        		return OrderInfo.getOneOrder($stateParams.orderId);
+        	}
+        }
     });
 });
 
-app.controller('AdminOrderEditController', function($scope, OrderInfo){
-	$scope.order = OrderInfo.order;
+app.controller('AdminOrderEditController', function($scope, OrderInfo, order){
+	$scope.order = order;
 
 	$scope.status = '';
 

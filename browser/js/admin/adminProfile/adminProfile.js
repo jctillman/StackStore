@@ -60,6 +60,11 @@ app.factory('UserInfo', function($http){
 	  		return response.data;
 	  	});
 	  },
+	  getOneUser: function(userId){
+	  	return $http.get('/api/user/'+ userId).then(function(response){
+	  		return response.data;
+	  	});
+	  },
 	  loginGoogle: function(){
 	  	return $http.get('/auth/google/callback').then(function(response){
 	  		return response.data;

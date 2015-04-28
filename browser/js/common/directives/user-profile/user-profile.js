@@ -8,10 +8,12 @@ app.directive('userProfile', function(OrderInfo, $state){
 		templateUrl: 'js/common/directives/user-profile/user-profile.html',
 		link: function(scope, elem, attr){
 			scope.userOrder = function(order){
-				OrderInfo.getOneOrder(order).then(function(order){
-					OrderInfo.order = order;
-					$state.go('user.orderEdit');
-				})
+				if(typeof order === 'object') $state.go('user.orderEdit', {orderId: order._id});
+				else {
+						OrderInfo.getOneOrder(order).then(function(order){					
+						$state.go('user.orderEdit', {orderId: order._id});
+					})
+				}
 			}
 		}
 	};

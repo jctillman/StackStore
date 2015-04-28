@@ -11,11 +11,9 @@ app.controller('AdminProfileEditController', function($scope, UserInfo, OrderInf
 	$scope.user = UserInfo.user;
 
 	$scope.findUserOrder = function(order){
-		console.log(order);
-		//set factory injected into order controller's "order" to this order
+		$state.go('admin.adminOrder.edit', {orderId: order._id});
 	};
 
-	console.log($scope.findUserOrder);
 
 	$scope.updateUserInfo = function(user){
 		var updatedUser = {password: user.password, admin: user.admin};

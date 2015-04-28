@@ -5,6 +5,11 @@ app.config(function ($stateProvider) {
             url: '/:username',
             templateUrl: 'js/user/user.html',
             controller: 'UserCtrl',
+            resolve: {
+                user: function(UserInfo, Session){
+                    return UserInfo.getOneUser(Session.user._id);
+                }
+            },
             // The following data.authenticate is read by an event listener
             // that controls access to this state. Refer to app.js.
             data: {
@@ -14,11 +19,11 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('UserCtrl', function($scope, Session, OrderInfo){
+app.controller('UserCtrl', function($scope, Session, OrderInfo, user){
 
     $scope.order = OrderInfo.order;
 
-    $scope.user = Session.user;
+    $scope.user = user;
 
     $scope.showOrders = false;
 

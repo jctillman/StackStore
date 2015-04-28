@@ -51,10 +51,14 @@
     </div>
 
     <div class="form-group">
-        <label for="photoUrls">PhotoUrls</label>
+        <label for="photoUrls">PhotoUrls</label></br>
+         Current
          <select>
-				    <option ng-repeat='photoUrl in product.photoUrls' ng-model='product.photoUrls[$index]'>{{photoUrl}}</option>
-				</select>
+		    <option ng-repeat='photoUrl in product.photoUrls' ng-model='product.photoUrls[$index]'>{{photoUrl}}
+            <input type=text ng-model='product.photoUrls[$index + 1]'>
+            </option>
+		</select>
+        
     </div>
     <div class="form-group">
         <label for="splashPhoto">SplashPhoto</label>

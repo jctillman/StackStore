@@ -4,14 +4,22 @@ app.config(function ($stateProvider) {
     $stateProvider.state('admin.adminInventory', {
         url: '/adminInventory',
         controller: 'AdminInventoryController',
-        templateUrl: 'js/admin/adminInventory/adminInventory.html'
+        templateUrl: 'js/admin/adminInventory/adminInventory.html',
+        resolve: {
+        	products: function(InventoryInfo){
+        		return InventoryInfo.getAllProducts();
+        	},
+        	categories: function(InventoryInfo){
+        		return InventoryInfo.getAllCategories();
+        	}
+        }
     });
 });
 
-app.controller('AdminInventoryController', function ($scope, InventoryInfo, $rootScope, $state) {
+app.controller('AdminInventoryController', function ($scope, InventoryInfo, $rootScope, $state, products, categories) {
 
-	$scope.products;
-	$scope.categories;
+	$scope.products = products;
+	$scope.categories = categories;
 
 	$scope.goToEdit = function(product){
 		InventoryInfo.product = product;
@@ -32,19 +40,6 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 		$state.go('admin.adminInventory.editProd', {editState: false})
 	}
 
-	$scope.getProducts = function(){
-		InventoryInfo.getAllProducts().then(function(products){
-			$scope.products = products;
-		})
-	};
-
-
-	$scope.getCategories = function(){
-		InventoryInfo.getAllCategories().then(function(categories){
-			$scope.categories = InventoryInfo.filterCategories(categories);
-		});
-
-	};
 
 	$scope.goToCategoryEdit = function(category){
 		InventoryInfo.category = category;
@@ -59,10 +54,6 @@ app.controller('AdminInventoryController', function ($scope, InventoryInfo, $roo
 		}
 		$state.go('admin.adminInventory.editCat', {editCatState: false});
 	}
-
-	$scope.getProducts();
-	$scope.getCategories();
-
 
 
 });
