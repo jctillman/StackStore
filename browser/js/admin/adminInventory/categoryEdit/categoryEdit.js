@@ -34,11 +34,11 @@ app.controller('AdminCategoryEditController', function($scope, $timeout, $state,
 
 	}
 
-	//scope function to change category type should set type to newtype afterwards
 
 	$scope.addNewCategory = function(){
 		var newCat = {type: $scope.category.newType, data: $scope.category.newData};
 		CategoryEdit.newCategory(newCat).then(function(newCategory){
+			InventoryInfo.categories.push(newCategory);
 			$state.go('admin.adminInventory');
 		});
 	};
@@ -61,6 +61,9 @@ app.controller('AdminCategoryEditController', function($scope, $timeout, $state,
 	$scope.deleteCategory = function(){
 		var categoryType = {type: $scope.category.type}
 		CategoryEdit.deleteCategory(categoryType).then(function(){
+			_.remove(InventoryInfo.categories, function(elem){
+				return elem.type === categoryType;
+			});
 			$scope.deleteSuccess = true;
 		})
 	}
