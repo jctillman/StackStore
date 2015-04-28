@@ -1,5 +1,6 @@
 body{
   background-color: #222C2E; //gray
+  color: #cfd8dc; //light gray
 }
 
 #home {
@@ -46,19 +47,28 @@ a {
     outline: none;
   }
   &:active{
+    color: none;
     text-decoration: none;
     outline: none;
   }
   &:visited{
+    color: none;
     text-decoration: none;
     outline: none;
   }
   &:focus{
+    color: none;
     text-decoration: none;
     outline: none !important;
   }
   &:active:focus{
+    color: none;
     text-decoration: none;
     outline: none;
   }
+}
+
+
+.spaceRight{
+  padding-right: 20px;
 }

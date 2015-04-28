@@ -1,18 +1,18 @@
 
-<span ng-show='success'>User successfully updated!</span>
+<span class="title" ng-show='success'>User successfully updated!</span>
 <ui-view>
-	<div class='headerDiv'>
-		<h1 class='header'>CURRENT USERS</h1>
-	</div>
-
 	<div class='light centerDiv'>
-		<div class='inventory'>
+		<h2>CURRENT USERS</h2>
+		<div class="adminDiv">
+			<div class='tableDiv left'>
 
-				<p ng-repeat='user in users'>{{user.email}}<br>
-				 ID: {{user._id}}<br>
-				<button ng-click='editUser(user)'>Edit</button>
-				</p>		
+					<div class="spaceBottom" ng-repeat='user in users'>
+						<p class="tableP">{{user.email}}</p>
+					 	<p class="tableP">ID: {{user._id}}</p>
+						<button class="btn btn-default spaceLeft" ng-click='editUser(user)'>Edit</button>
+					</div>		
 
+			</div>
 		</div>
 	<div>
 </ui-view>

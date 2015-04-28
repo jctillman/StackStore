@@ -1,30 +1,47 @@
-
-* {
-	color: white;
+.adminDiv{
+	margin: 0 auto;
+	text-align: center;
+	padding: 20px;
+	width: 50%;
 }
 
-.inventory {
-	padding: 10px;
-	p {
-		text-align: center;
-		padding: 10px;
-		margin: 0 auto;
-		border: 1px solid black;
-		width: 350px;
-	}	
-	span {
-		padding: 10px;
-		text-transform: uppercase;
-		margin-top: 20px;
-		margin-bottom: 20px;
+.adminOps{
+	padding: 15px;
+	font-size: 20px;
+	&:hover{
+		color: white;
+	}
+	&:visited{
+		color: none;
+	}
+	&:active{
+		color: white;
 	}
 }
 
+.left{
+	text-align: left;
+}
+
+.tableP{
+	padding: 5px;
+	margin: 5px;
+}
+
+.adminFilter{
+	font-size: 16px;
+}
+
 .success {
-	color: green;
+	color: #ffd600; //yellow
 	font-size: 20px;
 }
 
-.profileEditDiv {
-	margin: 0 auto;
+.btnDiv{
+	margin-bottom: 15px;
 }
+
+.pad{
+	padding: 20px !important;
+}
+

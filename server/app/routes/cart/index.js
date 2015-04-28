@@ -94,16 +94,24 @@ router.get('/purchase', function(req, res, next){
 		.findById(req.session.cart)
 		.exec()
 	.then(function(foundOrder){
-			foundOrder.purchase(req.user._id, function(err, data){
-				if(err){res.send(500)}
-				else{
+		console.log("Found order")
+		console.log("this is the found order", foundOrder);
+		console.log("cart id", req.session.cart);
+			foundOrder.purchase(req.session.cart, function(err, data){
+				if(err){
+					console.log("Some error", err);
+					res.send(500);
+				}else{
+					console.log("No error");
 					if (req.user) { req.user.cart = null; }
 					if (req.session) { req.session.cart = null; }
 					res.send(data);
 				}	
 			});
-	}).then(function(){
-
+	}).then(null, function(err){
+		console.log("Failed to find order");
+		console.log(err);
+		res.send(500);
 	});
 });
 

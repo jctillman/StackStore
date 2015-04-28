@@ -1,10 +1,10 @@
 
 <user-profile user="user"></user-profile>
-
-<div class='profileEditDiv'>
-  <h3>Edit User</h3>
+<div class="adminDiv">
+<div class='left'>
+  <h3 class="title">Edit User</h3>
   <span ng-show='success'>Success! User has been updated.</span>
-  <form id="user-edit-form" name="userEditForm" class='productInfo'>
+  <form id="user-edit-form" name="userEditForm" class='tableDiv'>
     <div class="form-group">
         <label for="password">Change password</label>
         <input type="text" ng-model="user.password" class="form-control">
@@ -12,13 +12,13 @@
     <div class="form-group">
         <label for="admin">Admin Status</label><br>
         <form>
-   				<input type="radio" name='adminStatus' value='true' ng-model='user.admin'>Yes
-  	      <input type="radio" name='adminStatus' value='false' ng-model='user.admin'>No
+   				<input class="spaceRight" type="radio" name='adminStatus' value='true' ng-model='user.admin'>Yes
+  	      <input class="spaceLeft" type="radio" name='adminStatus' value='false' ng-model='user.admin'>No
   	    </form>
     </div>
-    <button class='btn btn-default' ng-click='updateUserInfo(user)'>Submit changes</button>
-    <button class='btn btn-default' ui-sref='admin.adminProfile'>Back to all users</button>
+    <button class='btn spaceRight' ng-click='updateUserInfo(user)'>Submit changes</button>
+    <button class='btn spaceLeft' ui-sref='admin.adminProfile'>Back to all users</button>
   </form>
 </div>
-
+</div>
 

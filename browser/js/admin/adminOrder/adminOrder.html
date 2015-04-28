@@ -1,21 +1,20 @@
-<div class='headerDiv'>
-	<h1 class='header'>ORDERS</h1>
-</div>
-
 <ui-view>
 	<div class='light centerDiv'>
-		<div class='inventory'>
-			<div class="form-group">
-			    <label>Filter by Status</label></br> 
-			    <span ng-repeat='status in statuses' ng-click='changeStatus(status)'>
-			    	{{status}} 
-			    </span>
-			</div>
+		<h2>ORDERS</h2>
+			<div class='adminDiv'>
+				<div class='tableDiv'>
+					<div class="form-group">
+			    		<label class="adminFilter">Filter by Status</label></br> 
+			    			<span class="title spaceRight" ng-repeat='status in statuses' ng-click='changeStatus(status)'>
+			    				{{status}} 
+			    			</span>
+					</div>
 
-				<p ng-repeat='order in orders | byStatus: chosenStatus'>ID: {{order._id}}
-				<button ng-click='goToOrderDetail(order)'>Edit</button>
+				<p class="spaceRight" ng-repeat='order in orders | byStatus: chosenStatus'>ID:  {{order._id}}
+				<button class="btn btn-default spaceLeft" ng-click='goToOrderDetail(order)'>Edit</button>
 				</p>
 
-		</div>
+				</div>
+			</div>
 	</div>
 </ui-view>
