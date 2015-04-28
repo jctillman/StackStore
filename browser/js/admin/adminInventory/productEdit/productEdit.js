@@ -81,6 +81,7 @@ app.controller('AdminProductEditController', function($scope, InventoryInfo, Pro
 	$scope.addNewProduct = function(){
 		$scope.product.categories = $scope.categoryChoices;
 		ProductEdit.addProduct($scope.product).then(function(product){
+			InventoryInfo.products.push(product);
 			$state.go('admin.adminInventory');
 		});
 	};

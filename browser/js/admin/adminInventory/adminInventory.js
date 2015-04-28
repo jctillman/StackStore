@@ -18,8 +18,11 @@ app.config(function ($stateProvider) {
 
 app.controller('AdminInventoryController', function ($scope, InventoryInfo, $rootScope, $state, products, categories) {
 
-	$scope.products = products;
-	$scope.categories = categories;
+	InventoryInfo.products = products;
+	$scope.products = InventoryInfo.products;
+
+	InventoryInfo.categories = categories;
+	$scope.categories = InventoryInfo.categories;
 
 	$scope.goToEdit = function(product){
 		InventoryInfo.product = product;
@@ -66,6 +69,8 @@ app.factory('InventoryInfo', function($http){
 				return response.data;
 			});
 		},
+		products: [],
+		categories: [],
 		getAllCategories: function(){
 			return $http.get('/api/category/').then(function(response){
 				return response.data;
