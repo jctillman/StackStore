@@ -28,7 +28,8 @@
 
 .products{
 	display: inline-block;
-	padding: 40px;
+	padding: 20px;
+	margin-top: 20px;
 	a:hover{
 		text-decoration: none;
 	}
@@ -41,6 +42,11 @@
   &:hover{
   	color: white;
   }
+}
+
+.productLines{
+	width: 75%;
+	margin: 0 auto;
 }
 
 .product-line-always{
@@ -133,4 +139,8 @@ img{
 
 .noTop{
 	margin-top: 0px;
+}
+
+.product-line-inline{
+	width: 100%;
 }
